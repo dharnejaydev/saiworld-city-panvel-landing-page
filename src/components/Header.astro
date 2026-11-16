@@ -6,7 +6,7 @@ const navigation = [
   { label: "Overview", href: "#overview" },
   { label: "Configurations", href: "#configurations" },
   { label: "Amenities", href: "#amenities" },
-   { label: "Gallery", href: "#gallery" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Location", href: "#location" },
   { label: "Contact Us", href: "#contact" }
 ];
@@ -14,32 +14,24 @@ const navigation = [
 
 <header class="site-header">
 
-  <!-- BRAND -->
+  <!-- SAI WORLD CITY LOGO -->
   <a class="brand-lockup" href="#top" aria-label="Sai World City home">
-
-    <span class="brand-mark">SW</span>
-
-    <span class="brand-name">
-      SAI WORLD CITY
-      <small>PANVEL</small>
-    </span>
-
+    <img
+      class="brand-logo"
+      src="/images/logo/sai-world-city-logo.jpg"
+      alt="Sai World City Panvel"
+      fetchpriority="high"
+    />
   </a>
 
   <!-- DESKTOP NAVIGATION -->
   <nav class="desktop-nav" aria-label="Main navigation">
-
     {navigation.map((item) => (
       <a href={item.href}>{item.label}</a>
     ))}
-
   </nav>
 
-  
-
-  
-
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU BUTTON -->
   <button
     class="menu-toggle"
     type="button"
@@ -54,26 +46,38 @@ const navigation = [
 </header>
 
 <!-- MOBILE NAVIGATION -->
-<nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" hidden>
-
+<nav
+  class="mobile-nav"
+  id="mobile-navigation"
+  aria-label="Mobile navigation"
+  hidden
+>
   {navigation.map((item) => (
     <a href={item.href}>{item.label}</a>
   ))}
 
-  <a href="#enquire">Request details ↗</a>
-
+  <a href="#contact">Request details ↗</a>
 </nav>
 
 <script>
-  const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle");
-  const mobileNavigation = document.querySelector<HTMLElement>("#mobile-navigation");
+  const menuButton =
+    document.querySelector<HTMLButtonElement>(".menu-toggle");
+
+  const mobileNavigation =
+    document.querySelector<HTMLElement>("#mobile-navigation");
 
   menuButton?.addEventListener("click", () => {
     if (!mobileNavigation) return;
 
-    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    const isOpen =
+      menuButton.getAttribute("aria-expanded") === "true";
 
     menuButton.setAttribute("aria-expanded", String(!isOpen));
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Open navigation" : "Close navigation"
+    );
+
     mobileNavigation.hidden = isOpen;
   });
 
@@ -81,6 +85,7 @@ const navigation = [
     link.addEventListener("click", () => {
       mobileNavigation!.hidden = true;
       menuButton?.setAttribute("aria-expanded", "false");
+      menuButton?.setAttribute("aria-label", "Open navigation");
     });
   });
 </script>

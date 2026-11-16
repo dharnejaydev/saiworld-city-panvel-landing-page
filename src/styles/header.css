@@ -1,13 +1,13 @@
 
 /* ==========================================
-   SAI WORLD CITY - HEADER
+   SAI WORLD CITY — HEADER
 ========================================== */
 
 .site-header {
   position: absolute;
   top: 0;
   left: 50%;
-  z-index: 20;
+  z-index: 50;
 
   width: min(1320px, calc(100% - 100px));
   height: 94px;
@@ -21,41 +21,30 @@
   border-bottom: 1px solid rgba(255,255,255,0.17);
 }
 
+/* BRAND LOGO */
+
 .brand-lockup {
   display: flex;
   align-items: center;
-  gap: 13px;
+  flex-shrink: 0;
 
-  color: white;
+  width: 78px;
+  height: 78px;
+
   text-decoration: none;
 }
 
-.brand-mark {
-  width: 43px;
-  height: 43px;
-
-  display: grid;
-  place-items: center;
-
-  border: 1px solid #e8bd72;
-  color: #e8bd72;
-
-  font-family: Georgia, serif;
-}
-
-.brand-name {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.brand-name small {
+.brand-logo {
   display: block;
-  margin-top: 5px;
 
-  font-size: 9px;
-  letter-spacing: 3px;
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
 }
+
+/* DESKTOP NAVIGATION */
 
 .desktop-nav {
   display: flex;
@@ -64,9 +53,11 @@
 }
 
 .desktop-nav a {
-  color: white;
+  color: #fff;
   font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
+
   transition: color 0.3s ease;
 }
 
@@ -74,34 +65,109 @@
   color: #e8bd72;
 }
 
-.header-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
+/* MOBILE MENU BUTTON */
 
-  padding: 16px 21px;
+.menu-toggle {
+  display: none;
 
-  background: white;
-  color: #071a30;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
 
-  font-size: 11px;
-  font-weight: 700;
-  text-decoration: none;
+  padding: 10px;
+  border: 0;
+  background: transparent;
 
-  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.header-cta:hover {
-  background: #e8bd72;
-  transform: translateY(-2px);
+.menu-toggle span {
+  display: block;
+
+  width: 24px;
+  height: 2px;
+
+  background: #fff;
+
+  transition: transform 0.25s ease;
 }
 
-.menu-toggle,
+.menu-toggle[aria-expanded="true"] span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* MOBILE NAVIGATION */
+
 .mobile-nav {
   display: none;
 }
 
-/* MOBILE */
+.mobile-nav:not([hidden]) {
+  position: absolute;
+  top: 94px;
+  left: 50%;
+  z-index: 49;
+
+  transform: translateX(-50%);
+
+  width: min(1320px, calc(100% - 100px));
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 15px 25px;
+
+  background: #101a2a;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.mobile-nav a {
+  padding: 15px 0;
+
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.mobile-nav a:last-child {
+  color: #e8bd72;
+  border-bottom: none;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+  .site-header {
+    width: calc(100% - 60px);
+  }
+
+  .desktop-nav {
+    gap: 18px;
+  }
+
+  .desktop-nav a {
+    font-size: 11px;
+  }
+
+  .brand-lockup {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media (max-width: 700px) {
 
@@ -110,49 +176,54 @@
     height: 75px;
   }
 
-  .desktop-nav,
-  .header-cta {
+  .brand-lockup {
+    width: 60px;
+    height: 60px;
+  }
+
+  .desktop-nav {
     display: none;
   }
 
   .menu-toggle {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    padding: 10px;
-    border: 0;
-    background: transparent;
-  }
-
-  .menu-toggle span {
-    width: 23px;
-    height: 2px;
-    background: white;
   }
 
   .mobile-nav:not([hidden]) {
-    position: absolute;
-    z-index: 30;
     top: 75px;
-    left: 0;
-
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 18px 25px;
-    background: #071a30;
+    width: calc(100% - 36px);
+    padding: 12px 20px;
   }
 
   .mobile-nav a {
     padding: 14px 0;
-
-    color: white;
-    text-decoration: none;
-
-    border-bottom: 1px solid rgba(255,255,255,0.12);
     font-size: 13px;
   }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+
+  .site-header {
+    width: calc(100% - 28px);
+  }
+
+  .brand-lockup {
+    width: 54px;
+    height: 54px;
+  }
+
+  .mobile-nav:not([hidden]) {
+    width: calc(100% - 28px);
+  }
+}
+
+/* ACCESSIBILITY */
+
+.site-header a:focus-visible,
+.mobile-nav a:focus-visible,
+.menu-toggle:focus-visible {
+  outline: 2px solid #e8bd72;
+  outline-offset: 4px;
 }
