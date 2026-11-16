@@ -1,0 +1,598 @@
+
+/* =========================================
+   CLUB VEGAS — COMPLETE SECTION
+========================================= */
+
+.club-vegas {
+  --club-red: #b51f36;
+  --club-dark: #202020;
+  --club-muted: #777;
+  --club-border: #e9e4e4;
+  --club-soft: #faf7f7;
+  --club-white: #fff;
+
+  position: relative;
+  width: 100%;
+  padding: 105px 6%;
+  background: var(--club-white);
+  color: var(--club-dark);
+  overflow: hidden;
+}
+
+.club-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.club-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 52px;
+}
+
+.club-eyebrow {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: var(--club-red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.club-intro-left h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
+
+.club-intro-left h2 span {
+  color: var(--club-red);
+  font-style: italic;
+}
+
+.club-intro-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 330px;
+  padding-bottom: 8px;
+}
+
+.club-intro-number {
+  color: var(--club-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 54px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.club-intro-copy {
+  padding-left: 20px;
+  border-left: 1px solid var(--club-border);
+}
+
+.club-intro-copy strong {
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.club-intro-copy p {
+  margin: 8px 0 0;
+  color: var(--club-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   FLOOR NAVIGATION
+========================================= */
+
+.club-floor-navigation {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  margin-bottom: 22px;
+  border-top: 1px solid var(--club-border);
+  border-bottom: 1px solid var(--club-border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--club-red) #f2eeee;
+}
+
+.club-floor-tab {
+  position: relative;
+  display: flex;
+  flex: 1 0 130px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 9px;
+  min-height: 82px;
+  padding: 15px 18px;
+  border: 0;
+  border-right: 1px solid var(--club-border);
+  background: transparent;
+  color: var(--club-muted);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.club-floor-tab:last-child {
+  border-right: 0;
+}
+
+.club-floor-tab::after {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 18px;
+  height: 3px;
+  background: var(--club-red);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.club-floor-tab:hover {
+  background: var(--club-soft);
+  color: var(--club-dark);
+}
+
+.club-floor-tab.is-active {
+  background: var(--club-soft);
+  color: var(--club-red);
+}
+
+.club-floor-tab.is-active::after {
+  transform: scaleX(1);
+}
+
+.club-tab-number {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.club-tab-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  line-height: 1.4;
+}
+
+/* =========================================
+   MAIN EXPERIENCE
+========================================= */
+
+.club-experience {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+  min-height: 570px;
+  border: 1px solid var(--club-border);
+  background: var(--club-white);
+}
+
+/* =========================================
+   COLLAGE IMAGE
+========================================= */
+
+.club-visual {
+  position: relative;
+  min-width: 0;
+  min-height: 570px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.club-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 570px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s ease;
+}
+
+.club-visual:hover img {
+  transform: scale(1.025);
+}
+
+.club-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.12) 25%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+.club-image-caption {
+  position: absolute;
+  right: 35px;
+  bottom: 32px;
+  left: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--club-white);
+}
+
+.club-image-caption span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.club-image-caption strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.club-image-tag {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  padding: 11px 15px;
+  background: var(--club-white);
+  color: var(--club-red);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================
+   FLOOR DETAILS
+========================================= */
+
+.club-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+  padding: 55px 45px 38px;
+  background: var(--club-soft);
+}
+
+.club-detail-top .club-eyebrow {
+  margin-bottom: 20px;
+}
+
+.club-detail-top h3 {
+  min-height: 90px;
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 3vw, 43px);
+  font-weight: 400;
+  line-height: 1.13;
+  letter-spacing: -1px;
+}
+
+.club-detail-top p {
+  max-width: 470px;
+  margin: 0;
+  color: var(--club-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* =========================================
+   FACILITIES
+========================================= */
+
+.club-facilities-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 42px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--club-border);
+  color: var(--club-dark);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.club-facilities-heading span:last-child {
+  color: var(--club-red);
+  white-space: nowrap;
+}
+
+.club-facilities {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.club-facilities li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: start;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--club-border);
+  color: #444;
+  font-size: 13px;
+  line-height: 1.55;
+  animation: club-facility-in 0.35s ease both;
+}
+
+.club-facilities li:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.club-facilities li:nth-child(3) {
+  animation-delay: 0.08s;
+}
+
+.club-facilities li:nth-child(4) {
+  animation-delay: 0.12s;
+}
+
+.club-facilities li:nth-child(5) {
+  animation-delay: 0.16s;
+}
+
+.club-facilities li:nth-child(6) {
+  animation-delay: 0.2s;
+}
+
+.club-facility-number {
+  color: var(--club-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+}
+
+/* =========================================
+   ENQUIRY LINK
+========================================= */
+
+.club-enquire-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--club-red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-decoration: none;
+}
+
+.club-enquire-link span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background: var(--club-red);
+  color: var(--club-white);
+  font-size: 17px;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.club-enquire-link:hover span {
+  transform: translate(3px, -3px);
+  background: var(--club-dark);
+}
+
+/* =========================================
+   BOTTOM NOTE
+========================================= */
+
+.club-bottom-note {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 18px;
+  color: #999;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes club-facility-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .club-vegas {
+    padding: 80px 5%;
+  }
+
+  .club-experience {
+    grid-template-columns: 1fr 0.9fr;
+  }
+
+  .club-details {
+    padding: 38px 28px 30px;
+  }
+
+  .club-visual,
+  .club-visual img {
+    min-height: 520px;
+  }
+
+  .club-floor-tab {
+    flex-basis: 120px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .club-vegas {
+    padding: 65px 5%;
+  }
+
+  .club-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    margin-bottom: 35px;
+  }
+
+  .club-intro-left h2 {
+    font-size: clamp(37px, 9vw, 52px);
+    letter-spacing: -1.5px;
+  }
+
+  .club-intro-right {
+    max-width: 100%;
+  }
+
+  .club-intro-number {
+    font-size: 44px;
+  }
+
+  .club-floor-navigation {
+    margin-right: -5.5%;
+    margin-bottom: 16px;
+    padding-right: 5.5%;
+  }
+
+  .club-floor-tab {
+    flex: 0 0 125px;
+    min-height: 75px;
+  }
+
+  .club-experience {
+    grid-template-columns: 1fr;
+  }
+
+  .club-visual {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .club-visual img {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .club-image-caption {
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .club-image-caption strong {
+    font-size: 21px;
+  }
+
+  .club-image-tag {
+    top: 15px;
+    left: 15px;
+    padding: 9px 11px;
+    font-size: 8px;
+  }
+
+  .club-details {
+    padding: 35px 23px 28px;
+  }
+
+  .club-detail-top h3 {
+    min-height: 0;
+    font-size: 36px;
+  }
+
+  .club-facilities-heading {
+    margin-top: 32px;
+  }
+
+  .club-facilities li {
+    padding: 13px 0;
+    font-size: 12px;
+  }
+
+  .club-bottom-note {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .club-intro-left h2 {
+    font-size: 35px;
+  }
+
+  .club-details {
+    padding: 30px 18px 25px;
+  }
+
+  .club-detail-top h3 {
+    font-size: 31px;
+  }
+
+  .club-bottom-note {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .club-vegas *,
+  .club-vegas *::before,
+  .club-vegas *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

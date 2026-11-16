@@ -1,0 +1,131 @@
+---
+import "../styles/FAQ.css";
+
+const faqs = [
+  {
+    question: "Where is Sai World City located?",
+    answer:
+      "Sai World City is located in Panvel, Navi Mumbai. Its location offers access to important transport links, highways and key destinations in the surrounding region.",
+  },
+  {
+    question: "What are the major connectivity options near the project?",
+    answer:
+      "Key connectivity points shared for the project include Navi Mumbai International Airport, Mumbai Trans Harbour Link, Mumbai–Pune Expressway, Panvel Railway Station and Multi Modal Corridor. Travel times may vary depending on traffic conditions.",
+  },
+  {
+    question: "What residential configurations are available?",
+    answer:
+      "For the latest available apartment configurations, layouts and unit options, please connect with the sales team.",
+  },
+  {
+    question: "What amenities and facilities are available at Sai World City?",
+    answer:
+      "Sai World City offers a range of lifestyle amenities and facilities. Explore the amenities section on this page or contact the sales team for further details.",
+  },
+  {
+    question: "What is the price of apartments at Sai World City?",
+    answer:
+      "Apartment prices may vary depending on the configuration, unit, floor and current availability. Enquire with the sales team for the latest pricing and offers.",
+  },
+  {
+    question: "How can I get the project brochure and floor plans?",
+    answer:
+      "Submit an enquiry through this page to request the project brochure, floor plans and further details.",
+  },
+  {
+    question: "Can I schedule a site visit?",
+    answer:
+      "Yes. Submit your details through the enquiry form to request a site visit. The sales team can help coordinate a suitable appointment.",
+  },
+  {
+    question: "Where can I check RERA and possession details?",
+    answer:
+      "For verified RERA registration details, project approvals and possession timelines, please refer to the official project documentation or contact the authorised sales team.",
+  },
+];
+---
+
+<section class="faq-section" id="faq">
+  <div class="faq-container">
+
+    <div class="faq-heading">
+      <div>
+
+        <h2>
+          Frequently Asked
+          <em>Questions.</em>
+        </h2>
+
+      </div>
+
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((faq, index) => (
+        <article class="faq-item">
+          <button
+            class="faq-question"
+            type="button"
+            aria-expanded="false"
+            aria-controls={`faq-answer-${index}`}
+          >
+            <span class="faq-number">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <span class="faq-question-text">
+              {faq.question}
+            </span>
+
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+
+          <div
+            class="faq-answer"
+            id={`faq-answer-${index}`}
+            hidden
+          >
+            <p>{faq.answer}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll(".faq-section").forEach((section) => {
+    const items = Array.from(section.querySelectorAll(".faq-item"));
+
+    items.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
+
+      button?.addEventListener("click", () => {
+        const isOpen = button.getAttribute("aria-expanded") === "true";
+
+        items.forEach((otherItem) => {
+          const otherButton = otherItem.querySelector(".faq-question");
+          const otherAnswer = otherItem.querySelector(".faq-answer");
+
+          otherItem.classList.remove("is-active");
+          otherButton?.setAttribute("aria-expanded", "false");
+
+          if (otherAnswer) {
+            otherAnswer.hidden = true;
+          }
+        });
+
+        if (!isOpen) {
+          item.classList.add("is-active");
+          button.setAttribute("aria-expanded", "true");
+
+          if (answer) {
+            answer.hidden = false;
+          }
+        }
+      });
+    });
+  });
+</script>

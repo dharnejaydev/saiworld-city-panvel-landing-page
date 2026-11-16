@@ -1,0 +1,212 @@
+
+---
+import "../styles/Amenities.css";
+
+const amenities = [
+  {
+    number: "01",
+    floor: "OUTDOOR SPACES",
+    title: "Landscaped Amenities",
+    category: "OUTDOOR LIFESTYLE",
+    image: "/images/amenities/landscaped-amenities.jpg",
+    size: "feature",
+    items: [
+      "Grand Entrance",
+      "Statue of Liberty",
+      "Green Walkways",
+      "Palms Avenue",
+      "Musical Fountain",
+      "Eiffel Tower",
+      "Swing in Flower Bed",
+      "Temple Plaza & Garden",
+      "Party Lawn",
+      "Tree Plantations",
+      "Senior Citizens Garden",
+      "Kids Play Area",
+      "Rock Climbing",
+      "Big Ben Clock Tower"
+    ]
+  },
+  
+  {
+    number: "03",
+    floor: "GROUND FLOOR",
+    title: "Banquet & Entertainment",
+    category: "CELEBRATIONS",
+    image: "/images/amenities/banquet-entertainment.jpg",
+    size: "standard",
+    items: [
+      "Double Height Air-conditioned Designer Entrance Lobby",
+      "Waiting Lounge",
+      "Pre Function Area for Parties",
+      "Magnificent Banquet Hall",
+      "DJ & Karaoke Room",
+      "Mini Theatre"
+    ]
+  },
+  {
+    number: "04",
+    floor: "FIRST FLOOR",
+    title: "A World of Discovery",
+    category: "KIDS & CREATIVITY",
+    image: "/images/amenities/world-discovery.jpg",
+    size: "standard",
+    items: [
+      "Hobby Studio with Painting, Pottery, Etc.",
+      "Children's Gaming Arena",
+      "Virtual Gaming Lounge",
+      "Children's Creche",
+      "3 Tuition Rooms",
+      "Deck Lounge"
+    ]
+  },
+  {
+    number: "02",
+    floor: "TERRACE FLOOR",
+    title: "Merlion Sky Deck",
+    category: "AQUA LEISURE",
+    image: "/images/amenities/merlion-sky-deck.jpg",
+    size: "portrait",
+    items: [
+      "Swimming Pool with Party Deck",
+      "Kids Pool",
+      "Merlion Statue with Sunken Bar"
+    ]
+  },
+  {
+    number: "05",
+    floor: "SECOND FLOOR",
+    title: "Move. Play. Create.",
+    category: "SPORTS & EXPRESSION",
+    image: "/images/amenities/move-play-create.jpg",
+    size: "standard",
+    items: [
+      "Music and Dance Studio",
+      "2 Indoor Badminton Courts",
+      "2 Squash Courts"
+    ]
+  },
+  {
+    number: "06",
+    floor: "THIRD FLOOR",
+    title: "Spa & Wellness",
+    category: "RELAXATION & REJUVENATION",
+    image: "/images/amenities/spa-wellness.jpeg",
+    size: "standard",
+    items: [
+      "Reception and Waiting Lounge",
+      "Consultation Room",
+      "Massage Rooms",
+      "Hot Jacuzzi",
+      "Steam & Sauna Bath",
+      "Foot Massage",
+      "Designer Salon for Women"
+    ]
+  },
+  {
+    number: "08",
+    floor: "FIFTH FLOOR",
+    title: "The Clubhouse Experience",
+    category: "LIFESTYLE & LEISURE",
+    image: "/images/amenities/clubhouse-experience.jpg",
+    size: "feature",
+    items: [
+      "Library",
+      "Designer Salon for Men",
+      "Meditation Room",
+      "Aerobics & Zumba Room",
+      "Card Room",
+      "Food Court & Café"
+    ]
+  },
+  {
+    number: "07",
+    floor: "FOURTH FLOOR",
+    title: "Fitness & Indoor Games",
+    category: "FITNESS & RECREATION",
+    image: "/images/amenities/fitness-indoor-games.jpg",
+    size: "standard",
+    items: [
+      "Fully Equipped Air-conditioned Gymnasium with Trainers",
+      "Indoor Games Arcade"
+    ]
+  },
+  {
+    number: "09",
+    floor: "CLUB LANDSCAPE",
+    title: "Sai Baba Mandir",
+    category: "A SPACE FOR SERENITY",
+    image: "/images/amenities/sai-baba-mandir.jpeg",
+    size: "portrait",
+    items: [
+      "Peaceful Sai Baba Mandir"
+    ]
+  }
+];
+---
+
+<section class="atlas" id="amenities">
+
+  <div class="atlas-shell">
+
+    <header class="atlas-header">
+
+      <div class="atlas-heading">
+        <div>
+          <h2>
+            A Thoughtful Collection of
+            <em>Lifestyle Amenities.</em>
+          </h2>
+        </div>
+
+        
+      </div>
+    </header>
+
+
+
+      <div class="atlas-gallery">
+
+        {amenities.map((item) => (
+          <article class={`atlas-card atlas-${item.size}`}>
+
+            <div class="atlas-image">
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+              />
+
+              <div class="atlas-image-shade"></div>
+
+              <span class="atlas-number">{item.number}</span>
+
+              <div class="atlas-image-caption">
+                <span>{item.floor}</span>
+                <small>{item.category}</small>
+                <h3>{item.title}</h3>
+              </div>
+            </div>
+
+            <div class="atlas-details">
+              <div class="atlas-details-top">
+                <span>
+                  {String(item.items.length).padStart(2, "0")} EXPERIENCES
+                </span>
+              </div>
+
+              <ul>
+                {item.items.map((amenity) => (
+                  <li>{amenity}</li>
+                ))}
+              </ul>
+            </div>
+
+          </article>
+        ))}
+
+      </div>
+    </div>
+
+  </div>
+</section>

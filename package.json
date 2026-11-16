@@ -1,17 +1,18 @@
 {
-  "name": "real-estate-landing-page",
+  "name": "sai-world-city-panvel",
   "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.23.4"
-  },
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "check": "astro check"
   },
   "dependencies": {
-    "astro": "^7.4.11"
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.7.0",
+    "typescript": "^5.7.3"
   }
 }

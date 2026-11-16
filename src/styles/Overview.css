@@ -1,0 +1,1162 @@
+
+/* =====================================================
+   SAI WORLD CITY — OVERVIEW
+===================================================== */
+
+.overview-section {
+  --blue: #e00000;
+  --red: #000000;
+  --dark: #000000;
+  --muted: #000000;
+
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 4%;
+  overflow: hidden;
+  background: #fff;
+  color: var(--dark);
+  box-sizing: border-box;
+}
+
+.overview-section *,
+.overview-section *::before,
+.overview-section *::after {
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   01. PROJECT OVERVIEW
+===================================================== */
+
+.overview-top {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: 35px;
+
+  padding: 25px 0 15px;
+}
+
+.overview-content {
+  width: 100%;
+  max-width: 530px;
+  padding: 20px 0 30px 2%;
+  position: relative;
+  z-index: 2;
+}
+
+.overview-eyebrow {
+  display: inline-block;
+  margin-bottom: 15px;
+
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.overview-content h2 {
+  max-width: 520px;
+  margin: 0;
+
+  color: var(--dark);
+  font-size: clamp(34px, 3.2vw, 46px);
+  font-weight: 600;
+  line-height: 1.13;
+  letter-spacing: -1.5px;
+}
+
+.overview-content h2 em {
+  color: var(--blue);
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.overview-tagline {
+  margin: 12px 0 0 !important;
+
+  color: var(--muted) !important;
+  font-family: Georgia, serif;
+  font-size: 14px !important;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.overview-line {
+  width: 65px;
+  height: 2px;
+  margin: 17px 0;
+  background: var(--blue);
+}
+
+.overview-content > p:not(.overview-tagline) {
+  margin: 0 0 11px;
+  color: #0c0c0c;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+
+/* =====================================================
+   02. 3D PROJECT IMAGE
+===================================================== */
+
+.overview-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  perspective: 1200px;
+}
+
+.overview-image-glow {
+  position: absolute;
+  top: 15%;
+  right: 12%;
+  width: 65%;
+  height: 65%;
+
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  filter: blur(65px);
+}
+
+.overview-image-wrap {
+  position: relative;
+  z-index: 1;
+  width: 110%;
+  margin-left: -5%;
+
+  transform:
+    rotateY(-13deg)
+    rotateX(5deg)
+    rotateZ(-2deg)
+    translateZ(25px);
+
+  transform-origin: center;
+  transition: transform 0.7s ease;
+}
+
+.overview-image-wrap:hover {
+  transform:
+    rotateY(-6deg)
+    rotateX(2deg)
+    rotateZ(0deg)
+    translateZ(40px);
+}
+
+.overview-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 390px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.overview-image-caption {
+  position: absolute;
+  right: 8%;
+  bottom: 8px;
+  z-index: 2;
+
+  color: var(--blue);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   03. ONE COMBINED BLUE SECTION
+===================================================== */
+
+.overview-highlights {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1.5fr 0.85fr;
+  align-items: center;
+
+  width: 100%;
+  min-height: 270px;
+  margin: 0;
+  padding: 32px 6%;
+
+  overflow: hidden;
+  background: var(--blue);
+  color: #fff;
+}
+
+
+/* =====================================================
+   04. SIX PROJECT HIGHLIGHTS
+===================================================== */
+
+.overview-highlights .highlights-grid{
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, auto);
+
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+
+  width: 100%;
+  gap: 28px 20px;
+}
+
+.overview-highlights .highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.overview-highlights .highlight-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+  color: #fff;
+}
+
+.overview-highlights .highlight-icon svg {
+  display: block;
+  width: 38px;
+  height: 38px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.overview-highlights .highlight-item p {
+  max-width: 170px;
+  margin: 0;
+
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   05. RIGHT SIDE — PROJECT & DEVELOPER HEADING
+===================================================== */
+
+.overview-highlights .highlights-content {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-width: 0;
+  padding-left: 12px;
+}
+
+.highlights-eyebrow {
+  display: none;
+}
+
+.overview-highlights .highlights-content h2{
+  margin: 0;
+
+  color: #fff;
+  font-size: clamp(27px, 2.3vw, 38px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+}
+
+.overview-highlights .highlights-content h2 span {
+  font-weight: 400;
+}
+
+.overview-highlights.highlights-line {
+  width: 65px;
+  height: 2px;
+  margin: 23px 0;
+  background: #fff;
+}
+.overview-highlights .highlights-content > p {
+  max-width: 360px;
+  margin: 0;
+
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.highlights-content > p strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   06. PARADISE GROUP SIGNATURE
+===================================================== */
+
+.highlights-signature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.signature-mark {
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.signature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.signature-text strong {
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.signature-text small {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.highlights-decoration {
+  position: absolute;
+  right: -5px;
+  bottom: -65px;
+
+ 
+}
+
+
+/* =====================================================
+   07. STATISTICS — CONNECTED TO BLUE PANEL
+===================================================== */
+
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  width: 100%;
+  margin: 0;
+  padding: 22px 4% 26px;
+
+  background: var(--blue);
+  color: #fff;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.overview-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 115px;
+  padding: 8px 28px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.overview-stat:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(42px, 4vw, 58px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.stat-number span {
+  font-size: 0.72em;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 5px;
+
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  line-height: 1.5;
+}
+
+.overview-stat p {
+  margin: 8px 0 0;
+
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   08. TABLET
+===================================================== */
+
+@media (max-width: 1024px) {
+
+  .overview-section {
+    padding: 0 3%;
+  }
+
+  .overview-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .overview-content h2 {
+    font-size: 36px;
+  }
+
+  .overview-image {
+    max-height: 330px;
+  }
+
+  .overview-highlights {
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 20px;
+    padding: 28px 4%;
+  }
+
+  .highlights-grid {
+    gap: 25px 10px;
+  }
+
+  .highlight-item p {
+    font-size: 11px;
+  }
+
+  .highlights-content h2 {
+    font-size: 29px;
+  }
+
+  .highlights-content > p {
+    font-size: 13px;
+  }
+
+  .overview-stat {
+    padding: 8px 20px;
+  }
+}
+
+
+/* =====================================================
+   09. MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+  .overview-section {
+    padding: 0;
+  }
+
+  .overview-top {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 38px 6% 15px;
+  }
+
+  .overview-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .overview-eyebrow {
+    margin-bottom: 13px;
+    font-size: 10px;
+  }
+
+  .overview-content h2 {
+    font-size: clamp(34px, 8vw, 43px);
+  }
+
+  .overview-tagline {
+    font-size: 13px !important;
+  }
+
+  .overview-content > p:not(.overview-tagline) {
+    font-size: 12px;
+  }
+
+  .overview-visual {
+    min-height: 0;
+    margin-top: 12px;
+  }
+
+  .overview-image-wrap {
+    width: 100%;
+    margin: 0;
+    transform: rotateY(-5deg) rotateX(2deg);
+  }
+
+  .overview-image {
+    max-height: 340px;
+  }
+
+  .overview-image-caption {
+    right: 3%;
+    bottom: 5px;
+    font-size: 8px;
+  }
+
+
+  /* BLUE HIGHLIGHTS */
+
+  .overview-highlights {
+    grid-template-columns: 1fr;
+    gap: 30px;
+
+    min-height: 0;
+    padding: 32px 6%;
+  }
+
+  .highlights-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, auto);
+    gap: 25px 8px;
+  }
+
+  .highlight-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .highlight-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .highlight-item p {
+    font-size: 10px;
+  }
+
+  .highlights-content {
+    padding: 24px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .highlights-content h2 {
+    font-size: 29px;
+  }
+
+  .highlights-line {
+    margin: 16px 0;
+  }
+
+  .highlights-decoration {
+    right: 0;
+    bottom: -45px;
+    font-size: 100px;
+  }
+
+
+  /* CONNECTED STATISTICS */
+
+  .overview-stats {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 5px 6% 20px;
+  }
+
+  .overview-stat {
+    min-height: 0;
+    padding: 20px 0;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .overview-stat:last-child {
+    border-bottom: none;
+  }
+
+  .stat-number {
+    font-size: 46px;
+  }
+}
+
+
+/* =====================================================
+   10. SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+  .overview-top {
+    padding: 34px 5% 15px;
+  }
+
+  .overview-content h2 {
+    font-size: 34px;
+  }
+
+  .overview-highlights {
+    gap: 24px;
+    padding: 28px 5%;
+  }
+
+  .highlights-grid {
+    gap: 22px 5px;
+  }
+
+  .highlight-item p {
+    font-size: 9px;
+  }
+
+  .highlights-content h2 {
+    font-size: 27px;
+  }
+
+  .highlights-signature {
+    margin-top: 14px;
+  }
+
+  .overview-stats {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+}
+
+
+/* =====================================================
+   SAI WORLD CITY — FINAL MOBILE OVERVIEW
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* MAIN SECTION */
+
+  .overview-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
+
+
+  /* =====================================
+     01. PROJECT OVERVIEW
+  ===================================== */
+
+  .overview-top {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    width: 100%;
+    padding: 36px 6% 25px;
+  }
+
+  .overview-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .overview-eyebrow {
+    margin-bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .overview-content h2 {
+    max-width: 100%;
+    font-size: clamp(34px, 9vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -1.3px;
+  }
+
+  .overview-content h2 em {
+    font-size: inherit;
+  }
+
+  .overview-tagline {
+    margin-top: 11px !important;
+    font-size: 14px !important;
+    line-height: 1.5;
+  }
+
+  .overview-line {
+    width: 52px;
+    margin: 16px 0;
+  }
+
+  .overview-content > p:not(.overview-tagline) {
+    margin-bottom: 11px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+
+  /* =====================================
+     02. PROJECT IMAGE
+  ===================================== */
+
+  .overview-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin-top: 8px;
+
+    perspective: none;
+  }
+
+  .overview-image-glow {
+    top: 15%;
+    right: 10%;
+    width: 75%;
+    height: 65%;
+    filter: blur(35px);
+  }
+
+  .overview-image-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+
+    transform: none;
+    transform-origin: center;
+  }
+
+  .overview-image-wrap:hover {
+    transform: none;
+  }
+
+  .overview-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .overview-image-caption {
+    right: 4%;
+    bottom: 8px;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+
+
+  /* =====================================
+     03. COMBINED HIGHLIGHTS SECTION
+  ===================================== */
+
+  .overview-highlights {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    width: 100%;
+    min-height: 0;
+    gap: 26px;
+
+    padding: 32px 6% 30px;
+    margin: 0;
+
+    overflow: hidden;
+    background: var(--blue);
+    color: #fff;
+  }
+
+
+  /* =====================================
+     04. SIX HIGHLIGHTS — 3 COLUMNS
+  ===================================== */
+
+  .overview-highlights .highlights-grid {
+    position: relative;
+    z-index: 1;
+
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, auto);
+
+    align-items: stretch;
+    justify-items: center;
+    align-content: center;
+
+    width: 100%;
+    gap: 27px 9px;
+  }
+
+  .overview-highlights .highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    gap: 9px;
+    margin: 0;
+    padding: 0 3px;
+
+    text-align: center;
+  }
+
+  .overview-highlights .highlight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+
+    color: #fff;
+  }
+
+  .overview-highlights .highlight-icon svg {
+    display: block;
+    width: 34px;
+    height: 34px;
+  }
+
+  .overview-highlights .highlight-item p {
+    width: 100%;
+    max-width: 125px;
+    margin: 0;
+
+    color: #fff;
+    font-size: 10px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+
+  /* =====================================
+     05. DEVELOPER CONTENT
+  ===================================== */
+
+  .overview-highlights .highlights-content {
+    display: block;
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    min-width: 0;
+    padding: 24px 0 0;
+    margin: 0;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .highlights-eyebrow {
+    display: block;
+  }
+
+  .overview-highlights .highlights-content h2 {
+    margin: 0;
+
+    color: #fff;
+    font-size: clamp(27px, 7vw, 33px);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .overview-highlights .highlights-content h2 span {
+    font-weight: 400;
+  }
+
+  .overview-highlights .highlights-line {
+    width: 48px;
+    height: 2px;
+    margin: 16px 0;
+
+    background: #fff;
+  }
+
+  .overview-highlights .highlights-content > p {
+    max-width: 100%;
+    margin: 0;
+
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .overview-highlights .highlights-content > p strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+
+  /* =====================================
+     06. PARADISE GROUP SIGNATURE
+  ===================================== */
+
+  .highlights-signature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .signature-mark {
+    font-size: 32px;
+  }
+
+  .signature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .signature-text strong {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .signature-text small {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* Remove decorative star / artwork */
+  .overview-highlights .highlights-decoration {
+    display: none !important;
+  }
+
+
+  /* =====================================
+     07. STATISTICS — CENTER ALIGNED
+  ===================================== */
+
+  .overview-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    width: 100%;
+    gap: 0;
+
+    margin: 0;
+    padding: 5px 6% 20px;
+
+    background: var(--blue);
+    color: #fff;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .overview-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    padding: 22px 10px !important;
+
+    text-align: center !important;
+
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .overview-stat:last-child {
+    border-bottom: none !important;
+  }
+
+  .stat-number {
+    display: block;
+    margin-bottom: 6px;
+
+    color: #fff;
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    text-align: center !important;
+  }
+
+  .stat-number span {
+    font-size: 0.72em;
+  }
+
+  .stat-label {
+    display: block;
+    margin-top: 5px;
+
+    color: #fff;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-align: center !important;
+  }
+
+  .overview-stat p {
+    margin: 8px 0 0;
+
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center !important;
+  }
+
+  /* Remove decorative star from statistics */
+  .overview-stats::before,
+  .overview-stats::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE — 420px AND BELOW
+===================================================== */
+
+@media screen and (max-width: 420px) {
+
+  .overview-top {
+    padding: 30px 5% 22px;
+  }
+
+  .overview-content h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+
+  .overview-content > p:not(.overview-tagline) {
+    font-size: 12px;
+  }
+
+  .overview-highlights {
+    gap: 23px;
+    padding: 27px 5% 25px;
+  }
+
+  .overview-highlights .highlights-grid {
+    gap: 23px 5px;
+  }
+
+  .overview-highlights .highlight-item {
+    gap: 7px;
+    padding: 0 2px;
+  }
+
+  .overview-highlights .highlight-icon {
+    width: 33px;
+    height: 33px;
+  }
+
+  .overview-highlights .highlight-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .overview-highlights .highlight-item p {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .overview-highlights .highlights-content {
+    padding-top: 21px;
+  }
+
+  .overview-highlights .highlights-content h2 {
+    font-size: 27px;
+  }
+
+  .overview-highlights .highlights-content > p {
+    font-size: 12px;
+    line-height: 1.75;
+  }
+
+  .highlights-signature {
+    margin-top: 16px;
+  }
+
+  .overview-stats {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .overview-stat {
+    padding: 21px 8px !important;
+  }
+
+  .stat-number {
+    font-size: 43px;
+  }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .overview-section *,
+  .overview-section *::before,
+  .overview-section *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* =====================================================
+   11. REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .overview-section *,
+  .overview-section *::before,
+  .overview-section *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+}

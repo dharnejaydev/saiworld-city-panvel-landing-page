@@ -1,0 +1,357 @@
+
+---
+import "../styles/ClubVegas.css";
+
+const clubImage = "/images/club-vegas/club-vegas-collage.jpg";
+
+const floors = [
+  {
+    id: "ground",
+    number: "00",
+    level: "GROUND FLOOR",
+    title: "A Grand Welcome",
+    description:
+      "An impressive entrance experience, spaces for celebrations and entertainment.",
+    facilities: [
+      "Double-height air-conditioned designer entrance lobby",
+      "Waiting lounge",
+      "Pre-function party area",
+      "Banquet hall",
+      "DJ & karaoke room",
+      "Mini theatre",
+    ],
+  },
+  {
+    id: "first",
+    number: "01",
+    level: "FIRST FLOOR",
+    title: "A World of Little Discoveries",
+    description:
+      "Creative activities, gaming and dedicated spaces for children's learning and recreation.",
+    facilities: [
+      "Hobby studio with painting and pottery",
+      "Children's gaming arena",
+      "Virtual gaming lounge",
+      "Children's creche",
+      "3 tuition rooms",
+      "Deck lounge",
+    ],
+  },
+  {
+    id: "second",
+    number: "02",
+    level: "SECOND FLOOR",
+    title: "Move, Play & Express",
+    description:
+      "Dedicated spaces for sports, music and dance, bringing different interests together.",
+    facilities: [
+      "Music and dance studio",
+      "2 indoor badminton courts",
+      "2 squash courts",
+    ],
+  },
+  {
+    id: "third",
+    number: "03",
+    level: "THIRD FLOOR · SPA",
+    title: "Time to Rejuvenate",
+    description:
+      "A dedicated spa floor with spaces for relaxation and personal care.",
+    facilities: [
+      "Reception and waiting lounge",
+      "Consultation room",
+      "Massage rooms",
+      "Hot jacuzzi",
+      "Steam and sauna bath",
+      "Foot massage",
+      "Designer salon for women",
+    ],
+  },
+  {
+    id: "fourth",
+    number: "04",
+    level: "FOURTH FLOOR",
+    title: "Make Room for Wellness",
+    description:
+      "Spaces dedicated to fitness and indoor recreation.",
+    facilities: [
+      "Fully equipped air-conditioned gymnasium with trainers",
+      "Indoor games arcade",
+    ],
+  },
+  {
+    id: "fifth",
+    number: "05",
+    level: "FIFTH FLOOR",
+    title: "A Little of Everything",
+    description:
+      "A collection of spaces for reading, relaxation, movement and spending time together.",
+    facilities: [
+      "Library",
+      "Designer salon for men",
+      "Meditation room",
+      "Aerobics and Zumba room",
+      "Card room",
+      "Food court and café",
+    ],
+  },
+  {
+    id: "terrace",
+    number: "06",
+    level: "TERRACE FLOOR",
+    title: "Life Above the Ordinary",
+    description:
+      "A rooftop leisure experience with a swimming pool, party deck and distinctive Merlion feature.",
+    facilities: [
+      "Swimming pool with party deck",
+      "Kids pool",
+      "Merlion statue with sunken bar",
+    ],
+  },
+];
+
+const initialFloor = floors[0];
+---
+
+<section class="club-vegas" id="club-vegas">
+  <div class="club-container">
+
+    <!-- SECTION INTRO -->
+    <div class="club-intro">
+      <div class="club-intro-left">
+
+        <h2>
+          Introducing <span>Club Vegas.</span>
+          <br />
+       
+        </h2>
+      </div>
+
+      <div class="club-intro-right">
+        <span class="club-intro-number">G+5</span>
+        <div class="club-intro-copy">
+          <strong>THE CLUBHOUSE</strong>
+          <p>
+            Explore spaces for recreation, fitness,
+            celebrations and everyday experiences.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  
+
+    <!-- MAIN EXPERIENCE -->
+    <div class="club-experience">
+
+      <!-- SINGLE COLLAGE IMAGE -->
+      <div class="club-visual">
+        <img
+          src={clubImage}
+          alt="Club Vegas clubhouse facilities across its different floors"
+          loading="lazy"
+        />
+
+        <div class="club-image-overlay"></div>
+
+       
+
+      </div>
+
+      <!-- FLOOR DETAILS -->
+      <div class="club-details">
+        <div class="club-detail-top">
+          <span class="club-eyebrow" data-floor-label>
+            {initialFloor.level}
+          </span>
+
+          <h3 data-floor-title>{initialFloor.title}</h3>
+
+          <p data-floor-description>{initialFloor.description}</p>
+        </div>
+
+        <div class="club-facilities-heading">
+          <span>THE EXPERIENCE INCLUDES</span>
+          <span data-facility-count>
+            {String(initialFloor.facilities.length).padStart(2, "0")} SPACES
+          </span>
+        </div>
+
+        <ul class="club-facilities" data-facilities>
+          {initialFloor.facilities.map((facility, index) => (
+            <li>
+              <span class="club-facility-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>{facility}</span>
+            </li>
+          ))}
+        </ul>
+
+        <a href="#contact" class="club-enquire-link">
+          ENQUIRE ABOUT THE PROJECT
+        </a>
+      </div>
+    </div>
+
+   
+
+  </div>
+</section>
+
+<script>
+  const clubSection = document.querySelector("#club-vegas");
+
+  if (clubSection && !clubSection.hasAttribute("data-initialized")) {
+    clubSection.setAttribute("data-initialized", "true");
+
+    const floors = [
+      {
+        number: "00",
+        level: "GROUND FLOOR",
+        title: "A Grand Welcome",
+        description:
+          "An impressive entrance experience, spaces for celebrations and entertainment.",
+        facilities: [
+          "Double-height air-conditioned designer entrance lobby",
+          "Waiting lounge",
+          "Pre-function party area",
+          "Banquet hall",
+          "DJ & karaoke room",
+          "Mini theatre",
+        ],
+      },
+      {
+        number: "01",
+        level: "FIRST FLOOR",
+        title: "A World of Little Discoveries",
+        description:
+          "Creative activities, gaming and dedicated spaces for children's learning and recreation.",
+        facilities: [
+          "Hobby studio with painting and pottery",
+          "Children's gaming arena",
+          "Virtual gaming lounge",
+          "Children's creche",
+          "3 tuition rooms",
+          "Deck lounge",
+        ],
+      },
+      {
+        number: "02",
+        level: "SECOND FLOOR",
+        title: "Move, Play & Express",
+        description:
+          "Dedicated spaces for sports, music and dance, bringing different interests together.",
+        facilities: [
+          "Music and dance studio",
+          "2 indoor badminton courts",
+          "2 squash courts",
+        ],
+      },
+      {
+        number: "03",
+        level: "THIRD FLOOR · SPA",
+        title: "Time to Rejuvenate",
+        description:
+          "A dedicated spa floor with spaces for relaxation and personal care.",
+        facilities: [
+          "Reception and waiting lounge",
+          "Consultation room",
+          "Massage rooms",
+          "Hot jacuzzi",
+          "Steam and sauna bath",
+          "Foot massage",
+          "Designer salon for women",
+        ],
+      },
+      {
+        number: "04",
+        level: "FOURTH FLOOR",
+        title: "Make Room for Wellness",
+        description:
+          "Spaces dedicated to fitness and indoor recreation.",
+        facilities: [
+          "Fully equipped air-conditioned gymnasium with trainers",
+          "Indoor games arcade",
+        ],
+      },
+      {
+        number: "05",
+        level: "FIFTH FLOOR",
+        title: "A Little of Everything",
+        description:
+          "A collection of spaces for reading, relaxation, movement and spending time together.",
+        facilities: [
+          "Library",
+          "Designer salon for men",
+          "Meditation room",
+          "Aerobics and Zumba room",
+          "Card room",
+          "Food court and café",
+        ],
+      },
+      {
+        number: "06",
+        level: "TERRACE FLOOR",
+        title: "Life Above the Ordinary",
+        description:
+          "A rooftop leisure experience with a swimming pool, party deck and distinctive Merlion feature.",
+        facilities: [
+          "Swimming pool with party deck",
+          "Kids pool",
+          "Merlion statue with sunken bar",
+        ],
+      },
+    ];
+
+    const tabs = Array.from(
+      clubSection.querySelectorAll(".club-floor-tab")
+    );
+
+    const floorLabel = clubSection.querySelector("[data-floor-label]");
+    const floorTitle = clubSection.querySelector("[data-floor-title]");
+    const floorDescription = clubSection.querySelector("[data-floor-description]");
+    const facilityCount = clubSection.querySelector("[data-facility-count]");
+    const facilitiesList = clubSection.querySelector("[data-facilities]");
+
+    function selectFloor(index) {
+      const floor = floors[index];
+
+      if (!floor) return;
+
+      tabs.forEach((tab, tabIndex) => {
+        const active = tabIndex === index;
+
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-pressed", String(active));
+      });
+
+      floorLabel.textContent = floor.level;
+      floorTitle.textContent = floor.title;
+      floorDescription.textContent = floor.description;
+
+      facilityCount.textContent =
+        `${String(floor.facilities.length).padStart(2, "0")} SPACES`;
+
+      facilitiesList.replaceChildren();
+
+      floor.facilities.forEach((facility, facilityIndex) => {
+        const item = document.createElement("li");
+
+        const number = document.createElement("span");
+        number.className = "club-facility-number";
+        number.textContent = String(facilityIndex + 1).padStart(2, "0");
+
+        const text = document.createElement("span");
+        text.textContent = facility;
+
+        item.append(number, text);
+        facilitiesList.append(item);
+      });
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => selectFloor(index));
+    });
+  }
+</script>

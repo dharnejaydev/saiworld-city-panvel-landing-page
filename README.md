@@ -1,46 +1,30 @@
-# Astro Starter Kit: Basics
+# Sai World City Panvel — Astro Landing Page
 
-```sh
-npm create astro@latest -- --template basics
+A lightweight, mobile-first real-estate landing page starter built with Astro.
+
+## Requirements
+- Node.js 20.3.0 or newer (Node.js 22 LTS recommended)
+- npm
+
+## Run locally
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open the local URL printed by Astro (normally http://localhost:4321).
 
-## 🚀 Project Structure
+## Production build
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm run check
+npm run build
+npm run preview
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Project notes
+- Property-specific prices, configurations, possession dates, amenities, RERA details, and claims are intentionally not invented. Add only verified information supplied by the developer or official project materials.
+- Replace `https://example.com` in `astro.config.mjs` with the final canonical domain before launch.
+- Add approved project images under `public/images/`.
+- Tracking IDs belong in local `.env` (never commit it). The current starter does not fire advertising or analytics tags yet; consent and event design will be implemented in the tracking phase.

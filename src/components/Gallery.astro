@@ -1,0 +1,232 @@
+
+---
+import "../styles/Gallery.css";
+
+const galleryItems = [
+  {
+    number: "01",
+    title: "The Grand Perspective",
+    category: "PROJECT OVERVIEW",
+    image: "/images/gallery/project-overview.jpg",
+    alt: "Sai World City Panvel project overview",
+    layout: "feature",
+  },
+  {
+    number: "02",
+    title: "Architecture in Detail",
+    category: "ARCHITECTURE",
+    image: "/images/gallery/architecture.jpg",
+    alt: "Sai World City architectural design",
+    layout: "portrait",
+  },
+  {
+    number: "03",
+    title: "A Remarkable Arrival",
+    category: "ENTRANCE",
+    image: "/images/gallery/entrance.jpg",
+    alt: "Sai World City entrance",
+    layout: "small",
+  },
+  {
+    number: "04",
+    title: "The View from Above",
+    category: "AERIAL VIEW",
+    image: "/images/gallery/aerial-view.jpg",
+    alt: "Aerial view of Sai World City",
+    layout: "wide",
+  },
+  {
+    number: "05",
+    title: "A Distinctive Silhouette",
+    category: "TOWER EXTERIOR",
+    image: "/images/gallery/tower-exterior.jpg",
+    alt: "Sai World City tower exterior",
+    layout: "tall",
+  },
+  {
+    number: "06",
+    title: "An Impressive First Look",
+    category: "PROJECT VIEW",
+    image: "/images/gallery/project-view.jpg",
+    alt: "Sai World City project view",
+    layout: "small",
+  },
+  {
+    number: "07",
+    title: "The Bigger Picture",
+    category: "PANORAMIC VIEW",
+    image: "/images/gallery/panoramic-view.jpg",
+    alt: "Panoramic view of Sai World City",
+    layout: "panorama",
+  },
+];
+
+---
+
+<section class="gallery-section" id="gallery">
+  <div class="gallery-container">
+
+    <!-- Section heading -->
+    <div class="gallery-heading">
+      <div class="gallery-heading-left">
+       
+
+        <h2>
+          Take a Look Inside<br />
+          <span>Sai World City.</span>
+        </h2>
+      </div>
+
+   
+    </div>
+
+    <!-- Editorial gallery -->
+    <div class="gallery-grid">
+      {galleryItems.map((item, index) => (
+        <button
+          class={`gallery-card gallery-${item.layout}`}
+          type="button"
+          data-gallery-index={index}
+          aria-label={`View ${item.title}`}
+          data-image={item.image}
+          data-alt={item.alt}
+          data-title={item.title}
+          data-category={item.category}
+        >
+          <div class="gallery-image-wrap">
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+
+            <span class="gallery-image-number">{item.number}</span>
+
+            
+          </div>
+
+          <div class="gallery-card-caption">
+            <span>{item.category}</span>
+            <h3>{item.title}</h3>
+          </div>
+        </button>
+      ))}
+    </div>
+
+    <!-- Bottom signature -->
+    
+  </div>
+
+  <!-- Lightbox -->
+  <div class="gallery-lightbox" aria-hidden="true">
+    <button
+      class="lightbox-close"
+      type="button"
+      aria-label="Close gallery"
+    >×</button>
+
+    <button
+      class="lightbox-nav lightbox-prev"
+      type="button"
+      aria-label="Previous image"
+    >←</button>
+
+    <div class="lightbox-content">
+      <img class="lightbox-image" src="" alt="" />
+
+      <div class="lightbox-caption">
+        <div>
+          <span class="lightbox-category"></span>
+          <h3 class="lightbox-title"></h3>
+        </div>
+        <span class="lightbox-counter"></span>
+      </div>
+    </div>
+
+    <button
+      class="lightbox-nav lightbox-next"
+      type="button"
+      aria-label="Next image"
+    >→</button>
+  </div>
+</section>
+
+<script>
+  const gallerySection = document.querySelector(".gallery-section");
+
+  if (gallerySection) {
+    const cards = Array.from(
+      gallerySection.querySelectorAll(".gallery-card")
+    );
+
+    const lightbox = gallerySection.querySelector(".gallery-lightbox");
+    const lightboxImage = gallerySection.querySelector(".lightbox-image");
+    const lightboxTitle = gallerySection.querySelector(".lightbox-title");
+    const lightboxCategory = gallerySection.querySelector(".lightbox-category");
+    const lightboxCounter = gallerySection.querySelector(".lightbox-counter");
+
+    const closeButton = gallerySection.querySelector(".lightbox-close");
+    const previousButton = gallerySection.querySelector(".lightbox-prev");
+    const nextButton = gallerySection.querySelector(".lightbox-next");
+
+    let currentIndex = 0;
+    let previousFocus = null;
+
+    function showImage(index) {
+      currentIndex = (index + cards.length) % cards.length;
+
+      const card = cards[currentIndex];
+
+      lightboxImage.src = card.dataset.image || "";
+      lightboxImage.alt = card.dataset.alt || "";
+      lightboxTitle.textContent = card.dataset.title || "";
+      lightboxCategory.textContent = card.dataset.category || "";
+
+      lightboxCounter.textContent =
+        `${String(currentIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+    }
+
+    function openLightbox(index) {
+      previousFocus = document.activeElement;
+      showImage(index);
+
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("gallery-lock-scroll");
+
+      closeButton.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("gallery-lock-scroll");
+
+      lightboxImage.src = "";
+
+      if (previousFocus instanceof HTMLElement) {
+        previousFocus.focus();
+      }
+    }
+
+    cards.forEach((card, index) => {
+      card.addEventListener("click", () => openLightbox(index));
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+    previousButton.addEventListener("click", () => showImage(currentIndex - 1));
+    nextButton.addEventListener("click", () => showImage(currentIndex + 1));
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox.classList.contains("is-open")) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") showImage(currentIndex - 1);
+      if (event.key === "ArrowRight") showImage(currentIndex + 1);
+    });
+  }
+</script>

@@ -1,0 +1,144 @@
+
+---
+import "../styles/EnquirySection.css";
+---
+
+<section class="enquiry-section" id="contact">
+  <div class="enquiry-container">
+
+    <!-- LEFT: PROJECT INTRO -->
+    <div class="enquiry-intro">
+      <span class="enquiry-eyebrow">SAI WORLD CITY · PANVEL</span>
+
+      <h2>
+        DON'T JUST DREAM  A BETTER HOME
+        <em>MAKE IT YOURS.</em>
+      </h2>
+
+      <p>Share your details. We'll help you take the next step.</p>
+
+    
+
+      <div class="enquiry-watermark" aria-hidden="true">SWC.</div>
+    </div>
+
+    <!-- RIGHT: ENQUIRY FORM -->
+    <div class="enquiry-form-panel">
+      <div class="form-heading">
+        <div>
+          <span class="form-eyebrow">ENQUIRE NOW</span>
+          <h3>Get project details.</h3>
+        </div>
+      </div>
+
+      <form class="project-enquiry-form" id="projectEnquiryForm">
+
+        <div class="form-field">
+          <label for="contactName">FULL NAME</label>
+          <input
+            type="text"
+            id="contactName"
+            name="name"
+            placeholder="Enter your name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="contactPhone">PHONE NUMBER</label>
+
+            <div class="phone-input-wrap">
+              <span class="phone-prefix">+91</span>
+              <span class="phone-divider"></span>
+              <input
+                type="tel"
+                id="contactPhone"
+                name="phone"
+                placeholder="10-digit mobile number"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                pattern="[6-9][0-9]{9}"
+                maxlength="10"
+                minlength="10"
+                required
+                aria-describedby="phoneHint"
+              />
+            </div>
+            <span class="field-hint" id="phoneHint">
+              Enter your 10-digit mobile number
+            </span>
+          </div>
+
+          <div class="form-field">
+            <label for="contactConfiguration">CONFIGURATION</label>
+            <select
+              id="contactConfiguration"
+              name="configuration"
+              required
+            >
+              <option value="" disabled selected>Select BHK</option>
+              <option value="2 BHK">2 BHK</option>
+              <option value="2.5 BHK">2.5 BHK</option>
+              <option value="3 BHK">3 BHK</option>
+              <option value="4 BHK">4 BHK</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <span>REQUEST A CALL BACK</span>
+        </button>
+
+        <p class="form-note">
+          Your details will only be used to respond to your enquiry.
+        </p>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const enquiryForm = document.querySelector<HTMLFormElement>(
+    "#projectEnquiryForm"
+  );
+
+  const phoneInput = document.querySelector<HTMLInputElement>(
+    "#contactPhone"
+  );
+
+  phoneInput?.addEventListener("input", () => {
+    phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+  });
+
+  enquiryForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!enquiryForm.reportValidity()) return;
+
+    const formData = Object.fromEntries(
+      new FormData(enquiryForm).entries()
+    );
+
+    /*
+      Connect your Apps Script / CRM endpoint here.
+
+      Send the lead to your backend first.
+      Fire GA4 generate_lead and Google Ads conversion
+      only after successful backend submission.
+    */
+
+    window.dispatchEvent(
+      new CustomEvent("project-enquiry-submit", {
+        detail: {
+          ...formData,
+          country_code: "+91",
+          full_phone: `+91${formData.phone}`,
+        },
+      })
+    );
+  });
+</script>

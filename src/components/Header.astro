@@ -1,0 +1,86 @@
+
+---
+import "../styles/header.css";
+
+const navigation = [
+  { label: "Overview", href: "#overview" },
+  { label: "Configurations", href: "#configurations" },
+  { label: "Amenities", href: "#amenities" },
+   { label: "Gallery", href: "#gallery" },
+  { label: "Location", href: "#location" },
+  { label: "Contact Us", href: "#contact" }
+];
+---
+
+<header class="site-header">
+
+  <!-- BRAND -->
+  <a class="brand-lockup" href="#top" aria-label="Sai World City home">
+
+    <span class="brand-mark">SW</span>
+
+    <span class="brand-name">
+      SAI WORLD CITY
+      <small>PANVEL</small>
+    </span>
+
+  </a>
+
+  <!-- DESKTOP NAVIGATION -->
+  <nav class="desktop-nav" aria-label="Main navigation">
+
+    {navigation.map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+
+  </nav>
+
+  
+
+  
+
+  <!-- MOBILE MENU -->
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-label="Open navigation"
+    aria-expanded="false"
+    aria-controls="mobile-navigation"
+  >
+    <span></span>
+    <span></span>
+  </button>
+
+</header>
+
+<!-- MOBILE NAVIGATION -->
+<nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" hidden>
+
+  {navigation.map((item) => (
+    <a href={item.href}>{item.label}</a>
+  ))}
+
+  <a href="#enquire">Request details ↗</a>
+
+</nav>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const mobileNavigation = document.querySelector<HTMLElement>("#mobile-navigation");
+
+  menuButton?.addEventListener("click", () => {
+    if (!mobileNavigation) return;
+
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    mobileNavigation.hidden = isOpen;
+  });
+
+  mobileNavigation?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileNavigation!.hidden = true;
+      menuButton?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

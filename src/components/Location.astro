@@ -1,0 +1,224 @@
+
+---
+import "../styles/Location.css";
+
+const destinations = [
+  {
+    number: "01",
+    category: "AIRPORT",
+    name: "Navi Mumbai International Airport",
+    time: "5 min",
+  },
+  {
+    number: "02",
+    category: "EXPRESSWAY",
+    name: "Mumbai–Pune Expressway",
+    time: "2 min",
+  },
+  {
+    number: "03",
+    category: "RAILWAY",
+    name: "Panvel Railway Station",
+    time: "7 min",
+  },
+  {
+    number: "04",
+    category: "SEA LINK",
+    name: "Mumbai Trans Harbour Link (MTHL)",
+    time: "10 min",
+  },
+  {
+    number: "05",
+    category: "ROAD CONNECTIVITY",
+    name: "Multi Modal Corridor (MMC)",
+    time: "10 min",
+  },
+  {
+    number: "06",
+    category: "UPCOMING INFRASTRUCTURE",
+    name: "Upcoming Navi Mumbai SEZ",
+    time: "15 min",
+  },
+  {
+    number: "07",
+    category: "PORT CONNECTIVITY",
+    name: "Jawaharlal Nehru Port (JNPT)",
+    time: "20 min",
+  },
+  {
+    number: "08",
+    category: "SEA LINK",
+    name: "Sewri–Nhava Sheva Sea Link",
+    time: "20 min",
+  },
+];
+---
+
+<section class="location-section" id="location">
+  <div class="location-container">
+
+    <!-- SECTION HEADER -->
+    <div class="location-header">
+      <div>
+        
+
+        <h2>
+          Well connected.<br />
+          <em>Well positioned.</em>
+        </h2>
+      </div>
+
+      <p>
+        From everyday travel to major infrastructure,
+        stay connected to the places that matter.
+      </p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="location-layout">
+
+      <!-- MAP COLUMN -->
+      <div class="location-map-column">
+
+        <div class="location-map-frame">
+
+          <!-- MAP IMAGE -->
+          <img
+            class="location-map-image"
+            src="/images/location/sai-world-city-connectivity-map.webp"
+            alt="Sai World City connectivity map at Palaspe Phata, Panvel"
+            loading="lazy"
+          />
+
+          <!-- CONNECTIVITY ROUTES AND MARKERS -->
+          <svg
+            class="map-connectivity-overlay"
+            viewBox="0 0 1000 650"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <filter id="route-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
+                <feOffset dy="2" result="offset" />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope="0.3" />
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- ROUTE LINES -->
+            <g class="map-routes" filter="url(#route-shadow)">
+              <path class="route route-1" d="M480 365 Q405 295 340 230" />
+              <path class="route route-2" d="M480 365 Q265 250 90 145" />
+              <path class="route route-3" d="M480 365 Q500 255 540 155" />
+              <path class="route route-4" d="M480 365 Q690 300 875 250" />
+              <path class="route route-5" d="M480 365 Q270 420 150 465" />
+              <path class="route route-6" d="M480 365 Q420 465 430 550" />
+              <path class="route route-7" d="M480 365 Q650 425 745 490" />
+              <path class="route route-8" d="M480 365 Q260 350 85 285" />
+            </g>
+
+            <!-- DESTINATION MARKERS -->
+            <g class="map-destination-points">
+              <g class="destination-point point-1">
+                <circle class="point-halo" cx="340" cy="230" r="12" />
+                <circle class="point-core" cx="340" cy="230" r="6" />
+              </g>
+
+              <g class="destination-point point-2">
+                <circle class="point-halo" cx="90" cy="145" r="12" />
+                <circle class="point-core" cx="90" cy="145" r="6" />
+              </g>
+
+              <g class="destination-point point-3">
+                <circle class="point-halo" cx="540" cy="155" r="12" />
+                <circle class="point-core" cx="540" cy="155" r="6" />
+              </g>
+
+              <g class="destination-point point-4">
+                <circle class="point-halo" cx="875" cy="250" r="12" />
+                <circle class="point-core" cx="875" cy="250" r="6" />
+              </g>
+
+              <g class="destination-point point-5">
+                <circle class="point-halo" cx="150" cy="465" r="12" />
+                <circle class="point-core" cx="150" cy="465" r="6" />
+              </g>
+
+              <g class="destination-point point-6">
+                <circle class="point-halo" cx="430" cy="550" r="12" />
+                <circle class="point-core" cx="430" cy="550" r="6" />
+              </g>
+
+              <g class="destination-point point-7">
+                <circle class="point-halo" cx="745" cy="490" r="12" />
+                <circle class="point-core" cx="745" cy="490" r="6" />
+              </g>
+
+              <g class="destination-point point-8">
+                <circle class="point-halo" cx="85" cy="285" r="12" />
+                <circle class="point-core" cx="85" cy="285" r="6" />
+              </g>
+            </g>
+
+            <!-- SAI WORLD CITY ORIGIN -->
+            <g class="map-origin-point">
+              <circle class="origin-pulse" cx="480" cy="365" r="22" />
+              <circle class="origin-ring" cx="480" cy="365" r="13" />
+              <circle class="origin-core" cx="480" cy="365" r="5" />
+            </g>
+          </svg>
+
+        
+
+        </div>
+
+      </div>
+
+      <!-- CONNECTIVITY LIST -->
+      <div class="location-content">
+
+        <div class="location-list-heading">
+          <span>NEARBY CONNECTIVITY</span>
+          <span>TRAVEL TIME*</span>
+        </div>
+
+        <div class="location-list">
+          {destinations.map((destination) => (
+            <article class="location-item" key={destination.number}>
+
+              <span class="location-number">
+                {destination.number}
+              </span>
+
+              <div class="location-item-content">
+                <span class="location-category">
+                  {destination.category}
+                </span>
+
+                <h3>{destination.name}</h3>
+              </div>
+
+              <div class="location-time">
+                <strong>{destination.time}</strong>
+                <span>Approx.</span>
+              </div>
+
+            </article>
+          ))}
+        </div>
+
+        <p class="location-disclaimer">
+          *Travel times are indicative and may vary depending on
+          traffic and road conditions.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>

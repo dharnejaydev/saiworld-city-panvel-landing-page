@@ -1,0 +1,140 @@
+
+---
+import "../styles/SiteFooter.css";
+
+const links = [
+  { label: "Overview", href: "#overview" },
+  { label: "Amenities", href: "#amenities" },
+  { label: "Configurations", href: "#configurations" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Location", href: "#location" },
+  { label: "Enquire Now", href: "#contact" },
+];
+
+const registrations = [
+  { phase: "Phase 1", number: "P52000006318" },
+  { phase: "Phase 2", number: "P52000022708" },
+  { phase: "Phase 3", number: "P52000053727" },
+];
+
+const agentRera = "A51900037431";
+---
+
+<footer class="site-footer">
+
+  <div class="footer-main">
+    <div class="footer-container">
+
+      <!-- BRAND -->
+      <div class="footer-brand">
+        <a href="#top" class="footer-logo">
+          SAI WORLD CITY<span>.</span>
+        </a>
+
+        <span class="footer-location">PANVEL · NAVI MUMBAI</span>
+
+       
+
+        <a
+          class="footer-address"
+          href="https://www.google.com/maps/search/?api=1&query=Sai+World+City+Palaspe+Phata+Panvel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Palaspe Phata Junction, Panvel – 410206 
+        </a>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="footer-navigation">
+        <span class="footer-label">EXPLORE</span>
+        <h3>Quick Links</h3>
+
+        <nav class="footer-links">
+          {links.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="footer-contact">
+        <span class="footer-label">GET IN TOUCH</span>
+        <h3>Let's connect.</h3>
+
+        <a href="tel:+919920968878" class="footer-phone">
+          +91 99209 68878
+        </a>
+
+        <a href="tel:+918879957281" class="footer-phone">
+          +91 88799 57281
+        </a>
+
+        <a
+          href="https://wa.me/919920968878"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-whatsapp"
+        >
+          WhatsApp Us 
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RERA DETAILS -->
+  <div class="footer-legal">
+    <div class="footer-legal-inner">
+
+      <div class="footer-rera">
+        <span class="footer-label">PROJECT RERA</span>
+
+        <div class="footer-rera-list">
+          {registrations.map((item) => (
+            <span>
+              {item.phase}: <strong>{item.number}</strong>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="footer-agent">
+        <span class="footer-label">AGENT RERA</span>
+        <strong>{agentRera}</strong>
+      </div>
+
+      <div class="footer-disclaimer">
+        <span class="footer-label">DISCLAIMER</span>
+        <p>
+         The content is for information purposes only and does not constitute an offer to avail of any service. Prices mentioned are subject to change without notice and properties mentioned are subject to availability. Images for representation purposes only. This is the official website of CP of the Developer. 
+
+
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+
+      <p>
+        © {new Date().getFullYear()} Sai World City. All rights reserved.
+      </p>
+
+      <div class="footer-bottom-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a
+          href="https://maharera.maharashtra.gov.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</footer>

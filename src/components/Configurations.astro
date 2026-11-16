@@ -1,0 +1,144 @@
+
+---
+import "../styles/configurations.css";
+
+const phases = [
+  {
+    id: "phase-1",
+    label: "Phase 1",
+    flats: [
+      { type: "2 BHK", area: "878 sq. ft.", price: "₹1.57 Cr+" },
+      { type: "2 BHK", area: "924 sq. ft.", price: "₹1.59 Cr+" },
+      { type: "2 BHK", area: "930 sq. ft.", price: "₹1.66 Cr+" },
+      { type: "3 BHK", area: "1,190 sq. ft.", price: "₹2.11 Cr+", preferred: true },
+      { type: "3 BHK", area: "1,214 sq. ft.", price: "₹2.14 Cr+" },
+      { type: "3 BHK", area: "1,215 sq. ft.", price: "₹2.15 Cr+" },
+      { type: "3 BHK", area: "1,310 sq. ft.", price: "₹2.32 Cr+" },
+    ],
+  },
+  {
+    id: "phase-2",
+    label: "Phase 2",
+    flats: [
+      { type: "2 BHK", area: "713 sq. ft.", price: "₹1.31 Cr+" },
+      { type: "2 BHK", area: "715 sq. ft.", price: "₹1.32 Cr+" },
+      { type: "2 BHK", area: "801 sq. ft.", price: "₹1.47 Cr+" },
+      { type: "2.5 BHK", area: "972 sq. ft.", price: "₹1.78 Cr+" },
+      { type: "3 BHK", area: "1,206 sq. ft.", price: "₹2.00 Cr+", preferred: true },
+    ],
+  },
+  {
+    id: "phase-3",
+    label: "Phase 3",
+    flats: [
+      { type: "2 BHK", area: "757 sq. ft.", price: "₹1.39 Cr+" },
+      { type: "2 BHK", area: "760 sq. ft.", price: "₹1.40 Cr+" },
+      { type: "2 BHK", area: "864 sq. ft.", price: "₹1.59 Cr+" },
+      { type: "3 BHK", area: "1,334 sq. ft.", price: "₹2.41 Cr+", preferred: true },
+      { type: "3.5 BHK", area: "1,552 sq. ft.", price: "₹2.89 Cr+" },
+      { type: "4 BHK", area: "1,856 sq. ft.", price: "₹3.34 Cr+" },
+      { type: "4 BHK", area: "1,863 sq. ft.", price: "₹3.35 Cr+" },
+      { type: "2 BHK", area: "620 sq. ft.", price: "₹1.15 Cr+" },
+      { type: "2 BHK", area: "627 sq. ft.", price: "₹1.16 Cr+" },
+      { type: "3 BHK", area: "1,113 sq. ft.", price: "₹2.05 Cr+" },
+    ],
+  },
+];
+---
+
+<section class="config-section" id="configurations">
+  <div class="config-container">
+
+    <div class="config-heading">
+  <h2>Area & Pricing At <em>Sai World City</em></h2>
+</div>
+
+    <div class="config-tabs" role="tablist" aria-label="Select project phase">
+      {phases.map((phase, index) => (
+        <button
+          class:list={["config-tab", { "is-active": index === 0 }]}
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`${phase.id}-panel`}
+          data-phase-tab={phase.id}
+        >
+          {phase.label}
+        </button>
+      ))}
+    </div>
+
+    {phases.map((phase, index) => (
+      <div
+        class="config-phase-panel"
+        id={`${phase.id}-panel`}
+        role="tabpanel"
+        data-phase-panel={phase.id}
+        hidden={index !== 0}
+      >
+        <div class="config-grid">
+          {phase.flats.map((flat) => (
+            <article class:list={["config-card", { "is-preferred": flat.preferred }]}>
+              {flat.preferred && (
+                <span class="preferred-label">MOST PREFERRED</span>
+              )}
+
+              <div class="config-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <rect x="7" y="7" width="34" height="34" rx="9" />
+                  <path d="M16 34V20L24 14L32 20V34" />
+                  <path d="M21 34V27H27V34" />
+                  <path d="M19 22H19.1M29 22H29.1" />
+                </svg>
+              </div>
+
+              <h3>{flat.type}</h3>
+              <p class="config-area">Carpet Area: {flat.area}</p>
+
+              <div class="config-card-divider"></div>
+
+              <p class="config-price">{flat.price}</p>
+
+              <a
+                class="config-enquire"
+                href="#contact"
+                aria-label={`Enquire about ${flat.type}, ${flat.area}`}
+              >
+                ENQUIRE NOW <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <p class="config-disclaimer">
+      *Prices mentioned are indicative starting prices. Final pricing,
+      taxes, registration, parking and other applicable charges are
+      subject to confirmation by the sales team. Please verify all
+      details before making a purchase decision.
+    </p>
+
+  </div>
+</section>
+
+<script>
+  const configTabs = document.querySelectorAll<HTMLButtonElement>("[data-phase-tab]");
+  const configPanels = document.querySelectorAll<HTMLElement>("[data-phase-panel]");
+
+  configTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const selectedPhase = tab.dataset.phaseTab;
+
+      configTabs.forEach((item) => {
+        const active = item === tab;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+
+      configPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.phasePanel !== selectedPhase;
+      });
+    });
+  });
+</script>

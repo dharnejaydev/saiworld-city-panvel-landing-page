@@ -1,0 +1,158 @@
+
+/* ==========================================
+   SAI WORLD CITY - HEADER
+========================================== */
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 20;
+
+  width: min(1320px, calc(100% - 100px));
+  height: 94px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(255,255,255,0.17);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  color: white;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 43px;
+  height: 43px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #e8bd72;
+  color: #e8bd72;
+
+  font-family: Georgia, serif;
+}
+
+.brand-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.brand-name small {
+  display: block;
+  margin-top: 5px;
+
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.desktop-nav a {
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.desktop-nav a:hover {
+  color: #e8bd72;
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 16px 21px;
+
+  background: white;
+  color: #071a30;
+
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+}
+
+.header-cta:hover {
+  background: #e8bd72;
+  transform: translateY(-2px);
+}
+
+.menu-toggle,
+.mobile-nav {
+  display: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .site-header {
+    width: calc(100% - 36px);
+    height: 75px;
+  }
+
+  .desktop-nav,
+  .header-cta {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 10px;
+    border: 0;
+    background: transparent;
+  }
+
+  .menu-toggle span {
+    width: 23px;
+    height: 2px;
+    background: white;
+  }
+
+  .mobile-nav:not([hidden]) {
+    position: absolute;
+    z-index: 30;
+    top: 75px;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px 25px;
+    background: #071a30;
+  }
+
+  .mobile-nav a {
+    padding: 14px 0;
+
+    color: white;
+    text-decoration: none;
+
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    font-size: 13px;
+  }
+}

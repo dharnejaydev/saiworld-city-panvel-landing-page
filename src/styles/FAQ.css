@@ -1,0 +1,355 @@
+:root {
+  --faq-red: #b51f36;
+  --faq-dark: #242424;
+  --faq-muted: #777777;
+  --faq-border: #e9e5e2;
+  --faq-light: #faf8f7;
+}
+
+/* ==================================
+   SECTION
+================================== */
+
+.faq-section {
+  width: 100%;
+  padding: 85px 5%;
+  background: #ffffff;
+}
+
+.faq-container {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* ==================================
+   HEADING
+================================== */
+
+.faq-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+
+  margin-bottom: 35px;
+}
+
+.faq-eyebrow {
+  display: block;
+  margin-bottom: 13px;
+
+  color: var(--faq-red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.faq-heading h2 {
+  margin: 0;
+
+  color: var(--faq-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+}
+
+.faq-heading h2 em {
+  color: var(--faq-red);
+  font-weight: 400;
+}
+
+.faq-heading p {
+  margin: 12px 0 0;
+
+  color: var(--faq-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.faq-heading-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+
+  padding-bottom: 5px;
+
+  color: var(--faq-red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.faq-heading-link span {
+  font-size: 17px;
+  transition: transform 0.25s ease;
+}
+
+.faq-heading-link:hover span {
+  transform: translate(3px, -3px);
+}
+
+/* ==================================
+   FAQ LIST
+================================== */
+
+.faq-list {
+  border-top: 1px solid var(--faq-border);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--faq-border);
+  transition: background 0.25s ease;
+}
+
+.faq-question {
+  display: grid;
+  grid-template-columns: 45px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 15px;
+
+  width: 100%;
+  min-height: 75px;
+  padding: 17px 12px;
+
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-number {
+  color: #b8a18e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+}
+
+.faq-question-text {
+  color: var(--faq-dark);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color 0.25s ease;
+}
+
+/* ==================================
+   TOGGLE ICON
+================================== */
+
+.faq-toggle {
+  position: relative;
+
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid var(--faq-border);
+  border-radius: 50%;
+
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.faq-toggle::before,
+.faq-toggle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 11px;
+  height: 1px;
+
+  background: var(--faq-dark);
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.faq-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* ==================================
+   ACTIVE ITEM
+================================== */
+
+.faq-item.is-active {
+  background: var(--faq-light);
+}
+
+.faq-item.is-active .faq-question-text {
+  color: var(--faq-red);
+}
+
+.faq-item.is-active .faq-number {
+  color: var(--faq-red);
+}
+
+.faq-item.is-active .faq-toggle {
+  background: var(--faq-red);
+  border-color: var(--faq-red);
+}
+
+.faq-item.is-active .faq-toggle::before,
+.faq-item.is-active .faq-toggle::after {
+  background: #ffffff;
+}
+
+.faq-item.is-active .faq-toggle::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* ==================================
+   ANSWER
+================================== */
+
+.faq-answer {
+  padding: 0 65px 23px 72px;
+}
+
+.faq-answer[hidden] {
+  display: none;
+}
+
+.faq-answer p {
+  max-width: 800px;
+  margin: 0;
+
+  color: var(--faq-muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+/* ==================================
+   ACCESSIBILITY
+================================== */
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--faq-red);
+  outline-offset: -3px;
+}
+
+/* ==================================
+   TABLET
+================================== */
+
+@media (max-width: 900px) {
+  .faq-section {
+    padding: 70px 4%;
+  }
+
+  .faq-heading h2 {
+    font-size: 40px;
+  }
+}
+
+/* ==================================
+   MOBILE
+================================== */
+
+@media (max-width: 600px) {
+  .faq-section {
+    padding: 55px 18px;
+  }
+
+  .faq-heading {
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  .faq-eyebrow {
+    font-size: 9px;
+    margin-bottom: 10px;
+  }
+
+  .faq-heading h2 {
+    font-size: 35px;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+  }
+
+  .faq-heading p {
+    max-width: 320px;
+    font-size: 12px;
+  }
+
+  .faq-heading-link {
+    margin-top: 18px;
+    font-size: 9px;
+  }
+
+  .faq-question {
+    grid-template-columns: 27px minmax(0, 1fr) 30px;
+    gap: 9px;
+
+    min-height: 68px;
+    padding: 14px 2px;
+  }
+
+  .faq-number {
+    font-size: 11px;
+  }
+
+  .faq-question-text {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .faq-toggle {
+    width: 29px;
+    height: 29px;
+  }
+
+  .faq-answer {
+    padding: 0 35px 19px 38px;
+  }
+
+  .faq-answer p {
+    font-size: 11px;
+    line-height: 1.8;
+  }
+}
+
+/* ==================================
+   SMALL MOBILE
+================================== */
+
+@media (max-width: 360px) {
+  .faq-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .faq-heading h2 {
+    font-size: 31px;
+  }
+
+  .faq-question {
+    grid-template-columns: 23px minmax(0, 1fr) 28px;
+    gap: 7px;
+  }
+
+  .faq-question-text {
+    font-size: 11px;
+  }
+
+  .faq-answer {
+    padding-left: 30px;
+  }
+}
+
+/* ==================================
+   REDUCED MOTION
+================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item,
+  .faq-question-text,
+  .faq-toggle,
+  .faq-toggle::before,
+  .faq-toggle::after,
+  .faq-heading-link span {
+    transition: none;
+  }
+}

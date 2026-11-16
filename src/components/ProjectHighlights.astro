@@ -1,0 +1,97 @@
+
+---
+import "../styles/ProjectHighlights.css";
+
+const highlights = [
+  {
+    number: "01",
+    eyebrow: "THE TOWNSHIP",
+    title: "32 Acres of Possibilities",
+    image: "/images/highlights/township-masterplan.jpg",
+    className: "highlight-township",
+  },
+  {
+    number: "02",
+    eyebrow: "THE CLUBHOUSE",
+    title: "A G+5 Lifestyle Destination",
+    image: "/images/highlights/clubhouse.jpg",
+    className: "highlight-clubhouse",
+  },
+  {
+    number: "03",
+    eyebrow: "A SIGNATURE EXPERIENCE",
+    title: "Sky Pool Inspired by Marina Bay",
+    image: "/images/highlights/sky-pool.jpg",
+    className: "highlight-pool",
+  },
+  {
+    number: "04",
+    eyebrow: "LANDSCAPED EXPERIENCES",
+    title: "Landmarks Within the Landscape",
+    image: "/images/highlights/landscape.jpg",
+    className: "highlight-landscape",
+  },
+];
+---
+
+<section class="project-highlights" id="project-highlights">
+
+  <div class="highlights-container">
+
+    <!-- SECTION HEADER -->
+    <div class="highlights-heading">
+
+      <div>
+       
+
+        <h2>
+          Project<br />
+          <span> Highlights </span>
+        </h2>
+      </div>
+
+
+    </div>
+
+    <!-- HIGHLIGHTS GRID -->
+    <div class="highlights-grid">
+
+      {highlights.map((item) => (
+        <article class={`highlight-card ${item.className}`}>
+
+          <div class="highlight-image">
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+            />
+
+            <span class="highlight-number">
+              {item.number}
+            </span>
+          </div>
+
+          <div class="highlight-content">
+
+            <span class="highlight-card-eyebrow">
+              {item.eyebrow}
+            </span>
+
+            <h3>{item.title}</h3>
+
+            <p>{item.description}</p>
+
+          </div>
+
+        </article>
+      ))}
+
+    </div>
+
+  
+
+    </div>
+
+  
+
+</section>
