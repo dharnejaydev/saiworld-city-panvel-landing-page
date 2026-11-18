@@ -8,18 +8,44 @@ const navigation = [
   { label: "Amenities", href: "#amenities" },
   { label: "Gallery", href: "#gallery" },
   { label: "Location", href: "#location" },
-  { label: "Contact Us", href: "#contact" }
+  { label: "Contact Us", href: "#contact" },
 ];
+
+const phoneNumber = "+919920968878";
 ---
 
+<!-- TOP ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="announcement-content">
+    <span class="announcement-message">
+      CRAFTED. COMPLETED. READY FOR YOU.
+    </span>
+
+    <span class="announcement-highlight">
+      PHASE 2 – OC RECEIVED
+    </span>
+
+    <span class="announcement-message announcement-homes">
+      2, 2.5, 3 &amp; 4 BHK LUXURY HOMES
+    </span>
+  </div>
+</div>
+
+<!-- MAIN HEADER -->
 <header class="site-header">
 
-  <!-- SAI WORLD CITY LOGO -->
-  <a class="brand-lockup" href="#top" aria-label="Sai World City home">
+  <!-- LOGO -->
+  <a
+    class="brand-lockup"
+    href="#top"
+    aria-label="Sai World City home"
+  >
     <img
       class="brand-logo"
       src="/images/logo/sai-world-city-logo.webp"
       alt="Sai World City Panvel"
+      width="400"
+      height="400"
       fetchpriority="high"
     />
   </a>
@@ -27,9 +53,20 @@ const navigation = [
   <!-- DESKTOP NAVIGATION -->
   <nav class="desktop-nav" aria-label="Main navigation">
     {navigation.map((item) => (
-      <a href={item.href}>{item.label}</a>
+      <a href={item.href}>
+        {item.label}
+      </a>
     ))}
   </nav>
+
+  <!-- PHONE NUMBER -->
+  <a
+    class="nav-phone"
+    href={`tel:${phoneNumber}`}
+    aria-label="Call +91 9920968878"
+  >
+    +91 9920968878
+  </a>
 
   <!-- MOBILE MENU BUTTON -->
   <button
@@ -53,10 +90,18 @@ const navigation = [
   hidden
 >
   {navigation.map((item) => (
-    <a href={item.href}>{item.label}</a>
+    <a href={item.href}>
+      {item.label}
+    </a>
   ))}
 
-  <a href="#contact">Request details ↗</a>
+  <a class="mobile-nav-phone" href={`tel:${phoneNumber}`}>
+    Call +91 9920968878
+  </a>
+
+  <a class="mobile-nav-cta" href="#contact">
+    Request Details ↗
+  </a>
 </nav>
 
 <script>
@@ -73,6 +118,7 @@ const navigation = [
       menuButton.getAttribute("aria-expanded") === "true";
 
     menuButton.setAttribute("aria-expanded", String(!isOpen));
+
     menuButton.setAttribute(
       "aria-label",
       isOpen ? "Open navigation" : "Close navigation"
@@ -83,7 +129,10 @@ const navigation = [
 
   mobileNavigation?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      mobileNavigation!.hidden = true;
+      if (!mobileNavigation) return;
+
+      mobileNavigation.hidden = true;
+
       menuButton?.setAttribute("aria-expanded", "false");
       menuButton?.setAttribute("aria-label", "Open navigation");
     });

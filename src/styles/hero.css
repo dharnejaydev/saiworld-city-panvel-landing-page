@@ -138,8 +138,7 @@
   margin-top: 15px;
   padding: 5px 12px;
 
-  color: #f04458;
-  background: #ffffff;
+  color: #ffffff;
 
   font-family: "Manrope", sans-serif;
   font-size: clamp(19px, 2vw, 27px);
@@ -916,8 +915,7 @@
     margin-top: 14px;
     padding: 7px 10px;
 
-    color: #ef4056;
-    background: #fff;
+    color: #ffffff;
 
     font-family: "Manrope", sans-serif;
     font-size: clamp(16px, 4.5vw, 20px);
@@ -1242,4 +1240,131 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ==========================================
+   HEADER NAVIGATION — FINAL POSITIONING
+========================================== */
+
+.swc-hero-navigation {
+  position: absolute !important;
+  top: 70px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: min(92%, 1480px) !important;
+
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  align-items: center !important;
+
+  gap: 35px !important;
+  z-index: 10050 !important;
+  pointer-events: auto !important;
+}
+
+.swc-nav-links {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: clamp(20px, 2.5vw, 44px) !important;
+
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.swc-nav-links a,
+.swc-nav-phone {
+  color: #ffffff !important;
+  font-family: "Manrope", "Arial", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  text-decoration: none !important;
+
+  position: relative !important;
+  z-index: 10051 !important;
+  pointer-events: auto !important;
+
+  transition: color 0.25s ease, opacity 0.25s ease !important;
+}
+
+.swc-nav-links a:hover,
+.swc-nav-phone:hover {
+  color: #ffd36a !important;
+}
+
+.swc-nav-phone {
+  justify-self: end !important;
+  white-space: nowrap !important;
+  font-size: 17px !important;
+}
+
+/* TABLET */
+@media (max-width: 1050px) {
+  .swc-hero-navigation {
+    width: 94% !important;
+    gap: 16px !important;
+  }
+
+  .swc-nav-links {
+    gap: 16px !important;
+  }
+
+  .swc-nav-links a {
+    font-size: 13px !important;
+  }
+
+  .swc-nav-phone {
+    font-size: 14px !important;
+  }
+}
+
+/* MOBILE — USE THE EXISTING MOBILE MENU */
+@media (max-width: 700px) {
+  .swc-hero-navigation {
+    display: none !important;
+  }
+}
+
+/* FLOATING BUTTONS — RAISE POSITION */
+
+.swc-floating-contact {
+  bottom: 44px !important;
+}
+
+@media (max-width: 900px) {
+  .swc-floating-contact {
+    bottom: 40px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .swc-floating-contact {
+    bottom: 38px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .swc-floating-contact {
+    bottom: 34px !important;
+  }
+}
+
+/* ==========================================
+   MOBILE HERO CONTENT POSITION & TYPOGRAPHY
+========================================== */
+
+@media (max-width: 700px) {
+
+  .swc-hero-content {
+    transform: translateY(24px);
+  }
+
+  .swc-project-name {
+    font-family: "Manrope", sans-serif !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+  }
+
 }

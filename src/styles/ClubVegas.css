@@ -596,3 +596,30 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+.club-heading {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(42px, 5.5vw, 82px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.08;
+}
+
+.club-heading .club-heading-main {
+  display: block;
+  color: #171717 !important;
+}
+
+.club-heading .club-heading-highlight {
+  display: block;
+  color: #c51f36 !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .club-heading {
+    font-size: clamp(34px, 9vw, 48px);
+    line-height: 1.12;
+  }
+}

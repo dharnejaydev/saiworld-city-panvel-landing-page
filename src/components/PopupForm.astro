@@ -1,0 +1,235 @@
+
+---
+import "../styles/PopupForm.css";
+
+const whatsappNumber = "919920968878";
+---
+
+<div class="enquiry-modal" id="enquiry-modal" hidden>
+  <button
+    class="enquiry-backdrop"
+    type="button"
+    aria-label="Close enquiry form"
+    data-close-enquiry
+  ></button>
+
+  <section
+    class="enquiry-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="enquiry-title"
+  >
+    <div class="enquiry-visual">
+      <div class="enquiry-visual-content">
+        <div class="enquiry-brand"></div>
+      </div>
+    </div>
+
+    <div class="enquiry-form-panel">
+      <button
+        class="enquiry-close"
+        type="button"
+        aria-label="Close enquiry form"
+        data-close-enquiry
+      >
+        <span>Close</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="enquiry-form-heading">
+        <span class="enquiry-form-eyebrow">PERSONAL SITE VISIT</span>
+
+        <h2 id="enquiry-title">
+          Experience it. Before you call it home.
+        </h2>
+
+        <p>
+          Book your complimentary site visit and explore Sai World City
+          in person. Share your details.
+        </p>
+      </div>
+
+      <form class="enquiry-form" id="enquiry-form">
+        <div class="enquiry-field">
+          <label for="enquiry-name">Your name</label>
+          <input
+            id="enquiry-name"
+            name="name"
+            type="text"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="enquiry-field">
+          <label for="enquiry-phone">Mobile number</label>
+
+          <div class="enquiry-phone-wrap">
+            <span>+91</span>
+            <input
+              id="enquiry-phone"
+              name="phone"
+              type="tel"
+              placeholder="Enter your 10-digit number"
+              inputmode="numeric"
+              autocomplete="tel-national"
+              pattern="[6-9][0-9]{9}"
+              maxlength="10"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="enquiry-field">
+          <label for="enquiry-configuration">Interested in</label>
+
+          <select
+            id="enquiry-configuration"
+            name="configuration"
+            required
+          >
+            <option value="" disabled selected>
+              Select configuration
+            </option>
+            <option value="2 BHK">2 BHK</option>
+            <option value="2.5 BHK">2.5 BHK</option>
+            <option value="3 BHK">3 BHK</option>
+            <option value="4 BHK">4 BHK</option>
+          </select>
+        </div>
+
+        <button class="enquiry-submit" type="submit">
+          <span>Schedule My Site Visit</span>
+        </button>
+
+        <p class="enquiry-privacy">
+          Our team will contact you to coordinate your preferred visit.
+        </p>
+      </form>
+
+      <div class="enquiry-bottom-note">
+        <span class="enquiry-bottom-line"></span>
+        <span class="enquiry-bottom-line"></span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const modal = document.querySelector<HTMLElement>("#enquiry-modal");
+  const form = document.querySelector<HTMLFormElement>("#enquiry-form");
+  const nameInput = document.querySelector<HTMLInputElement>("#enquiry-name");
+
+  const popupDismissedKey = "swc-enquiry-popup-dismissed";
+
+  let previousFocus: HTMLElement | null = null;
+  let autoPopupTimer: number | undefined;
+
+  function openEnquiry() {
+    if (!modal || !modal.hidden) return;
+
+    previousFocus = document.activeElement as HTMLElement;
+
+    modal.hidden = false;
+    document.body.classList.add("enquiry-modal-open");
+
+    window.setTimeout(() => nameInput?.focus(), 100);
+  }
+
+  function closeEnquiry() {
+    if (!modal || modal.hidden) return;
+
+    modal.hidden = true;
+    document.body.classList.remove("enquiry-modal-open");
+
+    previousFocus?.focus();
+  }
+
+  // AUTOMATIC POPUP: 3 seconds after each page visit/load.
+  // Closing it prevents another automatic popup in this tab session.
+  if (!sessionStorage.getItem(popupDismissedKey)) {
+    autoPopupTimer = window.setTimeout(() => {
+      openEnquiry();
+    }, 3000);
+  }
+
+  // Manual enquiry buttons always open the popup.
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+
+    const trigger = target.closest(
+      ".js-open-lead-form, a[href='#contact']"
+    );
+
+    if (trigger) {
+      event.preventDefault();
+
+      if (autoPopupTimer !== undefined) {
+        window.clearTimeout(autoPopupTimer);
+      }
+
+      openEnquiry();
+    }
+  });
+
+  // Close buttons and backdrop.
+  modal?.querySelectorAll<HTMLElement>("[data-close-enquiry]").forEach(
+    (element) => {
+      element.addEventListener("click", () => {
+        sessionStorage.setItem(popupDismissedKey, "true");
+
+        if (autoPopupTimer !== undefined) {
+          window.clearTimeout(autoPopupTimer);
+        }
+
+        closeEnquiry();
+      });
+    }
+  );
+
+  // Escape key also dismisses the automatic popup for this session.
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal && !modal.hidden) {
+      sessionStorage.setItem(popupDismissedKey, "true");
+      closeEnquiry();
+    }
+  });
+
+  // Submit enquiry through WhatsApp.
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+
+    const name = String(formData.get("name") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const configuration = String(
+      formData.get("configuration") || ""
+    );
+
+    const message = [
+      "Hello, I am interested in Sai World City, Panvel.",
+      "",
+      `Name: ${name}`,
+      `Mobile: +91 ${phone}`,
+      `Configuration: ${configuration}`,
+      "",
+      "I would like to schedule a site visit. Please contact me."
+    ].join("\n");
+
+    const whatsappUrl =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    sessionStorage.setItem(popupDismissedKey, "true");
+
+    form.reset();
+    closeEnquiry();
+  });
+</script>

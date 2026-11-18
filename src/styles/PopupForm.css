@@ -1,0 +1,835 @@
+/* ==========================================
+   SAI WORLD CITY — ENQUIRY POPUP
+   Premium Ivory / Wine Editorial Design
+========================================== */
+
+:root {
+  --enquiry-wine: #75172e;
+  --enquiry-wine-dark: #4b0d20;
+  --enquiry-ivory: #f7f4ee;
+  --enquiry-paper: #fffefa;
+  --enquiry-ink: #292020;
+  --enquiry-muted: #817b76;
+  --enquiry-border: #e7e0d9;
+  --enquiry-gold: #e8cda9;
+}
+
+/* ==========================================
+   HIDDEN STATE
+========================================== */
+
+.enquiry-modal[hidden] {
+  display: none !important;
+}
+
+/* ==========================================
+   BACKGROUND SCROLL LOCK
+   Requires JS to add/remove the class on
+   BOTH html and body.
+========================================== */
+
+html.enquiry-modal-open,
+body.enquiry-modal-open {
+  overflow: hidden !important;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+/* ==========================================
+   OVERLAY
+========================================== */
+
+.enquiry-modal:not([hidden]) {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  padding: 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  background: rgba(15, 13, 15, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* BACKDROP */
+
+.enquiry-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+
+/* ==========================================
+   DIALOG
+========================================== */
+
+.enquiry-dialog {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+
+  width: min(100%, 1100px);
+  height: min(720px, 90vh);
+  height: min(720px, 90dvh);
+  min-height: 570px;
+
+  margin: auto;
+  overflow: hidden;
+
+  background: var(--enquiry-paper);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.38);
+
+  animation: enquiry-appear 0.3s ease both;
+}
+
+@keyframes enquiry-appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================
+   LEFT VISUAL PANEL
+========================================== */
+
+.enquiry-visual {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+
+  min-width: 0;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 12, 17, 0.12) 0%,
+      rgba(20, 12, 17, 0.18) 35%,
+      rgba(20, 12, 17, 0.88) 100%
+    ),
+    url("/images/hero/sai-world-city-main2.webp");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.enquiry-visual-content {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 42px;
+
+  color: #fff;
+}
+
+.enquiry-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.enquiry-brand > span {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.enquiry-brand small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.enquiry-visual-main {
+  margin: auto 0;
+  padding: 36px 0;
+}
+
+.enquiry-kicker {
+  margin: 0 0 20px;
+
+  color: var(--enquiry-gold);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.6;
+}
+
+.enquiry-visual h2 {
+  max-width: 450px;
+  margin: 0 0 24px;
+
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(37px, 4vw, 55px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.enquiry-visual h2 em {
+  color: var(--enquiry-gold);
+  font-weight: 400;
+}
+
+.enquiry-description {
+  max-width: 370px;
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* PROJECT FACTS */
+
+.enquiry-project-details {
+  padding-top: 21px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.enquiry-detail-label {
+  display: block;
+  margin-bottom: 9px;
+
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.enquiry-project-details > strong {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.enquiry-detail-line {
+  width: 100%;
+  height: 1px;
+  margin: 17px 0;
+
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.enquiry-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+}
+
+.enquiry-facts strong {
+  color: #fff;
+  font-size: 18px;
+}
+
+.enquiry-visual-footer {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* ==========================================
+   RIGHT FORM PANEL
+========================================== */
+
+.enquiry-form-panel {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+  padding: 55px 48px 35px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  background: var(--enquiry-paper);
+}
+
+/* CLOSE BUTTON */
+
+.enquiry-close {
+  position: absolute;
+  top: 25px;
+  right: 27px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 8px 0;
+
+  color: var(--enquiry-muted);
+  background: transparent;
+  border: 0;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.enquiry-close:hover {
+  color: var(--enquiry-wine);
+}
+
+.enquiry-close svg {
+  width: 16px;
+  height: 16px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+/* ==========================================
+   FORM HEADING
+========================================== */
+
+.enquiry-form-eyebrow {
+  display: block;
+  margin-bottom: 15px;
+
+  color: var(--enquiry-wine);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+}
+
+.enquiry-form-heading h2 {
+  max-width: 500px;
+  margin: 0 25px 13px 0;
+
+  color: var(--enquiry-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 3.2vw, 43px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.enquiry-form-heading > p {
+  max-width: 470px;
+  margin: 0 0 32px;
+
+  color: var(--enquiry-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   FORM LAYOUT
+========================================== */
+
+.enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.enquiry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.enquiry-field label {
+  color: #514943;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+}
+
+/* INPUTS */
+
+.enquiry-field input,
+.enquiry-field select {
+  display: block;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 54px;
+  min-width: 0;
+
+  padding: 0 16px;
+
+  color: var(--enquiry-ink);
+  background: #fff;
+
+  border: 1px solid var(--enquiry-border);
+  border-radius: 5px;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.enquiry-field input::placeholder {
+  color: #aaa29b;
+}
+
+.enquiry-field input:focus,
+.enquiry-field select:focus {
+  border-color: var(--enquiry-wine);
+  box-shadow: 0 0 0 3px rgba(117, 23, 46, 0.08);
+}
+
+/* PHONE FIELD */
+
+.enquiry-phone-wrap {
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 54px;
+
+  overflow: hidden;
+
+  background: #fff;
+  border: 1px solid var(--enquiry-border);
+  border-radius: 5px;
+}
+
+.enquiry-phone-wrap > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  padding: 0 17px;
+
+  color: var(--enquiry-wine);
+  border-right: 1px solid var(--enquiry-border);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.enquiry-phone-wrap input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  height: 100%;
+
+  padding: 0 15px;
+
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.enquiry-phone-wrap input:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+/* ==========================================
+   CTA BUTTON
+========================================== */
+
+.enquiry-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 58px;
+  margin-top: 5px;
+  padding: 16px 20px;
+
+  color: #fff;
+  background: var(--enquiry-wine);
+  border: 1px solid var(--enquiry-wine);
+  border-radius: 4px;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.enquiry-submit:hover {
+  background: var(--enquiry-wine-dark);
+  border-color: var(--enquiry-wine-dark);
+  transform: translateY(-2px);
+}
+
+/* PRIVACY */
+
+.enquiry-privacy {
+  margin: 0;
+
+  color: #928b85;
+  font-size: 10px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* BRAND FOOTER */
+
+.enquiry-bottom-note {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-top: 30px;
+
+  color: #a39a91;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.enquiry-bottom-line {
+  flex: 1;
+  height: 1px;
+  background: var(--enquiry-border);
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 850px) {
+  .enquiry-dialog {
+    grid-template-columns: 0.85fr 1.15fr;
+    height: min(680px, 92vh);
+    height: min(680px, 92dvh);
+  }
+
+  .enquiry-visual-content {
+    padding: 30px;
+  }
+
+  .enquiry-form-panel {
+    padding: 52px 30px 28px;
+  }
+
+  .enquiry-visual h2 {
+    font-size: 39px;
+  }
+
+  .enquiry-form-heading h2 {
+    font-size: 32px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+  .enquiry-modal:not([hidden]) {
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .enquiry-dialog {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    min-height: 0;
+
+    margin: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    border-radius: 10px;
+  }
+
+  .enquiry-visual {
+    flex: 0 0 auto;
+    min-height: 190px;
+
+    background-position: center 48%;
+  }
+
+  .enquiry-visual-content {
+    min-height: 190px;
+    padding: 20px 22px;
+    gap: 15px;
+  }
+
+  .enquiry-brand {
+    gap: 6px;
+  }
+
+  .enquiry-brand > span {
+    font-size: 9px;
+  }
+
+  .enquiry-brand small {
+    font-size: 8px;
+  }
+
+  .enquiry-visual-main {
+    margin: 8px 0;
+    padding: 0;
+  }
+
+  .enquiry-kicker {
+    margin-bottom: 9px;
+    font-size: 8px;
+  }
+
+  .enquiry-visual h2 {
+    max-width: 340px;
+    margin-bottom: 10px;
+    font-size: clamp(27px, 7vw, 34px);
+    line-height: 1.08;
+  }
+
+  .enquiry-description {
+    max-width: 340px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .enquiry-project-details {
+    padding-top: 11px;
+  }
+
+  .enquiry-detail-label {
+    margin-bottom: 5px;
+    font-size: 8px;
+  }
+
+  .enquiry-project-details > strong {
+    font-size: 14px;
+  }
+
+  .enquiry-detail-line {
+    margin: 9px 0;
+  }
+
+  .enquiry-facts {
+    gap: 18px;
+    font-size: 10px;
+  }
+
+  .enquiry-facts strong {
+    font-size: 14px;
+  }
+
+  .enquiry-visual-footer {
+    font-size: 8px;
+  }
+
+  .enquiry-form-panel {
+    flex: 0 0 auto;
+    padding: 31px 22px 22px;
+    overflow: visible;
+  }
+
+  .enquiry-close {
+    top: 13px;
+    right: 17px;
+    font-size: 11px;
+  }
+
+  .enquiry-form-eyebrow {
+    margin-bottom: 9px;
+    font-size: 9px;
+  }
+
+  .enquiry-form-heading h2 {
+    max-width: 350px;
+    margin: 0 18px 9px 0;
+    font-size: clamp(25px, 6vw, 31px);
+  }
+
+  .enquiry-form-heading > p {
+    margin-bottom: 19px;
+    font-size: 11px;
+    line-height: 1.65;
+  }
+
+  .enquiry-form {
+    gap: 14px;
+  }
+
+  .enquiry-field {
+    gap: 7px;
+  }
+
+  .enquiry-field label {
+    font-size: 9px;
+  }
+
+  .enquiry-field input,
+  .enquiry-field select,
+  .enquiry-phone-wrap {
+    height: 48px;
+    font-size: 12px;
+  }
+
+  .enquiry-submit {
+    min-height: 51px;
+    font-size: 10px;
+  }
+
+  .enquiry-privacy {
+    font-size: 9px;
+  }
+
+  .enquiry-bottom-note {
+    gap: 9px;
+    margin-top: 20px;
+    font-size: 8px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .enquiry-modal:not([hidden]) {
+    padding: 8px;
+  }
+
+  .enquiry-dialog {
+    max-height: calc(100vh - 16px);
+    max-height: calc(100dvh - 16px);
+  }
+
+  .enquiry-visual,
+  .enquiry-visual-content {
+    min-height: 175px;
+  }
+
+  .enquiry-visual-content {
+    padding: 17px;
+  }
+
+  .enquiry-form-panel {
+    padding: 29px 17px 19px;
+  }
+
+  .enquiry-form-heading h2 {
+    font-size: 25px;
+  }
+
+  .enquiry-bottom-note {
+    letter-spacing: 1px;
+  }
+}
+
+/* ==========================================
+   VERY SHORT SCREENS
+========================================== */
+
+@media (max-height: 650px) and (min-width: 651px) {
+  .enquiry-dialog {
+    height: 94vh;
+    height: 94dvh;
+    min-height: 0;
+  }
+
+  .enquiry-visual-content {
+    padding: 25px;
+  }
+
+  .enquiry-form-panel {
+    padding-top: 45px;
+    padding-bottom: 20px;
+  }
+
+  .enquiry-form-heading > p {
+    margin-bottom: 18px;
+  }
+
+  .enquiry-form {
+    gap: 13px;
+  }
+
+  .enquiry-bottom-note {
+    margin-top: 17px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .enquiry-dialog {
+    animation: none;
+  }
+
+  .enquiry-submit {
+    transition: none;
+  }
+}
