@@ -1,8 +1,6 @@
 
 ---
 import "../styles/PopupForm.css";
-
-const whatsappNumber = "919920968878";
 ---
 
 <div class="enquiry-modal" id="enquiry-modal" hidden>
@@ -19,12 +17,14 @@ const whatsappNumber = "919920968878";
     aria-modal="true"
     aria-labelledby="enquiry-title"
   >
+    <!-- LEFT: EDITORIAL PANEL -->
     <div class="enquiry-visual">
       <div class="enquiry-visual-content">
         <div class="enquiry-brand"></div>
       </div>
     </div>
 
+    <!-- RIGHT: FORM PANEL -->
     <div class="enquiry-form-panel">
       <button
         class="enquiry-close"
@@ -119,46 +119,93 @@ const whatsappNumber = "919920968878";
 </div>
 
 <script>
-  const modal = document.querySelector<HTMLElement>("#enquiry-modal");
-  const form = document.querySelector<HTMLFormElement>("#enquiry-form");
-  const nameInput = document.querySelector<HTMLInputElement>("#enquiry-name");
+  import emailjs from "@emailjs/browser";
+
+  // ==========================================
+  // EMAILJS CONFIGURATION
+  // ==========================================
+
+  const SERVICE_ID = "service_zykw8ue";
+const TEMPLATE_ID = "template_zt43j9a";
+  const PUBLIC_KEY = "FOTLNhfG-RXdWql-8";
+
+  // ==========================================
+  // POPUP ELEMENTS
+  // ==========================================
+
+  const modal = document.querySelector<HTMLElement>(
+    "#enquiry-modal"
+  );
+
+  const form = document.querySelector<HTMLFormElement>(
+    "#enquiry-form"
+  );
+
+  const nameInput = document.querySelector<HTMLInputElement>(
+    "#enquiry-name"
+  );
 
   const popupDismissedKey = "swc-enquiry-popup-dismissed";
 
   let previousFocus: HTMLElement | null = null;
   let autoPopupTimer: number | undefined;
 
+  // ==========================================
+  // OPEN POPUP
+  // ==========================================
+
   function openEnquiry() {
     if (!modal || !modal.hidden) return;
 
-    previousFocus = document.activeElement as HTMLElement;
+    previousFocus =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
 
     modal.hidden = false;
+
     document.body.classList.add("enquiry-modal-open");
 
-    window.setTimeout(() => nameInput?.focus(), 100);
+    window.setTimeout(() => {
+      nameInput?.focus();
+    }, 100);
   }
+
+  // ==========================================
+  // CLOSE POPUP
+  // ==========================================
 
   function closeEnquiry() {
     if (!modal || modal.hidden) return;
 
     modal.hidden = true;
+
     document.body.classList.remove("enquiry-modal-open");
 
     previousFocus?.focus();
   }
 
-  // AUTOMATIC POPUP: 3 seconds after each page visit/load.
-  // Closing it prevents another automatic popup in this tab session.
-  if (!sessionStorage.getItem(popupDismissedKey)) {
+  // ==========================================
+  // AUTOMATIC POPUP AFTER 3 SECONDS
+  // ==========================================
+
+  // Popup appears on every page visit/reload
+  // until the visitor dismisses it.
+
+  if (!localStorage.getItem(popupDismissedKey)) {
     autoPopupTimer = window.setTimeout(() => {
       openEnquiry();
     }, 3000);
   }
 
-  // Manual enquiry buttons always open the popup.
+  // ==========================================
+  // MANUAL ENQUIRY BUTTONS
+  // ==========================================
+
   document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement;
+    const target = event.target;
+
+    if (!(target instanceof Element)) return;
 
     const trigger = target.closest(
       ".js-open-lead-form, a[href='#contact']"
@@ -175,61 +222,119 @@ const whatsappNumber = "919920968878";
     }
   });
 
-  // Close buttons and backdrop.
-  modal?.querySelectorAll<HTMLElement>("[data-close-enquiry]").forEach(
-    (element) => {
-      element.addEventListener("click", () => {
-        sessionStorage.setItem(popupDismissedKey, "true");
+  // ==========================================
+  // CLOSE BUTTON AND BACKDROP
+  // ==========================================
 
-        if (autoPopupTimer !== undefined) {
-          window.clearTimeout(autoPopupTimer);
-        }
+  modal?.querySelectorAll<HTMLElement>(
+    "[data-close-enquiry]"
+  ).forEach((element) => {
+    element.addEventListener("click", () => {
+      // Remember dismissal across refreshes and future visits.
+      localStorage.setItem(popupDismissedKey, "true");
 
-        closeEnquiry();
-      });
-    }
-  );
+      if (autoPopupTimer !== undefined) {
+        window.clearTimeout(autoPopupTimer);
+      }
 
-  // Escape key also dismisses the automatic popup for this session.
+      closeEnquiry();
+    });
+  });
+
+  // ==========================================
+  // ESCAPE KEY
+  // ==========================================
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && modal && !modal.hidden) {
-      sessionStorage.setItem(popupDismissedKey, "true");
+      localStorage.setItem(popupDismissedKey, "true");
       closeEnquiry();
     }
   });
 
-  // Submit enquiry through WhatsApp.
-  form?.addEventListener("submit", (event) => {
+  // ==========================================
+  // EMAILJS FORM SUBMISSION
+  // ==========================================
+
+  form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (!form.reportValidity()) return;
 
+    const submitButton =
+      form.querySelector<HTMLButtonElement>(".enquiry-submit");
+
+    const buttonText =
+      submitButton?.querySelector("span");
+
     const formData = new FormData(form);
 
-    const name = String(formData.get("name") || "").trim();
-    const phone = String(formData.get("phone") || "").trim();
-    const configuration = String(
-      formData.get("configuration") || ""
-    );
+    const templateParams = {
+      name: String(formData.get("name") || "").trim(),
 
-    const message = [
-      "Hello, I am interested in Sai World City, Panvel.",
-      "",
-      `Name: ${name}`,
-      `Mobile: +91 ${phone}`,
-      `Configuration: ${configuration}`,
-      "",
-      "I would like to schedule a site visit. Please contact me."
-    ].join("\n");
+      phone:
+        "+91 " +
+        String(formData.get("phone") || "").trim(),
 
-    const whatsappUrl =
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      configuration: String(
+        formData.get("configuration") || ""
+      ),
+    };
 
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    // Remove previous error.
+    form.querySelector(".enquiry-error")?.remove();
 
-    sessionStorage.setItem(popupDismissedKey, "true");
+    // Disable button while sending.
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
 
-    form.reset();
-    closeEnquiry();
+    if (buttonText) {
+      buttonText.textContent = "Sending...";
+    }
+
+    try {
+      // Send enquiry to EmailJS.
+      const response = await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        templateParams,
+        {
+          publicKey: PUBLIC_KEY,
+        }
+      );
+
+      console.log("EmailJS submission successful:", response);
+
+      // Remember successful submission.
+      localStorage.setItem(popupDismissedKey, "true");
+
+      // Clear the form.
+      form.reset();
+
+      // Redirect only after successful submission.
+      window.location.assign("/thank-you/");
+
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+
+      const errorMessage = document.createElement("p");
+
+      errorMessage.className = "enquiry-error";
+
+      errorMessage.textContent =
+        "Unable to submit your enquiry. Please try again or contact us on WhatsApp.";
+
+      form.appendChild(errorMessage);
+
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+
+      if (buttonText) {
+        buttonText.textContent = "Schedule My Site Visit";
+      }
+    }
   });
 </script>

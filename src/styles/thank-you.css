@@ -1,0 +1,422 @@
+
+/* ==========================================
+   SAI WORLD CITY — THANK YOU PAGE
+========================================== */
+
+:root {
+  --thankyou-red: #a71936;
+  --thankyou-red-dark: #75172e;
+  --thankyou-text: #202020;
+  --thankyou-muted: #77716e;
+  --thankyou-background: #faf8f5;
+}
+
+/* RESET */
+
+.thankyou-page,
+.thankyou-page * {
+  box-sizing: border-box;
+}
+
+body:has(.thankyou-page) {
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN PAGE */
+
+.thankyou-page {
+  position: relative;
+  isolation: isolate;
+
+  min-height: 100svh;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 60px 24px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(167, 25, 54, 0.07),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(167, 25, 54, 0.06),
+      transparent 30%
+    ),
+    var(--thankyou-background);
+
+  font-family: "Manrope", Arial, sans-serif;
+}
+
+/* BACKGROUND DECORATION */
+
+.thankyou-decoration {
+  position: absolute;
+  z-index: -1;
+
+  border: 1px solid rgba(167, 25, 54, 0.09);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.thankyou-decoration-one {
+  width: 480px;
+  height: 480px;
+
+  top: -240px;
+  left: -180px;
+}
+
+.thankyou-decoration-two {
+  width: 600px;
+  height: 600px;
+
+  right: -300px;
+  bottom: -330px;
+}
+
+/* THANK YOU CARD */
+
+.thankyou-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 720px;
+
+  padding: 55px 65px 35px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+    0 25px 80px rgba(38, 20, 24, 0.08),
+    0 5px 20px rgba(38, 20, 24, 0.03);
+
+  text-align: center;
+}
+
+/* LOGO */
+
+.thankyou-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 95px;
+  height: 95px;
+
+  margin-bottom: 35px;
+}
+
+.thankyou-logo img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+/* SUCCESS ICON */
+
+.thankyou-success-icon {
+  width: 76px;
+  height: 76px;
+
+  margin: 0 auto 28px;
+}
+
+.thankyou-success-icon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  fill: none;
+
+  stroke: var(--thankyou-red);
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thankyou-success-icon circle {
+  stroke: rgba(167, 25, 54, 0.25);
+}
+
+.thankyou-success-icon path {
+  stroke-width: 3;
+}
+
+/* EYEBROW */
+
+.thankyou-eyebrow {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: var(--thankyou-red);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+/* HEADING */
+
+.thankyou-card h1 {
+  margin: 0;
+
+  color: var(--thankyou-text);
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(48px, 7vw, 76px);
+  font-weight: 400;
+
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+.thankyou-card h1 span {
+  color: var(--thankyou-red);
+}
+
+/* MESSAGE */
+
+.thankyou-message {
+  max-width: 510px;
+
+  margin: 23px auto 0;
+
+  color: var(--thankyou-muted);
+
+  font-size: 15px;
+  font-weight: 400;
+
+  line-height: 1.9;
+}
+
+.thankyou-message strong {
+  color: var(--thankyou-text);
+  font-weight: 700;
+}
+
+/* DIVIDER */
+
+.thankyou-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin: 30px 0 22px;
+}
+
+.thankyou-divider span {
+  display: block;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--thankyou-red);
+}
+
+.thankyou-divider span:first-child,
+.thankyou-divider span:last-child {
+  width: 55px;
+  height: 1px;
+
+  border-radius: 0;
+
+  background: rgba(167, 25, 54, 0.25);
+}
+
+/* NOTE */
+
+.thankyou-note {
+  margin: 0;
+
+  color: var(--thankyou-text);
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 19px;
+  font-style: italic;
+}
+
+/* ACTION BUTTONS */
+
+.thankyou-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 35px;
+}
+
+.thankyou-home-btn,
+.thankyou-whatsapp-btn {
+  min-height: 52px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  padding: 0 23px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.3px;
+
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.thankyou-home-btn {
+  background: var(--thankyou-red-dark);
+  color: #ffffff;
+}
+
+.thankyou-home-btn:hover {
+  background: var(--thankyou-red);
+  transform: translateY(-2px);
+}
+
+.thankyou-home-btn span {
+  font-size: 18px;
+}
+
+.thankyou-whatsapp-btn {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--thankyou-text);
+  background: #ffffff;
+}
+
+.thankyou-whatsapp-btn:hover {
+  border-color: var(--thankyou-red);
+  color: var(--thankyou-red);
+}
+
+/* FOOTER */
+
+.thankyou-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 45px;
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  color: #99918d;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 700px) {
+  .thankyou-page {
+    padding: 30px 18px;
+  }
+
+  .thankyou-card {
+    padding: 40px 28px 25px;
+  }
+
+  .thankyou-logo {
+    width: 78px;
+    height: 78px;
+
+    margin-bottom: 28px;
+  }
+
+  .thankyou-success-icon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .thankyou-message {
+    font-size: 14px;
+  }
+
+  .thankyou-actions {
+    flex-direction: column;
+  }
+
+  .thankyou-home-btn,
+  .thankyou-whatsapp-btn {
+    width: 100%;
+  }
+
+  .thankyou-footer {
+    margin-top: 35px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .thankyou-card {
+    padding: 32px 20px 22px;
+  }
+
+  .thankyou-card h1 {
+    font-size: 48px;
+  }
+
+  .thankyou-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .thankyou-message {
+    font-size: 13px;
+  }
+
+  .thankyou-note {
+    font-size: 17px;
+  }
+
+  .thankyou-footer {
+    flex-direction: column;
+  }
+}

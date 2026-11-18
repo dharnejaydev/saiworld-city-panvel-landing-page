@@ -1,11 +1,102 @@
+
 ---
-import MainLayout from '../layouts/MainLayout.astro';
+import "../styles/thank-you.css";
+
+const projectName = "Sai World City Panvel";
 ---
-<MainLayout title="Thank You | Sai World City Panvel" description="Thank you for your enquiry about Sai World City Panvel.">
-  <main class="thank-you-page">
-    <p class="eyebrow">Sai World City Panvel</p>
-    <h1>Thank you<br /><em>for reaching out.</em></h1>
-    <p>Your enquiry has been received by this demo page. Connect a secure form endpoint before accepting real enquiries.</p>
-    <a class="button button-dark" href="/">Return to homepage ↗</a>
-  </main>
-</MainLayout>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Thank You | Sai World City Panvel</title>
+
+    <meta
+      name="description"
+      content="Thank you for your enquiry. Our team will contact you shortly regarding Sai World City Panvel."
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+
+  <body>
+    <main class="thankyou-page">
+
+      <!-- BACKGROUND DECORATION -->
+      <div class="thankyou-decoration thankyou-decoration-one"></div>
+      <div class="thankyou-decoration thankyou-decoration-two"></div>
+
+      <!-- THANK YOU CARD -->
+      <section class="thankyou-card">
+
+        <!-- LOGO -->
+        <a href="/" class="thankyou-logo">
+          <img
+            src="/images/logo/sai-world-city-logo.webp"
+            alt="Sai World City Panvel"
+          />
+        </a>
+
+        <!-- SUCCESS ICON -->
+        <div class="thankyou-success-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="29" />
+            <path d="M19 32L28 41L46 23" />
+          </svg>
+        </div>
+
+        <!-- CONTENT -->
+        <span class="thankyou-eyebrow">
+          ENQUIRY SUBMITTED SUCCESSFULLY
+        </span>
+
+        <h1>
+          Thank You<span>.</span>
+        </h1>
+
+        <p class="thankyou-message">
+          Your interest in <strong>{projectName}</strong> means a lot to us.
+          Our team has received your enquiry and will get in touch with you
+          shortly.
+        </p>
+
+        <!-- DIVIDER -->
+        <div class="thankyou-divider">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <p class="thankyou-note">
+          Looking forward to welcoming you home.
+        </p>
+
+        <!-- BUTTONS -->
+        <div class="thankyou-actions">
+          <a href="/" class="thankyou-home-btn">
+            Back to Home
+            <span>→</span>
+          </a>
+
+          <a
+            href="https://wa.me/919920968878?text=Hi%2C%20I%20have%20submitted%20an%20enquiry%20for%20Sai%20World%20City%20Panvel."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="thankyou-whatsapp-btn"
+          >
+            Contact Us on WhatsApp
+          </a>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="thankyou-footer">
+          <span>SAI WORLD CITY PANVEL</span>
+          <span>PALASPE PHATA</span>
+        </div>
+
+      </section>
+
+    </main>
+  </body>
+</html>
