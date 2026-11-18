@@ -5,7 +5,7 @@
 ========================================== */
 
 .swc-hero {
-  --swc-red: #c51f36;
+  --swc-red: #5d121c;
   --swc-red-dark: #a9162b;
   --swc-white: #ffffff;
   --swc-charcoal: #17191d;
@@ -408,7 +408,7 @@
 /* Call */
 
 .swc-float-call {
-  background: #d71938;
+  background: #1e470f;
   color: #fff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
@@ -422,8 +422,8 @@
 }
 
 .swc-float-call:hover {
-  background: #b91430;
-  box-shadow: 0 8px 25px rgba(215, 25, 56, 0.35);
+  background: #1e470f;
+  box-shadow: 0 8px 25px rgba(5, 85, 16, 0.35);
 }
 
 /* ==========================================

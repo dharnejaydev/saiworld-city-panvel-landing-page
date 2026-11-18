@@ -353,3 +353,29 @@
     transition: none;
   }
 }
+
+/* FAQ HEADING - TWO LINE LAYOUT */
+.faq-heading h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.faq-heading-main {
+  display: block;
+  font-style: normal;
+}
+
+.faq-heading h2 em {
+  display: block;
+  font-style: italic;
+  color: #c51f36;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .faq-heading h2 {
+    gap: 6px;
+  }
+}

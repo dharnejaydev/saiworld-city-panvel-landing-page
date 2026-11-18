@@ -12,12 +12,27 @@ const links = [
 ];
 
 const registrations = [
-  { phase: "Phase 1", number: "P52000006318" },
-  { phase: "Phase 2", number: "P52000022708" },
-  { phase: "Phase 3", number: "P52000053727" },
+  {
+    phase: "Phase 1",
+    number: "P52000006318",
+    qr: "/images/rera/phase-1-qr.webp",
+  },
+  {
+    phase: "Phase 2",
+    number: "P52000022708",
+    qr: "/images/rera/phase-2-qr.webp",
+  },
+  {
+    phase: "Phase 3",
+    number: "P52000053727",
+    qr: "/images/rera/phase-3-qr.webp",
+  },
 ];
 
-const agentRera = "A51900037431";
+const agentRera = {
+  number: "A51900037431",
+  qr: "/images/rera/agent-rera-qr.webp",
+};
 ---
 
 <footer class="site-footer">
@@ -33,15 +48,13 @@ const agentRera = "A51900037431";
 
         <span class="footer-location">PANVEL · NAVI MUMBAI</span>
 
-       
-
         <a
           class="footer-address"
           href="https://www.google.com/maps/search/?api=1&query=Sai+World+City+Palaspe+Phata+Panvel"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Palaspe Phata Junction, Panvel – 410206 
+          Palaspe Phata Junction, Panvel – 410206
         </a>
       </div>
 
@@ -76,7 +89,7 @@ const agentRera = "A51900037431";
           rel="noopener noreferrer"
           class="footer-whatsapp"
         >
-          WhatsApp Us 
+          WhatsApp Us
         </a>
       </div>
 
@@ -87,29 +100,57 @@ const agentRera = "A51900037431";
   <div class="footer-legal">
     <div class="footer-legal-inner">
 
+      <!-- PROJECT RERA -->
       <div class="footer-rera">
-        <span class="footer-label">PROJECT RERA</span>
+        <span class="footer-label">PROJECT RERA REGISTRATIONS</span>
 
         <div class="footer-rera-list">
           {registrations.map((item) => (
-            <span>
-              {item.phase}: <strong>{item.number}</strong>
-            </span>
+            <div class="footer-rera-item">
+              <img
+                src={item.qr}
+                alt={`${item.phase} RERA QR code`}
+                class="footer-rera-qr"
+                loading="lazy"
+              />
+
+              <div class="footer-rera-info">
+                <span>{item.phase}</span>
+                <strong>{item.number}</strong>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
+      <!-- AGENT RERA -->
       <div class="footer-agent">
         <span class="footer-label">AGENT RERA</span>
-        <strong>{agentRera}</strong>
+
+        <div class="footer-agent-content">
+          <img
+            src={agentRera.qr}
+            alt="Agent RERA QR code"
+            class="footer-rera-qr"
+            loading="lazy"
+          />
+
+          <div class="footer-rera-info">
+            <span>Registration Number</span>
+            <strong>{agentRera.number}</strong>
+          </div>
+        </div>
       </div>
 
+      <!-- DISCLAIMER -->
       <div class="footer-disclaimer">
         <span class="footer-label">DISCLAIMER</span>
         <p>
-         The content is for information purposes only and does not constitute an offer to avail of any service. Prices mentioned are subject to change without notice and properties mentioned are subject to availability. Images for representation purposes only. This is the official website of CP of the Developer. 
-
-
+          The content is for information purposes only and does not constitute
+          an offer to avail of any service. Prices mentioned are subject to
+          change without notice and properties mentioned are subject to
+          availability. Images for representation purposes only. This is the
+          official website of CP of the Developer.
         </p>
       </div>
 
@@ -131,6 +172,7 @@ const agentRera = "A51900037431";
           target="_blank"
           rel="noopener noreferrer"
         >
+          MahaRERA
         </a>
       </div>
 
