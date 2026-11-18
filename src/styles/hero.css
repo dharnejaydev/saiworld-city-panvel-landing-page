@@ -1368,3 +1368,98 @@
   }
 
 }
+
+
+/* =========================================
+   SAI WORLD CITY – HERO TYPOGRAPHY
+   Add at the VERY END of hero.css
+   ========================================= */
+
+/* HEADING CONTAINER */
+.swc-hero-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* MAIN PROJECT NAME */
+.swc-hero-content h1.swc-hero-heading .swc-project-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1250px !important;
+
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: clamp(70px, 8vw, 105px) !important;
+  font-weight: 900 !important;
+
+  line-height: 0.92 !important;
+  letter-spacing: -5px !important;
+
+  text-transform: uppercase !important;
+  white-space: normal !important;
+  color: #ffffff !important;
+}
+
+/* SMALL TAGLINE */
+.swc-hero-content h1.swc-hero-heading .swc-hero-tagline {
+  display: block !important;
+
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: clamp(17px, 1.8vw, 25px) !important;
+  font-weight: 700 !important;
+
+  line-height: 1.3 !important;
+  letter-spacing: 2px !important;
+
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  margin-top: 8px !important;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .swc-hero-content h1.swc-hero-heading .swc-project-name {
+    font-size: clamp(60px, 8vw, 88px) !important;
+    letter-spacing: -3px !important;
+  }
+
+  .swc-hero-content h1.swc-hero-heading .swc-hero-tagline {
+    font-size: 19px !important;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .swc-hero-heading {
+    gap: 8px !important;
+  }
+
+  .swc-hero-content h1.swc-hero-heading .swc-project-name {
+    font-size: clamp(60px, 10vw, 80px) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -2px !important;
+    max-width: 100% !important;
+  }
+
+  .swc-hero-content h1.swc-hero-heading .swc-hero-tagline {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 1.5px !important;
+    margin-top: 5px !important;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 380px) {
+  .swc-hero-content h1.swc-hero-heading .swc-project-name {
+    font-size: 39px !important;
+    letter-spacing: -1.5px !important;
+  }
+
+  .swc-hero-content h1.swc-hero-heading .swc-hero-tagline {
+    font-size: 14px !important;
+  }
+}
