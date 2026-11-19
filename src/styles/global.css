@@ -96,3 +96,7 @@ a {
     margin-bottom: 0 !important;
   }
 }
+
+:root {
+  --brand-primary: #C4A484;
+}

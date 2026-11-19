@@ -4,12 +4,11 @@ import "../styles/Amenities.css";
 
 const amenities = [
   {
-    number: "01",
     floor: "OUTDOOR SPACES",
     title: "Landscaped Amenities",
     category: "OUTDOOR LIFESTYLE",
     image: "/images/amenities/landscaped-amenities.webp",
-    size: "feature",
+    alt: "Landscaped outdoor amenities at Sai World City",
     items: [
       "Grand Entrance",
       "Statue of Liberty",
@@ -27,14 +26,12 @@ const amenities = [
       "Big Ben Clock Tower"
     ]
   },
-  
   {
-    number: "03",
     floor: "GROUND FLOOR",
     title: "Banquet & Entertainment",
     category: "CELEBRATIONS",
     image: "/images/amenities/banquet-entertainment.webp",
-    size: "standard",
+    alt: "Banquet and entertainment facilities",
     items: [
       "Double Height Air-conditioned Designer Entrance Lobby",
       "Waiting Lounge",
@@ -45,12 +42,11 @@ const amenities = [
     ]
   },
   {
-    number: "04",
     floor: "FIRST FLOOR",
     title: "A World of Discovery",
     category: "KIDS & CREATIVITY",
     image: "/images/amenities/world-discovery.webp",
-    size: "standard",
+    alt: "Kids and creative amenities",
     items: [
       "Hobby Studio with Painting, Pottery, Etc.",
       "Children's Gaming Arena",
@@ -61,12 +57,11 @@ const amenities = [
     ]
   },
   {
-    number: "02",
     floor: "TERRACE FLOOR",
     title: "Merlion Sky Deck",
     category: "AQUA LEISURE",
-    image: "/images/amenities/merlion-sky-deck.webp ",
-    size: "portrait",
+    image: "/images/amenities/merlion-sky-deck.webp",
+    alt: "Merlion Sky Deck and swimming pool",
     items: [
       "Swimming Pool with Party Deck",
       "Kids Pool",
@@ -74,12 +69,11 @@ const amenities = [
     ]
   },
   {
-    number: "05",
     floor: "SECOND FLOOR",
     title: "Move. Play. Create.",
     category: "SPORTS & EXPRESSION",
     image: "/images/amenities/move-play-create.webp",
-    size: "standard",
+    alt: "Sports and indoor recreation facilities",
     items: [
       "Music and Dance Studio",
       "2 Indoor Badminton Courts",
@@ -87,12 +81,11 @@ const amenities = [
     ]
   },
   {
-    number: "06",
     floor: "THIRD FLOOR",
     title: "Spa & Wellness",
     category: "RELAXATION & REJUVENATION",
     image: "/images/amenities/spa-wellness.webp",
-    size: "standard",
+    alt: "Spa and wellness facilities",
     items: [
       "Reception and Waiting Lounge",
       "Consultation Room",
@@ -104,12 +97,22 @@ const amenities = [
     ]
   },
   {
-    number: "08",
+    floor: "FOURTH FLOOR",
+    title: "Fitness & Indoor Games",
+    category: "FITNESS & RECREATION",
+    image: "/images/amenities/fitness-indoor-games.webp",
+    alt: "Fitness and indoor games facilities",
+    items: [
+      "Fully Equipped Air-conditioned Gymnasium with Trainers",
+      "Indoor Games Arcade"
+    ]
+  },
+  {
     floor: "FIFTH FLOOR",
     title: "The Clubhouse Experience",
     category: "LIFESTYLE & LEISURE",
     image: "/images/amenities/clubhouse-experience.webp",
-    size: "feature",
+    alt: "Sai World City clubhouse facilities",
     items: [
       "Library",
       "Designer Salon for Men",
@@ -120,24 +123,11 @@ const amenities = [
     ]
   },
   {
-    number: "07",
-    floor: "FOURTH FLOOR",
-    title: "Fitness & Indoor Games",
-    category: "FITNESS & RECREATION",
-    image: "/images/amenities/fitness-indoor-games.webp",
-    size: "standard",
-    items: [
-      "Fully Equipped Air-conditioned Gymnasium with Trainers",
-      "Indoor Games Arcade"
-    ]
-  },
-  {
-    number: "09",
     floor: "CLUB LANDSCAPE",
     title: "Sai Baba Mandir",
     category: "A SPACE FOR SERENITY",
     image: "/images/amenities/sai-baba-mandir.webp",
-    size: "portrait",
+    alt: "Sai Baba Mandir at Sai World City",
     items: [
       "Peaceful Sai Baba Mandir"
     ]
@@ -146,67 +136,197 @@ const amenities = [
 ---
 
 <section class="atlas" id="amenities">
-
   <div class="atlas-shell">
 
+    <!-- SECTION HEADING -->
     <header class="atlas-header">
-
       <div class="atlas-heading">
-        <div>
+        <div class="atlas-heading-left">
+          <span class="atlas-eyebrow">A LIFE BEYOND EXPECTATIONS</span>
+
           <h2>
             A Thoughtful Collection of Lifestyle Amenities
             <em>In Sai World City Panvel.</em>
           </h2>
         </div>
 
-        
+        <p class="atlas-intro">
+          Discover thoughtfully planned spaces for recreation, wellness,
+          celebrations and everyday experiences.
+        </p>
       </div>
     </header>
 
+    <!-- AMENITIES CAROUSEL -->
+    <div class="atlas-carousel">
 
+      {amenities.map((item, index) => (
+        <article
+          class:list={[
+            "atlas-slide",
+            { "is-active": index === 0 }
+          ]}
+          data-slide={index}
+          aria-hidden={index !== 0 ? "true" : "false"}
+        >
 
-      <div class="atlas-gallery">
+          <!-- IMAGE -->
+          <div class="atlas-image">
 
-        {amenities.map((item) => (
-          <article class={`atlas-card atlas-${item.size}`}>
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
 
-            <div class="atlas-image">
-              <img
-                src={item.image}
-                alt={item.title}
-                loading="lazy"
-              />
+            <div class="atlas-image-shade"></div>
 
-              <div class="atlas-image-shade"></div>
+            <!-- IMAGE CAPTION -->
+            <div class="atlas-image-caption">
+              <span>{item.floor}</span>
+              <small>{item.category}</small>
+              <h3>{item.title}</h3>
+            </div>
 
-              <span class="atlas-number">{item.number}</span>
+            <!-- IMAGE ARROWS -->
+            <div class="atlas-arrows">
+              <button
+                class="atlas-arrow atlas-prev"
+                type="button"
+                aria-label="Previous amenity"
+                disabled
+              >
+                &#8592;
+              </button>
 
-              <div class="atlas-image-caption">
-                <span>{item.floor}</span>
-                <small>{item.category}</small>
+              <button
+                class="atlas-arrow atlas-next"
+                type="button"
+                aria-label="Next amenity"
+              >
+                &#8594;
+              </button>
+            </div>
+
+          </div>
+
+          <!-- AMENITIES DETAILS -->
+          <div class="atlas-details">
+
+            <div class="atlas-details-heading">
+              <div>
+                <span class="atlas-details-label">EXPLORE THE FACILITIES</span>
                 <h3>{item.title}</h3>
               </div>
+
+              <span class="atlas-experience-count">
+                {String(item.items.length).padStart(2, "0")} EXPERIENCES
+              </span>
             </div>
 
-            <div class="atlas-details">
-              <div class="atlas-details-top">
-                <span>
-                  {String(item.items.length).padStart(2, "0")} EXPERIENCES
-                </span>
-              </div>
+            <ul>
+              {item.items.map((amenity) => (
+                <li>{amenity}</li>
+              ))}
+            </ul>
 
-              <ul>
-                {item.items.map((amenity) => (
-                  <li>{amenity}</li>
-                ))}
-              </ul>
-            </div>
+          </div>
 
-          </article>
-        ))}
+        </article>
+      ))}
 
-      </div>
     </div>
 
   </div>
 </section>
+
+<script>
+  const atlasSections = document.querySelectorAll<HTMLElement>(
+    ".atlas:not([data-ready])"
+  );
+
+  atlasSections.forEach((section) => {
+    section.setAttribute("data-ready", "true");
+
+    const slides = Array.from(
+      section.querySelectorAll<HTMLElement>(".atlas-slide")
+    );
+
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function showSlide(index: number) {
+      if (!slides.length) return;
+
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, i) => {
+        const active = i === currentIndex;
+
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", String(!active));
+      });
+
+      const activeSlide = slides[currentIndex];
+
+      const previous = activeSlide.querySelector<HTMLButtonElement>(
+        ".atlas-prev"
+      );
+
+      const next = activeSlide.querySelector<HTMLButtonElement>(
+        ".atlas-next"
+      );
+
+      if (previous) {
+        previous.disabled = currentIndex === 0;
+      }
+
+      if (next) {
+        next.disabled = currentIndex === slides.length - 1;
+      }
+    }
+
+    slides.forEach((slide) => {
+      const previous = slide.querySelector<HTMLButtonElement>(
+        ".atlas-prev"
+      );
+
+      const next = slide.querySelector<HTMLButtonElement>(
+        ".atlas-next"
+      );
+
+      previous?.addEventListener("click", () => {
+        showSlide(currentIndex - 1);
+      });
+
+      next?.addEventListener("click", () => {
+        showSlide(currentIndex + 1);
+      });
+
+      const image = slide.querySelector<HTMLElement>(".atlas-image");
+
+      image?.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+      }, { passive: true });
+
+      image?.addEventListener("touchend", (event) => {
+        const differenceX =
+          touchStartX - event.changedTouches[0].screenX;
+
+        const differenceY =
+          touchStartY - event.changedTouches[0].screenY;
+
+        if (
+          Math.abs(differenceX) > 50 &&
+          Math.abs(differenceX) > Math.abs(differenceY)
+        ) {
+          showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    });
+
+    showSlide(0);
+  });
+</script>

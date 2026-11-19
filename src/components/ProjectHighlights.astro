@@ -8,90 +8,216 @@ const highlights = [
     eyebrow: "THE TOWNSHIP",
     title: "32 Acres of Possibilities",
     image: "/images/highlights/township-masterplan.webp",
-    className: "highlight-township",
+    alt: "Sai World City township masterplan",
   },
   {
     number: "02",
     eyebrow: "THE CLUBHOUSE",
     title: "A G+5 Lifestyle Destination",
     image: "/images/highlights/clubhouse.webp",
-    className: "highlight-clubhouse",
+    alt: "Sai World City clubhouse",
   },
   {
     number: "03",
     eyebrow: "A SIGNATURE EXPERIENCE",
     title: "Sky Pool Inspired by Marina Bay",
     image: "/images/highlights/sky-pool.webp",
-    className: "highlight-pool",
+    alt: "Sai World City sky pool",
   },
   {
     number: "04",
     eyebrow: "LANDSCAPED EXPERIENCES",
     title: "Landmarks Within the Landscape",
     image: "/images/highlights/landscape.webp",
-    className: "highlight-landscape",
+    alt: "Sai World City landscaped spaces",
   },
 ];
 ---
 
 <section class="project-highlights" id="project-highlights">
-
   <div class="highlights-container">
 
-    <!-- SECTION HEADER -->
+    <!-- SECTION HEADING -->
     <div class="highlights-heading">
-
-      <div>
-       
+      <div class="highlights-heading-left">
+        <span class="highlights-eyebrow">DISCOVER THE DIFFERENCE</span>
 
         <h2>
-          Project Highlights<br />
-          <span> Sai World City Panvel </span>
+          Project Highlights
+          <span>Sai World City Panvel</span>
         </h2>
+      </div>
+
+      <p class="highlights-intro">
+        Explore the spaces, architecture and lifestyle that make every moment special.
+      </p>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="highlights-carousel">
+
+      <div class="highlights-track" aria-roledescription="carousel">
+
+        {highlights.map((item, index) => (
+          <article
+            class:list={[
+              "highlight-slide",
+              { "is-active": index === 0 }
+            ]}
+            data-slide={index}
+            aria-hidden={index !== 0 ? "true" : "false"}
+          >
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+
+            <div class="highlight-slide-overlay"></div>
+
+            <div class="highlight-slide-content">
+              <span class="highlight-slide-eyebrow">
+                {item.eyebrow}
+              </span>
+
+              <h3>{item.title}</h3>
+            </div>
+
+         
+          </article>
+        ))}
+
+        <!-- IMAGE NAVIGATION ARROWS -->
+        <div class="highlights-arrows">
+          <button
+            class="highlights-arrow highlights-prev"
+            type="button"
+            aria-label="Previous highlight"
+            disabled
+          >
+            &#8592;
+          </button>
+
+          <button
+            class="highlights-arrow highlights-next"
+            type="button"
+            aria-label="Next highlight"
+          >
+            &#8594;
+          </button>
+        </div>
+
       </div>
 
 
     </div>
-
-    <!-- HIGHLIGHTS GRID -->
-    <div class="highlights-grid">
-
-      {highlights.map((item) => (
-        <article class={`highlight-card ${item.className}`}>
-
-          <div class="highlight-image">
-            <img
-              src={item.image}
-              alt={item.title}
-              loading="lazy"
-            />
-
-            <span class="highlight-number">
-              {item.number}
-            </span>
-          </div>
-
-          <div class="highlight-content">
-
-            <span class="highlight-card-eyebrow">
-              {item.eyebrow}
-            </span>
-
-            <h3>{item.title}</h3>
-
-            <p>{item.description}</p>
-
-          </div>
-
-        </article>
-      ))}
-
-    </div>
-
-  
-
-    </div>
-
-  
-
+  </div>
 </section>
+
+<script>
+  const sections = document.querySelectorAll<HTMLElement>(
+    ".project-highlights:not([data-ready])"
+  );
+
+  sections.forEach((section) => {
+    section.setAttribute("data-ready", "true");
+
+    const slides = Array.from(
+      section.querySelectorAll<HTMLElement>(".highlight-slide")
+    );
+
+    const previous = section.querySelector<HTMLButtonElement>(
+      ".highlights-prev"
+    );
+
+    const next = section.querySelector<HTMLButtonElement>(
+      ".highlights-next"
+    );
+
+    const currentCounter = section.querySelector<HTMLElement>(
+      ".current-slide"
+    );
+
+    const progress = section.querySelector<HTMLElement>(
+      ".highlights-progress-fill"
+    );
+
+    const totalCounter = section.querySelector<HTMLElement>(
+      ".total-slides"
+    );
+
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function showSlide(index: number) {
+      if (!slides.length) return;
+
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, i) => {
+        const active = i === currentIndex;
+
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", String(!active));
+      });
+
+      if (currentCounter) {
+        currentCounter.textContent =
+          String(currentIndex + 1).padStart(2, "0");
+      }
+
+      if (totalCounter) {
+        totalCounter.textContent =
+          String(slides.length).padStart(2, "0");
+      }
+
+      if (progress) {
+        progress.style.width =
+          `${((currentIndex + 1) / slides.length) * 100}%`;
+      }
+
+      if (previous) {
+        previous.disabled = currentIndex === 0;
+      }
+
+      if (next) {
+        next.disabled = currentIndex === slides.length - 1;
+      }
+    }
+
+    previous?.addEventListener("click", () => {
+      showSlide(currentIndex - 1);
+    });
+
+    next?.addEventListener("click", () => {
+      showSlide(currentIndex + 1);
+    });
+
+    const track = section.querySelector<HTMLElement>(
+      ".highlights-track"
+    );
+
+    track?.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+      touchStartY = event.changedTouches[0].screenY;
+    }, { passive: true });
+
+    track?.addEventListener("touchend", (event) => {
+      const differenceX =
+        touchStartX - event.changedTouches[0].screenX;
+
+      const differenceY =
+        touchStartY - event.changedTouches[0].screenY;
+
+      if (
+        Math.abs(differenceX) > 50 &&
+        Math.abs(differenceX) > Math.abs(differenceY)
+      ) {
+        showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    showSlide(0);
+  });
+</script>
