@@ -3,7 +3,7 @@
   --highlight-accent: #C4A484;
   --highlight-dark: #24211e;
   --highlight-muted: #77716b;
-  --highlight-border: #e8e2dc;
+  --highlight-border: #e5ded5;
 }
 
 /* ==================================
@@ -11,7 +11,7 @@
 ================================== */
 
 .project-highlights {
-  padding: 95px 5%;
+  padding: 90px 5%;
   background: #f8f7f5;
   overflow: hidden;
 }
@@ -23,7 +23,7 @@
 }
 
 /* ==================================
-   HEADING
+   SECTION HEADING
 ================================== */
 
 .highlights-heading {
@@ -31,7 +31,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 35px;
-  margin-bottom: 38px;
+  margin-bottom: 32px;
 }
 
 .highlights-heading-left {
@@ -40,7 +40,7 @@
 
 .highlights-eyebrow {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   color: #9d8064;
   font-size: 10px;
   font-weight: 700;
@@ -67,7 +67,7 @@
   margin: 0 0 5px;
   color: var(--highlight-muted);
   font-size: 13px;
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 /* ==================================
@@ -76,45 +76,63 @@
 
 .highlights-carousel {
   width: 100%;
+  overflow: hidden;
+  background: #f0ede7;
+  border: 1px solid var(--highlight-border);
 }
+
+/* ==================================
+   IMAGE FRAME
+================================== */
 
 .highlights-track {
   position: relative;
   width: 100%;
   height: clamp(380px, 48vw, 610px);
   overflow: hidden;
-  background: #e9e5df;
+  background: #24211e;
   isolation: isolate;
 }
+
+/* ==================================
+   SLIDES
+================================== */
 
 .highlight-slide {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transition: opacity .55s ease, visibility .55s ease;
-  z-index: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
 }
 
 .highlight-slide.is-active {
+  z-index: 1;
   opacity: 1;
   visibility: visible;
-  z-index: 1;
+  pointer-events: auto;
 }
 
+/* ==================================
+   IMAGE - FULL COVER
+================================== */
+
 .highlight-slide > img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transform: scale(1.025);
-  transition: transform 1s ease;
-}
-
-.highlight-slide.is-active > img {
-  transform: scale(1);
+  object-position: center center;
 }
 
 /* ==================================
@@ -124,66 +142,59 @@
 .highlight-slide-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
+
   background:
     linear-gradient(
       90deg,
-      rgba(15, 13, 11, .58) 0%,
-      rgba(15, 13, 11, .20) 48%,
+      rgba(15, 13, 11, 0.48) 0%,
+      rgba(15, 13, 11, 0.13) 55%,
       transparent 100%
     ),
     linear-gradient(
       0deg,
-      rgba(15, 13, 11, .38) 0%,
-      transparent 55%
+      rgba(15, 13, 11, 0.68) 0%,
+      rgba(15, 13, 11, 0.12) 42%,
+      transparent 72%
     );
+
   pointer-events: none;
 }
 
 /* ==================================
-   SLIDE CONTENT
+   HEADLINE INSIDE IMAGE
 ================================== */
 
 .highlight-slide-content {
   position: absolute;
   left: clamp(28px, 6vw, 85px);
-  bottom: clamp(35px, 6vw, 75px);
+  right: 100px;
+  bottom: clamp(32px, 5vw, 65px);
   z-index: 2;
-  max-width: 620px;
+  max-width: 680px;
   color: #fff;
 }
 
 .highlight-slide-eyebrow {
   display: block;
-  margin-bottom: 16px;
-  color: #e3c7a9;
+  margin-bottom: 13px;
+  color: #e4c6a7;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 3px;
+  line-height: 1.5;
 }
 
 .highlight-slide-content h3 {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(34px, 5vw, 64px);
   font-weight: 400;
   line-height: 1.08;
-}
-
-/* ==================================
-   SLIDE NUMBER
-================================== */
-
-.highlight-slide-number {
-  position: absolute;
-  top: 30px;
-  right: 35px;
-  z-index: 2;
-  color: rgba(255,255,255,.9);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 15px;
-  letter-spacing: 2px;
+  letter-spacing: -0.8px;
+  text-wrap: balance;
 }
 
 /* ==================================
@@ -208,14 +219,14 @@
 .highlights-arrow {
   display: grid;
   place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
 
-  width: 44px;
-  height: 44px;
-
-  border: 1px solid rgba(255,255,255,.85);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50%;
 
-  background: rgba(20,20,20,.20);
+  background: rgba(25, 23, 20, 0.25);
   color: #fff;
 
   font-family: Arial, sans-serif;
@@ -227,70 +238,92 @@
   pointer-events: auto;
 
   transition:
-    background .25s ease,
-    border-color .25s ease,
-    opacity .25s ease;
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.highlights-arrow:hover:not(:disabled) {
-  background: rgba(196,164,132,.85);
+.highlights-arrow:hover {
+  background: rgba(196, 164, 132, 0.9);
   border-color: #fff;
+  transform: scale(1.06);
 }
 
-.highlights-arrow:disabled {
-  opacity: .45;
-  cursor: not-allowed;
+.highlights-arrow:focus-visible {
+  outline: 2px solid var(--highlight-accent);
+  outline-offset: 4px;
 }
 
 /* ==================================
-   BOTTOM CONTROLS
+   CENTERED CTA PANEL
 ================================== */
 
-.highlights-controls {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  padding-top: 23px;
+.project-highlights .highlights-cta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100%;
+  min-height: 125px;
+  padding: 25px 20px;
+
+  background: #f0ede7;
+  border-top: 1px solid #dfd5c9;
+  box-sizing: border-box;
 }
 
-.highlights-counter {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 75px;
+/* ==================================
+   LARGE ENQUIRE BUTTON
+================================== */
+
+.project-highlights .highlights-enquire-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 45px;
+
+  width: 320px !important;
+  max-width: 100%;
+  height: 62px;
+  flex: 0 0 320px;
+  margin: 0 auto;
+  padding: 0 30px;
+
+  background: #24211e;
+  border: 1px solid #24211e;
+  box-sizing: border-box;
+
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+
   font-size: 12px;
-  letter-spacing: 1px;
-}
-
-.current-slide {
-  color: #9d8064;
   font-weight: 700;
+  letter-spacing: 2px;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
-.total-slides {
-  color: #99918a;
+.project-highlights .highlights-enquire-button span {
+  display: inline-block;
+  margin: 0;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1;
 }
 
-.counter-divider {
-  width: 22px;
-  height: 1px;
-  background: #cfc5bb;
-}
-
-.highlights-progress {
-  position: relative;
-  flex: 1;
-  height: 2px;
-  overflow: hidden;
-  background: #ded8d1;
-}
-
-.highlights-progress-fill {
-  display: block;
-  width: 25%;
-  height: 100%;
+.project-highlights .highlights-enquire-button:hover {
   background: var(--highlight-accent);
-  transition: width .4s ease;
+  border-color: var(--highlight-accent);
+  color: #24211e;
+}
+
+.project-highlights .highlights-enquire-button:focus-visible {
+  outline: 2px solid var(--highlight-accent);
+  outline-offset: 4px;
 }
 
 /* ==================================
@@ -314,6 +347,10 @@
     max-width: 260px;
     font-size: 12px;
   }
+
+  .highlight-slide-content {
+    max-width: 580px;
+  }
 }
 
 /* ==================================
@@ -322,108 +359,132 @@
 
 @media (max-width: 600px) {
   .project-highlights {
-    padding: 58px 0 48px;
+    padding: 45px 0 48px;
   }
 
   .highlights-container {
     width: 100%;
   }
 
+  /* Section heading */
+
   .highlights-heading {
     display: block;
-    margin-bottom: 25px;
     padding: 0 20px;
+    margin-bottom: 20px;
   }
 
   .highlights-eyebrow {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 9px;
     letter-spacing: 2px;
   }
 
   .highlights-heading h2 {
-    font-size: clamp(32px, 8vw, 39px);
-    line-height: 1.13;
+    font-size: clamp(31px, 8vw, 38px);
+    line-height: 1.12;
     letter-spacing: -1px;
   }
 
   .highlights-intro {
     max-width: 320px;
-    margin-top: 13px;
+    margin-top: 10px;
     font-size: 11px;
-    line-height: 1.75;
+    line-height: 1.65;
   }
 
+  /* Full-width mobile image */
+
   .highlights-track {
-    height: min(118vw, 510px);
-    min-height: 390px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .highlight-slide {
+    width: 100%;
+    height: 100%;
   }
 
   .highlight-slide > img {
-    object-position: center;
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
   }
+
+  /* Mobile image contrast */
 
   .highlight-slide-overlay {
     background:
       linear-gradient(
         0deg,
-        rgba(10, 9, 8, .78) 0%,
-        rgba(10, 9, 8, .24) 48%,
-        rgba(10, 9, 8, .08) 100%
+        rgba(12, 10, 9, 0.78) 0%,
+        rgba(12, 10, 9, 0.25) 48%,
+        rgba(12, 10, 9, 0.04) 100%
       );
   }
 
+  /* Text inside image */
+
   .highlight-slide-content {
-    right: 22px;
-    left: 22px;
-    bottom: 35px;
+    left: 20px;
+    right: 20px;
+    bottom: 23px;
     max-width: none;
   }
 
   .highlight-slide-eyebrow {
-    margin-bottom: 11px;
-    font-size: 9px;
+    margin-bottom: 9px;
+    font-size: 8px;
     letter-spacing: 2px;
   }
 
   .highlight-slide-content h3 {
     max-width: 100%;
-    font-size: clamp(30px, 8vw, 39px);
+    font-size: clamp(27px, 7.5vw, 36px);
     line-height: 1.12;
+    letter-spacing: -0.4px;
   }
 
-  .highlight-slide-number {
-    top: 19px;
-    right: 20px;
-    font-size: 12px;
-  }
-
-  /* Arrows inside image */
+  /* Mobile arrows */
 
   .highlights-arrows {
-    left: 13px;
-    right: 13px;
+    left: 12px;
+    right: 12px;
   }
 
   .highlights-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
+    width: 37px;
+    height: 37px;
+    font-size: 19px;
   }
 
-  .highlights-controls {
-    gap: 14px;
-    padding: 17px 20px 0;
+  /* Large centered CTA */
+
+  .project-highlights .highlights-cta {
+    min-height: 105px;
+    padding: 20px 16px;
   }
 
-  .highlights-counter {
-    min-width: 67px;
-    gap: 8px;
+  .project-highlights .highlights-enquire-button {
+    width: 100% !important;
+    max-width: 320px;
+    height: 56px;
+    flex: 0 1 320px;
+    margin: 0 auto;
+    gap: 35px;
+    padding: 0 25px;
     font-size: 11px;
   }
 
-  .counter-divider {
-    width: 15px;
+  .project-highlights .highlights-enquire-button span {
+    font-size: 23px;
   }
 }
 
@@ -431,30 +492,48 @@
    SMALL MOBILE
 ================================== */
 
-@media (max-width: 360px) {
+@media (max-width: 380px) {
+  .highlights-heading {
+    padding: 0 16px;
+  }
+
   .highlights-track {
-    height: 420px;
-    min-height: 0;
+    aspect-ratio: 4 / 3;
   }
 
   .highlight-slide-content {
-    left: 18px;
-    right: 18px;
-    bottom: 28px;
+    left: 16px;
+    right: 16px;
+    bottom: 19px;
   }
 
   .highlight-slide-content h3 {
-    font-size: 29px;
-  }
-
-  .highlights-controls {
-    padding-right: 16px;
-    padding-left: 16px;
+    font-size: 26px;
   }
 
   .highlights-arrows {
-    left: 10px;
-    right: 10px;
+    left: 9px;
+    right: 9px;
+  }
+
+  .highlights-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .project-highlights .highlights-cta {
+    min-height: 100px;
+    padding: 18px 12px;
+  }
+
+  .project-highlights .highlights-enquire-button {
+    width: 100% !important;
+    max-width: 320px;
+    height: 54px;
+    flex-basis: 320px;
+    gap: 30px;
+    font-size: 10px;
   }
 }
 
@@ -464,9 +543,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .highlight-slide,
-  .highlight-slide > img,
-  .highlights-progress-fill,
-  .highlights-arrow {
+  .highlights-arrow,
+  .highlights-enquire-button {
     transition: none;
   }
 }

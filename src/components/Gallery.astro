@@ -4,366 +4,231 @@ import "../styles/Gallery.css";
 
 const galleryItems = [
   {
-    number: "01",
-    title: "The Grand Perspective",
     category: "PROJECT OVERVIEW",
+    title: "The Grand Perspective",
     image: "/images/gallery/project-overview.webp",
-    alt: "Sai World City Panvel project overview",
+    description:
+      "A 32-acre mega township bringing together residential towers, landscaped spaces and Club Vegas."
   },
   {
-    number: "02",
-    title: "Architecture in Detail",
     category: "ARCHITECTURE",
+    title: "A Distinctive Residential Address",
     image: "/images/gallery/architecture.webp",
-    alt: "Sai World City architectural design",
+    alt: "Sai World City architectural development",
+    description:
+      "Discover thoughtfully planned residential clusters including Marina, Opera, Acropolis, Manhattan, Palazzo and more."
   },
   {
-    number: "03",
+    category: "LANDSCAPED EXPERIENCES",
     title: "A Remarkable Arrival",
-    category: "ENTRANCE",
     image: "/images/gallery/entrance.webp",
-    alt: "Sai World City entrance",
+    alt: "Sai World City entrance and landscaped spaces",
+    description:
+      "A welcoming entrance complemented by landscaped spaces, green walkways, Palms Avenue and a musical fountain."
   },
   {
-    number: "04",
-    title: "The View from Above",
     category: "AERIAL VIEW",
-    image: "/images/gallery/aerial-view.webp",
-    alt: "Aerial view of Sai World City",
-  },
-  {
-    number: "05",
-    title: "A Distinctive Silhouette",
-    category: "TOWER EXTERIOR",
-    image: "/images/gallery/tower-exterior.webp",
-    alt: "Sai World City tower exterior",
-  },
-  {
-    number: "06",
-    title: "An Impressive First Look",
-    category: "PROJECT VIEW",
-    image: "/images/gallery/project-view.webp",
-    alt: "Sai World City project view",
-  },
-  {
-    number: "07",
     title: "The Bigger Picture",
-    category: "PANORAMIC VIEW",
-    image: "/images/gallery/panoramic-view.webp",
-    alt: "Panoramic view of Sai World City",
+    image: "/images/gallery/aerial-view.webp",
+    alt: "Aerial view of Sai World City township",
+    description:
+      "Get a wider perspective of the township, its residential clusters, internal roads and Club Vegas."
   },
+  {
+    category: "TOWER EXTERIOR",
+    title: "A Distinctive Silhouette",
+    image: "/images/gallery/tower-exterior.webp",
+    alt: "Sai World City residential tower exterior",
+    description:
+      "Explore the residential clusters that shape the architectural character of Sai World City."
+  },
+  {
+    category: "CLUB VEGAS",
+    title: "A World of Leisure",
+    image: "/images/gallery/project-view.webp",
+    alt: "Sai World City Club Vegas lifestyle destination",
+    description:
+      "Experience Club Vegas, a G+5 storied themed family clubhouse with indoor and outdoor lifestyle amenities."
+  },
+  {
+    category: "LANDMARK EXPERIENCES",
+    title: "Landmarks Within the Landscape",
+    image: "/images/gallery/panoramic-view.webp",
+    alt: "Sai World City landscaped landmark features",
+    description:
+      "Discover landmark-inspired attractions including the Statue of Liberty, Eiffel Tower and Big Ben Clock Tower."
+  },
+  {
+    category: "MERLION SKY DECK",
+    title: "A Splash of Something Special",
+    image: "/images/amenities/merlion-sky-deck.webp",
+    alt: "Merlion Sky Deck at Sai World City",
+    description:
+      "Enjoy a terrace-level experience featuring a swimming pool, party deck, kids pool and Merlion-inspired setting."
+  }
 ];
 ---
 
 <section class="gallery-section" id="gallery">
   <div class="gallery-container">
 
-    <!-- HEADING -->
+    <!-- SECTION HEADING -->
     <div class="gallery-heading">
       <div class="gallery-heading-left">
-        <span class="gallery-eyebrow">A CLOSER LOOK</span>
+
         <h2>
-          Take a Look Inside
+          Discover the World of
           <span>Sai World City Panvel</span>
         </h2>
       </div>
-
-      <div class="gallery-heading-note">
-        <p>Explore the spaces, architecture and lifestyle that make every moment special.</p>
-      </div>
     </div>
 
-    <!-- MAIN CAROUSEL -->
+    <!-- GALLERY -->
     <div class="gallery-carousel">
 
-      <div class="gallery-main-image" id="gallery-main-image">
+      <div class="gallery-main-image">
+
         {galleryItems.map((item, index) => (
-          <button
-            class:list={["gallery-slide", { "is-active": index === 0 }]}
-            type="button"
+          <article
+            class:list={[
+              "gallery-slide",
+              { "is-active": index === 0 }
+            ]}
             data-slide={index}
-            aria-label={`View ${item.title}`}
             aria-hidden={index !== 0 ? "true" : "false"}
-            tabindex={index === 0 ? 0 : -1}
           >
-            <img
-              src={item.image}
-              alt={item.alt}
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </button>
+
+            <!-- IMAGE -->
+            <div class="gallery-image-wrap">
+              <img
+                src={item.image}
+                alt={item.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+
+              <div class="gallery-image-overlay"></div>
+
+              <div class="gallery-image-details">
+                <span class="gallery-active-category">
+                  {item.category}
+                </span>
+              </div>
+            </div>
+
+            <!-- SIMPLE INFORMATION PATCH -->
+            <div class="gallery-information">
+              <span class="gallery-information-label">
+                {item.category}
+              </span>
+
+              <h3>{item.title}</h3>
+
+              <p>{item.description}</p>
+            </div>
+
+          </article>
         ))}
 
-        <div class="gallery-image-overlay"></div>
+        <!-- NAVIGATION ARROWS -->
+        <div class="gallery-navigation">
+          <button
+            class="gallery-arrow gallery-prev"
+            type="button"
+            aria-label="Previous image"
+          >
+            &#8592;
+          </button>
 
-        <!-- IMAGE INFORMATION -->
-        <div class="gallery-image-details">
-          <div class="gallery-image-text">
-            <span class="gallery-active-category">PROJECT OVERVIEW</span>
-            <h3 class="gallery-active-title">The Grand Perspective</h3>
-          </div>
+          <button
+            class="gallery-arrow gallery-next"
+            type="button"
+            aria-label="Next image"
+          >
+            &#8594;
+          </button>
         </div>
 
-        <!-- ARROWS -->
-        <button
-          class="gallery-arrow gallery-prev"
-          type="button"
-          aria-label="Previous image"
-        >
-          &#8592;
-        </button>
-
-        <button
-          class="gallery-arrow gallery-next"
-          type="button"
-          aria-label="Next image"
-        >
-          &#8594;
-        </button>
-
-        
       </div>
 
     </div>
-  </div>
-
-  <!-- FULLSCREEN LIGHTBOX -->
-  <div class="gallery-lightbox" aria-hidden="true">
-    <button class="lightbox-close" type="button" aria-label="Close gallery">
-      &times;
-    </button>
-
-    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">
-      &#8592;
-    </button>
-
-    <div class="lightbox-content">
-      <img class="lightbox-image" src="" alt="" />
-
-      <div class="lightbox-caption">
-        <div>
-          <span class="lightbox-category"></span>
-          <h3 class="lightbox-title"></h3>
-        </div>
-        <span class="lightbox-counter"></span>
-      </div>
-    </div>
-
-    <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">
-      &#8594;
-    </button>
   </div>
 </section>
 
 <script>
-  const gallerySection = document.querySelector(".gallery-section");
+  const gallerySections = document.querySelectorAll<HTMLElement>(
+    ".gallery-section:not([data-ready])"
+  );
 
-  if (gallerySection && !gallerySection.hasAttribute("data-gallery-ready")) {
-    gallerySection.setAttribute("data-gallery-ready", "true");
+  gallerySections.forEach((section) => {
+    section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
-      gallerySection.querySelectorAll<HTMLButtonElement>(".gallery-slide")
+      section.querySelectorAll<HTMLElement>(".gallery-slide")
     );
 
-    const thumbnails = Array.from(
-      gallerySection.querySelectorAll<HTMLButtonElement>(".gallery-thumbnail")
-    );
+    const previousButton =
+      section.querySelector<HTMLButtonElement>(".gallery-prev");
 
-    const previousButton = gallerySection.querySelector<HTMLButtonElement>(".gallery-prev");
-    const nextButton = gallerySection.querySelector<HTMLButtonElement>(".gallery-next");
-
-    const activeCategory = gallerySection.querySelector<HTMLElement>(".gallery-active-category");
-    const activeTitle = gallerySection.querySelector<HTMLElement>(".gallery-active-title");
-    const progressFill = gallerySection.querySelector<HTMLElement>(".gallery-progress-fill");
-    const thumbnailList = gallerySection.querySelector<HTMLElement>(".gallery-thumbnail-list");
-
-    const lightbox = gallerySection.querySelector<HTMLElement>(".gallery-lightbox");
-    const lightboxImage = gallerySection.querySelector<HTMLImageElement>(".lightbox-image");
-    const lightboxTitle = gallerySection.querySelector<HTMLElement>(".lightbox-title");
-    const lightboxCategory = gallerySection.querySelector<HTMLElement>(".lightbox-category");
-    const lightboxCounter = gallerySection.querySelector<HTMLElement>(".lightbox-counter");
-
-    const closeButton = gallerySection.querySelector<HTMLButtonElement>(".lightbox-close");
-    const lightboxPrevious = gallerySection.querySelector<HTMLButtonElement>(".lightbox-prev");
-    const lightboxNext = gallerySection.querySelector<HTMLButtonElement>(".lightbox-next");
+    const nextButton =
+      section.querySelector<HTMLButtonElement>(".gallery-next");
 
     let currentIndex = 0;
-    let previousFocus: HTMLElement | null = null;
     let touchStartX = 0;
+    let touchStartY = 0;
 
     function showSlide(index: number) {
+      if (!slides.length) return;
+
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
         const active = i === currentIndex;
+
         slide.classList.toggle("is-active", active);
         slide.setAttribute("aria-hidden", String(!active));
-        slide.tabIndex = active ? 0 : -1;
       });
-
-      thumbnails.forEach((thumb, i) => {
-        const active = i === currentIndex;
-        thumb.classList.toggle("is-active", active);
-        thumb.setAttribute("aria-pressed", String(active));
-      });
-
-      const selected = thumbnails[currentIndex];
-      const image = slides[currentIndex].querySelector("img");
-
-      if (activeCategory) {
-        activeCategory.textContent = selected.querySelector("img")?.alt
-          ? selected.querySelector("img")?.alt === "Sai World City Panvel project overview"
-            ? "PROJECT OVERVIEW"
-            : selected.getAttribute("aria-label")?.replace("Show ", "").toUpperCase() || ""
-          : "";
-      }
-
-      const categories = [
-        "PROJECT OVERVIEW",
-        "ARCHITECTURE",
-        "ENTRANCE",
-        "AERIAL VIEW",
-        "TOWER EXTERIOR",
-        "PROJECT VIEW",
-        "PANORAMIC VIEW",
-      ];
-
-      const titles = [
-        "The Grand Perspective",
-        "Architecture in Detail",
-        "A Remarkable Arrival",
-        "The View from Above",
-        "A Distinctive Silhouette",
-        "An Impressive First Look",
-        "The Bigger Picture",
-      ];
-
-      if (activeCategory) activeCategory.textContent = categories[currentIndex];
-      if (activeTitle) activeTitle.textContent = titles[currentIndex];
-
-      if (activeNumber) {
-        activeNumber.textContent =
-          `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
-      }
-
-      if (progressFill) {
-        progressFill.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
-      }
-
-      selected.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "nearest",
-      });
-
-      if (image && lightboxImage) {
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-      }
     }
 
-    function openLightbox() {
-      const image = slides[currentIndex].querySelector("img");
-      if (!lightbox || !image) return;
-
-      previousFocus = document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-
-      if (lightboxImage) {
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-      }
-
-      if (lightboxTitle) lightboxTitle.textContent = [
-        "The Grand Perspective",
-        "Architecture in Detail",
-        "A Remarkable Arrival",
-        "The View from Above",
-        "A Distinctive Silhouette",
-        "An Impressive First Look",
-        "The Bigger Picture",
-      ][currentIndex];
-
-      if (lightboxCategory) lightboxCategory.textContent = [
-        "PROJECT OVERVIEW",
-        "ARCHITECTURE",
-        "ENTRANCE",
-        "AERIAL VIEW",
-        "TOWER EXTERIOR",
-        "PROJECT VIEW",
-        "PANORAMIC VIEW",
-      ][currentIndex];
-
-      if (lightboxCounter) {
-        lightboxCounter.textContent =
-          `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
-      }
-
-      lightbox.classList.add("is-open");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.classList.add("gallery-lock-scroll");
-      closeButton?.focus();
-    }
-
-    function closeLightbox() {
-      if (!lightbox) return;
-
-      lightbox.classList.remove("is-open");
-      lightbox.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("gallery-lock-scroll");
-
-      if (previousFocus) previousFocus.focus();
-    }
-
-    slides.forEach((slide, index) => {
-      slide.addEventListener("click", openLightbox);
-    });
-
-    thumbnails.forEach((thumb, index) => {
-      thumb.addEventListener("click", () => showSlide(index));
-    });
-
-    previousButton?.addEventListener("click", () => showSlide(currentIndex - 1));
-    nextButton?.addEventListener("click", () => showSlide(currentIndex + 1));
-
-
-    closeButton?.addEventListener("click", closeLightbox);
-    lightboxPrevious?.addEventListener("click", () => {
+    previousButton?.addEventListener("click", () => {
       showSlide(currentIndex - 1);
-      openLightbox();
     });
-    lightboxNext?.addEventListener("click", () => {
+
+    nextButton?.addEventListener("click", () => {
       showSlide(currentIndex + 1);
-      openLightbox();
     });
 
-    lightbox?.addEventListener("click", (event) => {
-      if (event.target === lightbox) closeLightbox();
-    });
+    const imageArea = section.querySelector<HTMLElement>(
+      ".gallery-main-image"
+    );
 
-    const mainImage = gallerySection.querySelector(".gallery-main-image");
+    imageArea?.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+      },
+      { passive: true }
+    );
 
-    mainImage?.addEventListener("touchstart", (event) => {
-      touchStartX = event.changedTouches[0].screenX;
-    }, { passive: true });
+    imageArea?.addEventListener(
+      "touchend",
+      (event) => {
+        const differenceX =
+          touchStartX - event.changedTouches[0].screenX;
 
-    mainImage?.addEventListener("touchend", (event) => {
-      const difference = touchStartX - event.changedTouches[0].screenX;
+        const differenceY =
+          touchStartY - event.changedTouches[0].screenY;
 
-      if (Math.abs(difference) > 50) {
-        showSlide(currentIndex + (difference > 0 ? 1 : -1));
-      }
-    }, { passive: true });
-
-    document.addEventListener("keydown", (event) => {
-      if (!lightbox?.classList.contains("is-open")) return;
-
-      if (event.key === "Escape") closeLightbox();
-      if (event.key === "ArrowLeft") showSlide(currentIndex - 1);
-      if (event.key === "ArrowRight") showSlide(currentIndex + 1);
-    });
+        if (
+          Math.abs(differenceX) > 50 &&
+          Math.abs(differenceX) > Math.abs(differenceY)
+        ) {
+          showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
+        }
+      },
+      { passive: true }
+    );
 
     showSlide(0);
-  }
+  });
 </script>

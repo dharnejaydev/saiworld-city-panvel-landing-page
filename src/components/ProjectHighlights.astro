@@ -4,28 +4,24 @@ import "../styles/ProjectHighlights.css";
 
 const highlights = [
   {
-    number: "01",
     eyebrow: "THE TOWNSHIP",
     title: "32 Acres of Possibilities",
     image: "/images/highlights/township-masterplan.webp",
     alt: "Sai World City township masterplan",
   },
   {
-    number: "02",
     eyebrow: "THE CLUBHOUSE",
     title: "A G+5 Lifestyle Destination",
     image: "/images/highlights/clubhouse.webp",
     alt: "Sai World City clubhouse",
   },
   {
-    number: "03",
     eyebrow: "A SIGNATURE EXPERIENCE",
     title: "Sky Pool Inspired by Marina Bay",
     image: "/images/highlights/sky-pool.webp",
     alt: "Sai World City sky pool",
   },
   {
-    number: "04",
     eyebrow: "LANDSCAPED EXPERIENCES",
     title: "Landmarks Within the Landscape",
     image: "/images/highlights/landscape.webp",
@@ -40,7 +36,7 @@ const highlights = [
     <!-- SECTION HEADING -->
     <div class="highlights-heading">
       <div class="highlights-heading-left">
-        <span class="highlights-eyebrow">DISCOVER THE DIFFERENCE</span>
+       
 
         <h2>
           Project Highlights
@@ -48,14 +44,13 @@ const highlights = [
         </h2>
       </div>
 
-      <p class="highlights-intro">
-        Explore the spaces, architecture and lifestyle that make every moment special.
-      </p>
+      
     </div>
 
-    <!-- CAROUSEL -->
+    <!-- PROJECT HIGHLIGHTS CAROUSEL -->
     <div class="highlights-carousel">
 
+      <!-- IMAGE SLIDES -->
       <div class="highlights-track" aria-roledescription="carousel">
 
         {highlights.map((item, index) => (
@@ -64,7 +59,8 @@ const highlights = [
               "highlight-slide",
               { "is-active": index === 0 }
             ]}
-            data-slide={index}
+            data-title={item.title}
+            data-eyebrow={item.eyebrow}
             aria-hidden={index !== 0 ? "true" : "false"}
           >
             <img
@@ -73,8 +69,10 @@ const highlights = [
               loading={index === 0 ? "eager" : "lazy"}
             />
 
+            <!-- IMAGE OVERLAY -->
             <div class="highlight-slide-overlay"></div>
 
+            <!-- TEXT INSIDE IMAGE -->
             <div class="highlight-slide-content">
               <span class="highlight-slide-eyebrow">
                 {item.eyebrow}
@@ -82,18 +80,15 @@ const highlights = [
 
               <h3>{item.title}</h3>
             </div>
-
-         
           </article>
         ))}
 
-        <!-- IMAGE NAVIGATION ARROWS -->
+        <!-- NAVIGATION ARROWS -->
         <div class="highlights-arrows">
           <button
             class="highlights-arrow highlights-prev"
             type="button"
             aria-label="Previous highlight"
-            disabled
           >
             &#8592;
           </button>
@@ -109,6 +104,17 @@ const highlights = [
 
       </div>
 
+      <!-- CENTERED ENQUIRE BUTTON -->
+      <div class="highlights-cta">
+        <a
+          href="tel:+919920968878"
+          class="highlights-enquire-button"
+          aria-label="Call Sai World City at 9920968878"
+        >
+          ENQUIRE NOW
+          <span aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
 
     </div>
   </div>
@@ -134,16 +140,8 @@ const highlights = [
       ".highlights-next"
     );
 
-    const currentCounter = section.querySelector<HTMLElement>(
-      ".current-slide"
-    );
-
-    const progress = section.querySelector<HTMLElement>(
-      ".highlights-progress-fill"
-    );
-
-    const totalCounter = section.querySelector<HTMLElement>(
-      ".total-slides"
+    const track = section.querySelector<HTMLElement>(
+      ".highlights-track"
     );
 
     let currentIndex = 0;
@@ -153,6 +151,7 @@ const highlights = [
     function showSlide(index: number) {
       if (!slides.length) return;
 
+      // Infinite carousel navigation
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
@@ -161,62 +160,47 @@ const highlights = [
         slide.classList.toggle("is-active", active);
         slide.setAttribute("aria-hidden", String(!active));
       });
-
-      if (currentCounter) {
-        currentCounter.textContent =
-          String(currentIndex + 1).padStart(2, "0");
-      }
-
-      if (totalCounter) {
-        totalCounter.textContent =
-          String(slides.length).padStart(2, "0");
-      }
-
-      if (progress) {
-        progress.style.width =
-          `${((currentIndex + 1) / slides.length) * 100}%`;
-      }
-
-      if (previous) {
-        previous.disabled = currentIndex === 0;
-      }
-
-      if (next) {
-        next.disabled = currentIndex === slides.length - 1;
-      }
     }
 
+    // Previous image
     previous?.addEventListener("click", () => {
       showSlide(currentIndex - 1);
     });
 
+    // Next image
     next?.addEventListener("click", () => {
       showSlide(currentIndex + 1);
     });
 
-    const track = section.querySelector<HTMLElement>(
-      ".highlights-track"
+    // Mobile swipe start
+    track?.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+      },
+      { passive: true }
     );
 
-    track?.addEventListener("touchstart", (event) => {
-      touchStartX = event.changedTouches[0].screenX;
-      touchStartY = event.changedTouches[0].screenY;
-    }, { passive: true });
+    // Mobile swipe end
+    track?.addEventListener(
+      "touchend",
+      (event) => {
+        const differenceX =
+          touchStartX - event.changedTouches[0].screenX;
 
-    track?.addEventListener("touchend", (event) => {
-      const differenceX =
-        touchStartX - event.changedTouches[0].screenX;
+        const differenceY =
+          touchStartY - event.changedTouches[0].screenY;
 
-      const differenceY =
-        touchStartY - event.changedTouches[0].screenY;
-
-      if (
-        Math.abs(differenceX) > 50 &&
-        Math.abs(differenceX) > Math.abs(differenceY)
-      ) {
-        showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
-      }
-    }, { passive: true });
+        if (
+          Math.abs(differenceX) > 45 &&
+          Math.abs(differenceX) > Math.abs(differenceY)
+        ) {
+          showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
+        }
+      },
+      { passive: true }
+    );
 
     showSlide(0);
   });
