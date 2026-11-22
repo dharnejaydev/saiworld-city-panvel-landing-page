@@ -1,6 +1,6 @@
 
 :root {
-  --highlight-accent: #C4A484;
+  --highlight-accent: #cb8080;
   --highlight-dark: #24211e;
   --highlight-muted: #77716b;
   --highlight-border: #e5ded5;
@@ -59,7 +59,7 @@
 
 .highlights-heading h2 span {
   display: block;
-  color: #a78a6e;
+  color: #de8c8c;
 }
 
 .highlights-intro {
@@ -267,8 +267,8 @@
   min-height: 125px;
   padding: 25px 20px;
 
-  background: #f0ede7;
-  border-top: 1px solid #dfd5c9;
+  background: #fff;
+  border-top: 1px solid #fff;
   box-sizing: border-box;
 }
 
@@ -359,10 +359,8 @@
 
 @media (max-width: 600px) {
   .project-highlights {
-    padding: 45px 0 0;
-    margin-bottom: 0;
+    padding: 45px 0 48px;
   }
-}
 
   .highlights-container {
     width: 100%;

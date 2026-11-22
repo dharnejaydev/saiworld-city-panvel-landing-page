@@ -5,13 +5,13 @@
 ========================================= */
 
 .enquiry-section {
-  --red: #724c84;
-  --red-dark: #d06efe;
-  --dark: #211c1d;
-  --muted: #827b78;
+  --red: #f5acac;
+  --red-dark: #f5b6b6;
+  --dark: #000000;
+  --muted: #000000;
   --border: #e8e0dc;
   --cream: #faf7f5;
-  --gold: #f2c98e;
+  --gold: #130281;
 
   width: 100%;
   padding: 75px 4%;
@@ -44,14 +44,14 @@
   align-items: flex-start;
   padding: 65px 9%;
   background: var(--red);
-  color: #fff;
+  color: #000000;
   overflow: hidden;
 }
 
 .enquiry-eyebrow {
   position: relative;
   z-index: 1;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -80,7 +80,7 @@
   z-index: 1;
   max-width: 330px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.85);
   font-size: 12px;
   line-height: 1.8;
 }
@@ -175,7 +175,7 @@
 }
 
 .form-field label {
-  color: #554d4b;
+  color: #000000;
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 1.4px;
@@ -454,5 +454,16 @@
   .enquiry-section *::before,
   .enquiry-section *::after {
     transition: none !important;
+  }
+}
+
+/* REDUCE GAP ABOVE ENQUIRY */
+.enquiry-section {
+  padding-top: 30px;
+}
+
+@media (max-width: 700px) {
+  .enquiry-section {
+    padding-top: 18px;
   }
 }

@@ -10,7 +10,7 @@
 
 .location-section {
 
-  --red: #b51f36;
+  --red: #cb8080;
 
   --dark: #211c1d;
 
@@ -1239,5 +1239,23 @@
     width: 100%;
     height: auto;
     aspect-ratio: auto;
+  }
+}
+
+/* REDUCE GAP AFTER LOCATION SECTION */
+
+.location-section {
+  padding-bottom: 30px;
+}
+
+@media (max-width: 700px) {
+  .location-section {
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .location-section {
+    padding-bottom: 16px;
   }
 }

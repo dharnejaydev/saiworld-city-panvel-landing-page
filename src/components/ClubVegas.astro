@@ -6,30 +6,56 @@ const images = [
   {
     src: "/images/club-vegas/2fe04fe0-1169-45ec-8c2d-f73c0f961813.webp",
     alt: "Club Vegas lounge and indoor leisure space",
+    category: "THE LOUNGE",
+    title: "Relax In Refined Comfort",
   },
   {
-    src: "/images/club-vegas/3eedd957-83ff-400b-9f88-045ca5f7ab8.webp",
-    alt: "Children's recreation and activity space",
+    src: "/images/club-vegas/3eedd957-83ff-400b-9f88-0845ca5f7ab8.webp",
+    alt: "Colourful indoor recreation and activity space",
+    category: "KIDS & RECREATION",
+    title: "Spaces Made For Play",
   },
   {
-    src: "/images/club-vegas/bddd8593-fe98-4d4a-8de1-361d7aa50d20.webp",
-    alt: "Indoor badminton court at Club Vegas",
+    src: "/images/club-vegas/103a0e2b-44c5-4ddc-aefc-bc9cc3ed53b6.webp",
+    alt: "Private cinema and entertainment room",
+    category: "ENTERTAINMENT",
+    title: "Your Private Cinema Experience",
   },
   {
     src: "/images/club-vegas/50065c66-67a8-4b62-9dec-827344e08389.webp",
-    alt: "Club Vegas spa and wellness interior",
+    alt: "Elegant Club Vegas indoor leisure space",
+    category: "LUXURY LIVING",
+    title: "An Elevated Indoor Experience",
   },
   {
     src: "/images/club-vegas/135652ec-d316-4fe3-8954-8686be76e5f6.webp",
-    alt: "Indoor recreational facilities at Club Vegas",
+    alt: "Premium indoor gathering and recreation space",
+    category: "SOCIAL SPACES",
+    title: "Come Together In Style",
+  },
+  {
+    src: "/images/club-vegas/bd4e87a5-1cca-4a94-bbf5-7d4267201a18.webp",
+    alt: "Indoor games and recreation at Club Vegas",
+    category: "INDOOR RECREATION",
+    title: "Make Every Moment Count",
+  },
+  {
+    src: "/images/club-vegas/bddd8593-fe98-4da4-8de1-361d7aa5d020.webp",
+    alt: "Indoor badminton court at Club Vegas",
+    category: "ACTIVE LIFESTYLE",
+    title: "Play, Move And Recharge",
   },
   {
     src: "/images/club-vegas/dea9a5e5-47a9-434f-aa48-1633aa481ee0.webp",
-    alt: "Club Vegas indoor games area",
+    alt: "Indoor snooker and games area",
+    category: "GAMES & LEISURE",
+    title: "Leisure Has A New Address",
   },
   {
     src: "/images/amenities/merlion-sky-deck-pool.webp",
     alt: "Merlion Sky Deck swimming pool at Sai World City",
+    category: "AQUA LEISURE",
+    title: "Merlion Sky Deck",
   },
 ];
 ---
@@ -37,17 +63,13 @@ const images = [
 <section class="club-vegas" id="club-vegas">
   <div class="club-container">
 
-    <!-- SECTION HEADING -->
     <header class="club-heading">
-
       <h2>
         Introducing Club Vegas At
         <span>Sai World City Panvel</span>
       </h2>
-
     </header>
 
-    <!-- IMAGE CAROUSEL -->
     <div class="club-carousel">
 
       {images.map((image, index) => (
@@ -59,7 +81,6 @@ const images = [
           data-slide={index}
           aria-hidden={index !== 0 ? "true" : "false"}
         >
-
           <div class="club-image-wrap">
 
             <img
@@ -70,9 +91,14 @@ const images = [
               draggable="false"
             />
 
-            <!-- IMAGE NAVIGATION -->
-            <div class="club-navigation">
+            <div class="club-image-shade"></div>
 
+            <div class="club-image-caption">
+              <span>{image.category}</span>
+              <h3>{image.title}</h3>
+            </div>
+
+            <div class="club-navigation">
               <button
                 class="club-arrow club-prev"
                 type="button"
@@ -88,17 +114,14 @@ const images = [
               >
                 &#8594;
               </button>
-
             </div>
 
           </div>
-
         </article>
       ))}
 
     </div>
 
-    <!-- ENQUIRE BUTTON -->
     <div class="club-cta">
       <a
         href="tel:+919920968878"
@@ -114,11 +137,9 @@ const images = [
 </section>
 
 <script>
-  const clubSections = document.querySelectorAll<HTMLElement>(
+  document.querySelectorAll<HTMLElement>(
     ".club-vegas:not([data-ready])"
-  );
-
-  clubSections.forEach((section) => {
+  ).forEach((section) => {
     section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
@@ -146,7 +167,6 @@ const images = [
       });
     }
 
-    // Previous and next navigation
     carousel.addEventListener("click", (event) => {
       const target = event.target;
 
@@ -161,7 +181,6 @@ const images = [
       }
     });
 
-    // Mobile swipe start
     carousel.addEventListener(
       "touchstart",
       (event) => {
@@ -171,7 +190,6 @@ const images = [
       { passive: true }
     );
 
-    // Mobile swipe end
     carousel.addEventListener(
       "touchend",
       (event) => {

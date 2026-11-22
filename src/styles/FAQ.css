@@ -1,5 +1,5 @@
 :root {
-  --faq-red: #b51f36;
+  --faq-red: #cb8080;
   --faq-dark: #242424;
   --faq-muted: #777777;
   --faq-border: #e9e5e2;
@@ -370,12 +370,34 @@
 .faq-heading h2 em {
   display: block;
   font-style: italic;
-  color: #c51f36;
+  color: #cb8080;
 }
 
 /* MOBILE */
 @media (max-width: 767px) {
   .faq-heading h2 {
     gap: 6px;
+  }
+}
+
+/* REDUCE GAP BELOW FAQ */
+.faq-section {
+  padding-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+  .faq-section {
+    padding-bottom: 18px;
+  }
+}
+/* REDUCE GAP BEFORE FAQ SECTION */
+
+.faq-section {
+  padding-top: 30px;
+}
+
+@media (max-width: 600px) {
+  .faq-section {
+    padding-top: 16px;
   }
 }

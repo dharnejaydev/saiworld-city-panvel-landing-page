@@ -4,7 +4,7 @@
 ===================================================== */
 
 .overview-section {
-  --blue: #C4A484;
+  --blue: #0e0548;
   --red: #000000;
   --dark: #000000;
   --muted: #000000;
@@ -93,7 +93,7 @@
 
 .overview-content > p:not(.overview-tagline) {
   margin: 0 0 11px;
-  color: #0c0c0c;
+  color: #000000;
   font-size: 12px;
   line-height: 1.75;
 }
@@ -172,7 +172,7 @@
 
 
 /* =====================================================
-   03. ONE COMBINED BLUE SECTION
+   03. ONE COMBINED BLUE SECTION — #1800ad
 ===================================================== */
 
 .overview-highlights {
@@ -539,7 +539,7 @@
   }
 
 
-  /* BLUE HIGHLIGHTS */
+  /* BLUE HIGHLIGHTS — #1800ad */
 
   .overview-highlights {
     grid-template-columns: 1fr;
