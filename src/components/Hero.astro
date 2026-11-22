@@ -33,12 +33,21 @@ const highlights = [
 <section class="swc-hero" id="top">
 
   <div class="swc-hero-background">
-    <img
-      src="/images/hero/sai-world-city-main.webp"
-      alt="Sai World City residential development in Panvel"
-      fetchpriority="high"
-      decoding="async"
-    />
+    <picture>
+      <!-- MOBILE HERO IMAGE -->
+      <source
+        media="(max-width: 767px)"
+        srcset="/images/hero/b58d742a-b182-4288-8a3a-bbb66c1ddd61.webp"
+      />
+
+      <!-- DESKTOP HERO IMAGE -->
+      <img
+        src="/images/hero/sai-world-city-main.webp"
+        alt="Sai World City residential development in Panvel"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
   </div>
 
   <div class="swc-hero-overlay"></div>
@@ -216,27 +225,18 @@ const highlights = [
     gtmWindow.dataLayer.push(eventData);
   }
 
-  // ==========================================
   // HERO SECTION INITIALIZATION
-  // ==========================================
-
   document.querySelectorAll<HTMLElement>(
     ".swc-hero:not([data-ready])"
   ).forEach((hero) => {
 
     hero.setAttribute("data-ready", "true");
 
-    // ==========================================
     // HERO SECTION VISIBILITY
-    // ==========================================
-
     const observer = new IntersectionObserver(
       (entries) => {
-
         entries.forEach((entry) => {
-
           if (entry.isIntersecting) {
-
             pushGTMEvent({
               event: "hero_section_view",
               section_name: "Sai World City Hero"
@@ -244,9 +244,7 @@ const highlights = [
 
             observer.unobserve(hero);
           }
-
         });
-
       },
       {
         threshold: 0.3
@@ -255,91 +253,65 @@ const highlights = [
 
     observer.observe(hero);
 
-    // ==========================================
     // BOOK FREE SITE VISIT CLICK
-    // ==========================================
-
     const siteVisitButton =
       hero.querySelector<HTMLAnchorElement>(
         "[data-hero-site-visit]"
       );
 
     siteVisitButton?.addEventListener("click", () => {
-
       pushGTMEvent({
         event: "hero_site_visit_click",
         button_name: "Book Free Site Visit",
         section_name: "Hero",
         form_type: "popup"
       });
-
     });
 
-    // ==========================================
     // HERO PHONE NUMBER CLICK
-    // ==========================================
-
     const phoneLinks =
       hero.querySelectorAll<HTMLAnchorElement>(
         "[data-hero-phone]"
       );
 
     phoneLinks.forEach((link) => {
-
       link.addEventListener("click", () => {
-
         pushGTMEvent({
           event: "hero_phone_click",
           phone_label: link.dataset.heroPhone || "",
           section_name: "Hero",
           destination: "phone_call"
         });
-
       });
-
     });
 
   });
 
-  // ==========================================
   // FLOATING WHATSAPP CLICK
-  // ==========================================
-
   document.querySelectorAll<HTMLAnchorElement>(
     "[data-hero-whatsapp]"
   ).forEach((button) => {
-
     button.addEventListener("click", () => {
-
       pushGTMEvent({
         event: "hero_whatsapp_click",
         button_name: "Floating WhatsApp",
         section_name: "Hero",
         destination: "whatsapp"
       });
-
     });
-
   });
 
-  // ==========================================
   // FLOATING CALL CLICK
-  // ==========================================
-
   document.querySelectorAll<HTMLAnchorElement>(
     "[data-hero-floating-call]"
   ).forEach((button) => {
-
     button.addEventListener("click", () => {
-
       pushGTMEvent({
         event: "hero_floating_call_click",
         button_name: "Floating Call",
         section_name: "Hero",
         destination: "phone_call"
       });
-
     });
-
   });
 </script>
