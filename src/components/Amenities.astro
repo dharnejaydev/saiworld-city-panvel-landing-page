@@ -4,65 +4,80 @@ import "../styles/Amenities.css";
 
 const amenities = [
   {
-    
-    title: "Landscaped Amenities",
-    category: "OUTDOOR LIFESTYLE",
-    image: "/images/amenities/landscaped-amenities.webp",
-    alt: "Landscaped outdoor amenities at Sai World City",
+    title: "Club Vegas – A Landmark Experience",
+    category: "THE CLUBHOUSE",
+    image: "/images/amenities/club-vegas-exterior.webp",
+    alt: "Club Vegas exterior and rooftop swimming pool",
   },
   {
-   
-    title: "Banquet & Entertainment",
-    category: "CELEBRATIONS",
+    title: "Spaces for Every Celebration",
+    category: "BANQUET & ENTERTAINMENT",
     image: "/images/amenities/banquet-entertainment.webp",
     alt: "Banquet and entertainment facilities",
   },
   {
-   
-    title: "A World of Discovery",
+    title: "A World of Discovery for Kids",
     category: "KIDS & CREATIVITY",
-    image: "/images/amenities/world-discovery.webp",
-    alt: "Kids and creative amenities",
+    image: "/images/amenities/kids-play-area.webp",
+    alt: "Indoor children's play area",
   },
   {
-    
+    title: "Gaming & Indoor Entertainment",
+    category: "GAMES & LEISURE",
+    image: "/images/amenities/gaming-lounge.webp",
+    alt: "Indoor gaming lounge",
+  },
+  {
+    title: "Indoor Games & Recreation",
+    category: "INDOOR SPORTS",
+    image: "/images/amenities/indoor-games-lounge.webp",
+    alt: "Indoor games and recreation lounge",
+  },
+  {
+    title: "Table Tennis & Indoor Games",
+    category: "ACTIVE LIFESTYLE",
+    image: "/images/amenities/table-tennis-games.webp",
+    alt: "Table tennis and indoor games facilities",
+  },
+  {
+    title: "A Modern Fitness Experience",
+    category: "FITNESS & WELLNESS",
+    image: "/images/amenities/modern-gym.webp",
+    alt: "Modern gymnasium with fitness equipment",
+  },
+  {
+    title: "Yoga & Mindful Living",
+    category: "WELLNESS",
+    image: "/images/amenities/yoga-studio.webp",
+    alt: "Yoga and meditation studio",
+  },
+  {
+    title: "Outdoor Sports Arena",
+    category: "OUTDOOR RECREATION",
+    image: "/images/amenities/outdoor-sports-arena.webp",
+    alt: "Outdoor sports arena",
+  },
+  {
     title: "Merlion Sky Deck",
     category: "AQUA LEISURE",
-    image: "/images/amenities/merlion-sky-deck.webp",
-    alt: "Merlion Sky Deck and swimming pool",
+    image: "/images/amenities/merlion-sky-deck-pool.webp",
+    alt: "Merlion Sky Deck swimming pool",
   },
   {
-   
-    title: "Move. Play. Create.",
-    category: "SPORTS & EXPRESSION",
-    image: "/images/amenities/move-play-create.webp",
-    alt: "Sports and indoor recreation facilities",
+    title: "Landscaped Gardens & Green Spaces",
+    category: "OUTDOOR LIFESTYLE",
+    image: "/images/amenities/landscaped-garden.webp",
+    alt: "Landscaped garden and outdoor seating",
   },
   {
-    
-    title: "Spa & Wellness",
-    category: "RELAXATION & REJUVENATION",
-    image: "/images/amenities/spa-wellness.webp",
-    alt: "Spa and wellness facilities",
+    title: "Indoor Games Room",
+    category: "GAMES & ENTERTAINMENT",
+    image: "/images/amenities/indoor-games-room.webp",
+    alt: "Indoor games room",
   },
   {
-    
-    title: "Fitness & Indoor Games",
-    category: "FITNESS & RECREATION",
-    image: "/images/amenities/fitness-indoor-games.webp",
-    alt: "Fitness and indoor games facilities",
-  },
-  {
-    
-    title: "The Clubhouse Experience",
-    category: "LIFESTYLE & LEISURE",
-    image: "/images/amenities/clubhouse-experience.webp",
-    alt: "Sai World City clubhouse facilities",
-  },
-  {
-   
-    title: "Sai Baba Mandir",
-    category: "A SPACE FOR SERENITY",
+    title: "A Peaceful Sai Baba Mandir",
+    category: "SPIRITUAL SERENITY",
     image: "/images/amenities/sai-baba-mandir.webp",
     alt: "Sai Baba Mandir at Sai World City",
   },
@@ -75,19 +90,19 @@ const amenities = [
     <!-- SECTION HEADING -->
     <header class="atlas-header">
       <div class="atlas-heading">
-        <div class="atlas-heading-left">
 
-          <h2>
-            A Thoughtful Collection of Lifestyle Amenities
-            <em>In Sai World City Panvel.</em>
-          </h2>
-        </div>
+        <h2>
+          A Thoughtful Collection of Lifestyle Amenities
+          <em>In Sai World City Panvel.
+</em>
+        </h2>
 
+        
       </div>
     </header>
 
     <!-- AMENITIES CAROUSEL -->
-    <div class="atlas-carousel">
+    <div class="atlas-carousel" aria-roledescription="carousel">
 
       {amenities.map((item, index) => (
         <article
@@ -98,26 +113,30 @@ const amenities = [
           data-slide={index}
           aria-hidden={index !== 0 ? "true" : "false"}
         >
-
-          <!-- IMAGE -->
           <div class="atlas-image">
 
+            <!-- AMENITY IMAGE -->
             <img
               src={item.image}
               alt={item.alt}
               loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              draggable="false"
             />
 
+            <!-- IMAGE OVERLAY -->
             <div class="atlas-image-shade"></div>
 
-            <!-- IMAGE CAPTION -->
+            <!-- IMAGE TITLE -->
             <div class="atlas-image-caption">
-              <span>{item.floor}</span>
-              <small>{item.category}</small>
+              <span class="atlas-image-category">
+                {item.category}
+              </span>
+
               <h3>{item.title}</h3>
             </div>
 
-            <!-- IMAGE ARROWS -->
+            <!-- NAVIGATION ARROWS -->
             <div class="atlas-arrows">
               <button
                 class="atlas-arrow atlas-prev"
@@ -137,13 +156,12 @@ const amenities = [
             </div>
 
           </div>
-
         </article>
       ))}
 
     </div>
 
-    <!-- ENQUIRE BUTTON - ALWAYS BELOW CAROUSEL -->
+    <!-- ENQUIRE BUTTON -->
     <div class="atlas-cta">
       <a
         class="atlas-enquire-button"
@@ -174,15 +192,13 @@ const amenities = [
       ".atlas-carousel"
     );
 
+    if (!slides.length || !carousel) return;
+
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
     function showSlide(index: number) {
-      if (!slides.length) return;
-
-      // Infinite carousel: last slide returns to first.
-      // Previous from first slide returns to last.
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
@@ -194,26 +210,22 @@ const amenities = [
     }
 
     // Arrow navigation
-    slides.forEach((slide) => {
-      const previous = slide.querySelector<HTMLButtonElement>(
-        ".atlas-prev"
-      );
+    carousel.addEventListener("click", (event) => {
+      const target = event.target;
 
-      const next = slide.querySelector<HTMLButtonElement>(
-        ".atlas-next"
-      );
+      if (!(target instanceof Element)) return;
 
-      previous?.addEventListener("click", () => {
+      if (target.closest(".atlas-prev")) {
         showSlide(currentIndex - 1);
-      });
+      }
 
-      next?.addEventListener("click", () => {
+      if (target.closest(".atlas-next")) {
         showSlide(currentIndex + 1);
-      });
+      }
     });
 
-    // Mobile swipe navigation
-    carousel?.addEventListener(
+    // Mobile swipe start
+    carousel.addEventListener(
       "touchstart",
       (event) => {
         touchStartX = event.changedTouches[0].screenX;
@@ -222,7 +234,8 @@ const amenities = [
       { passive: true }
     );
 
-    carousel?.addEventListener(
+    // Mobile swipe end
+    carousel.addEventListener(
       "touchend",
       (event) => {
         const differenceX =
@@ -243,6 +256,7 @@ const amenities = [
       { passive: true }
     );
 
+    // Start with first image
     showSlide(0);
   });
 </script>

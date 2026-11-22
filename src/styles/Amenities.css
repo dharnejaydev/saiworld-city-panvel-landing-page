@@ -1,6 +1,6 @@
 
 :root {
-  --atlas-accent: #C4A484;
+  --atlas-accent: #c4a484;
   --atlas-dark: #24211e;
   --atlas-muted: #77716b;
   --atlas-border: #e8e2dc;
@@ -27,21 +27,17 @@
    SECTION HEADING
 ================================== */
 
-.atlas-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 35px;
-  margin-bottom: 38px;
+.atlas-header {
+  margin-bottom: 35px;
 }
 
-.atlas-heading-left {
-  max-width: 800px;
+.atlas-heading {
+  max-width: 850px;
 }
 
 .atlas-eyebrow {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   color: #9d8064;
   font-size: 10px;
   font-weight: 700;
@@ -52,9 +48,9 @@
   margin: 0;
   color: var(--atlas-dark);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(36px, 4.2vw, 56px);
+  font-size: clamp(38px, 4.2vw, 58px);
   font-weight: 400;
-  line-height: 1.12;
+  line-height: 1.1;
   letter-spacing: -1.5px;
 }
 
@@ -65,11 +61,11 @@
 }
 
 .atlas-intro {
-  max-width: 330px;
-  margin: 0 0 5px;
+  max-width: 550px;
+  margin: 18px 0 0;
   color: var(--atlas-muted);
   font-size: 13px;
-  line-height: 1.9;
+  line-height: 1.85;
 }
 
 /* ==================================
@@ -104,17 +100,19 @@
 }
 
 /* ==================================
-   IMAGE
+   IMAGE FRAME
 ================================== */
 
 .atlas-image {
   position: relative;
   width: 100%;
-  height: clamp(380px, 48vw, 610px);
+  height: clamp(420px, 48vw, 650px);
   overflow: hidden;
   isolation: isolate;
   background: #24211e;
 }
+
+/* IMPORTANT: Image always fills the entire frame */
 
 .atlas-image > img {
   position: absolute;
@@ -125,19 +123,17 @@
   width: 100%;
   height: 100%;
 
+  max-width: none;
+  max-height: none;
+
   object-fit: cover;
   object-position: center center;
 
-  transform: scale(1.01);
-  transition: transform 0.7s ease;
-}
-
-.atlas-slide.is-active .atlas-image > img {
   transform: scale(1);
 }
 
 /* ==================================
-   IMAGE OVERLAY
+   IMAGE SHADE
 ================================== */
 
 .atlas-image-shade {
@@ -148,14 +144,15 @@
   background:
     linear-gradient(
       90deg,
-      rgba(15, 13, 11, 0.48) 0%,
-      rgba(15, 13, 11, 0.15) 55%,
+      rgba(15, 13, 11, 0.38) 0%,
+      rgba(15, 13, 11, 0.12) 55%,
       transparent 100%
     ),
     linear-gradient(
       0deg,
-      rgba(15, 13, 11, 0.65) 0%,
-      transparent 65%
+      rgba(15, 13, 11, 0.78) 0%,
+      rgba(15, 13, 11, 0.2) 42%,
+      transparent 75%
     );
 
   pointer-events: none;
@@ -168,44 +165,40 @@
 .atlas-image-caption {
   position: absolute;
   left: clamp(28px, 6vw, 85px);
-  right: 100px;
+  right: 90px;
   bottom: clamp(35px, 5vw, 75px);
   z-index: 2;
 
-  max-width: 650px;
+  max-width: 750px;
   color: #fff;
 }
 
-.atlas-image-caption > span {
+.atlas-image-category {
   display: block;
-  margin-bottom: 12px;
-  color: #fff;
+  margin-bottom: 13px;
+
+  color: #e4c6a7;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 2.5px;
-}
-
-.atlas-image-caption small {
-  display: block;
-  margin-bottom: 14px;
-  color: #e3c7a9;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 2.7px;
+  line-height: 1.5;
 }
 
 .atlas-image-caption h3 {
   margin: 0;
+
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(35px, 5vw, 64px);
+  font-size: clamp(36px, 5vw, 66px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -1px;
+
+  text-wrap: balance;
 }
 
 /* ==================================
-   IMAGE ARROWS
+   NAVIGATION ARROWS
 ================================== */
 
 .atlas-arrows {
@@ -263,7 +256,7 @@
 }
 
 /* ==================================
-   ENQUIRE CTA
+   ENQUIRE BUTTON
 ================================== */
 
 .atlas-cta {
@@ -291,9 +284,10 @@
   min-height: 62px;
   padding: 0 30px;
 
-  background: #24211e;
-  border: 1px solid #24211e;
   box-sizing: border-box;
+
+  background: var(--atlas-dark);
+  border: 1px solid var(--atlas-dark);
 
   color: #fff;
   text-decoration: none;
@@ -318,7 +312,7 @@
 .atlas-enquire-button:hover {
   background: var(--atlas-accent);
   border-color: var(--atlas-accent);
-  color: #24211e;
+  color: var(--atlas-dark);
 }
 
 .atlas-enquire-button:focus-visible {
@@ -335,17 +329,12 @@
     padding: 75px 4%;
   }
 
-  .atlas-heading {
-    gap: 22px;
-  }
-
-  .atlas-intro {
-    max-width: 260px;
-    font-size: 12px;
-  }
-
   .atlas-image {
-    height: 470px;
+    height: 480px;
+  }
+
+  .atlas-image-caption {
+    max-width: 600px;
   }
 }
 
@@ -355,17 +344,16 @@
 
 @media (max-width: 600px) {
   .atlas {
-    padding: 58px 0 48px;
+    padding: 55px 0 45px;
   }
 
   .atlas-shell {
     width: 100%;
   }
 
-  .atlas-heading {
-    display: block;
-    margin-bottom: 25px;
+  .atlas-header {
     padding: 0 20px;
+    margin-bottom: 25px;
   }
 
   .atlas-eyebrow {
@@ -375,19 +363,19 @@
   }
 
   .atlas-heading h2 {
-    font-size: clamp(32px, 8vw, 39px);
-    line-height: 1.13;
+    font-size: clamp(32px, 8vw, 40px);
+    line-height: 1.12;
     letter-spacing: -1px;
   }
 
   .atlas-intro {
-    max-width: 320px;
+    max-width: 100%;
     margin-top: 13px;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.75;
   }
 
-  /* Full-width mobile image */
+  /* Full-width mobile carousel */
 
   .atlas-carousel {
     width: 100%;
@@ -398,11 +386,16 @@
     width: 100%;
   }
 
+  /* Portrait image frame: no half-width image */
+
   .atlas-image {
     position: relative;
+
     width: 100%;
-    height: 460px;
+    height: auto;
     min-height: 0;
+    aspect-ratio: 4 / 5;
+
     overflow: hidden;
     background: #24211e;
   }
@@ -415,64 +408,53 @@
     width: 100%;
     height: 100%;
 
+    max-width: none;
+    max-height: none;
+
     object-fit: cover;
     object-position: center center;
-
-    transform: none;
   }
 
-  .atlas-slide.is-active .atlas-image > img {
-    transform: none;
-  }
-
-  /* Mobile image overlay */
+  /* Mobile overlay */
 
   .atlas-image-shade {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-
     background:
       linear-gradient(
         0deg,
-        rgba(10, 9, 8, 0.78) 0%,
-        rgba(10, 9, 8, 0.24) 48%,
-        rgba(10, 9, 8, 0.08) 100%
+        rgba(10, 9, 8, 0.82) 0%,
+        rgba(10, 9, 8, 0.3) 42%,
+        rgba(10, 9, 8, 0.06) 100%
       );
   }
 
-  /* Caption */
+  /* Caption at bottom */
 
   .atlas-image-caption {
-    left: 20px;
+    left: 21px;
     right: 20px;
-    bottom: 28px;
-    z-index: 2;
+    bottom: 27px;
+
     max-width: none;
   }
 
-  .atlas-image-caption > span {
+  .atlas-image-category {
     margin-bottom: 10px;
-    font-size: 9px;
-    letter-spacing: 2px;
-  }
-
-  .atlas-image-caption small {
-    margin-bottom: 11px;
     font-size: 8px;
     letter-spacing: 2px;
   }
 
   .atlas-image-caption h3 {
     font-size: clamp(30px, 8vw, 39px);
-    line-height: 1.12;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
   }
 
-  /* Arrows */
+  /* Arrows stay vertically centred */
 
   .atlas-arrows {
     left: 12px;
     right: 12px;
+    top: 50%;
   }
 
   .atlas-arrow {
@@ -481,10 +463,10 @@
     font-size: 20px;
   }
 
-  /* Centred enquiry button */
+  /* CTA */
 
   .atlas-cta {
-    min-height: 105px;
+    min-height: 100px;
     padding: 20px 16px;
   }
 
@@ -498,7 +480,7 @@
   }
 
   .atlas-enquire-button span {
-    font-size: 23px;
+    font-size: 22px;
   }
 }
 
@@ -507,23 +489,19 @@
 ================================== */
 
 @media (max-width: 380px) {
-  .atlas-heading {
+  .atlas-header {
     padding-right: 16px;
     padding-left: 16px;
   }
 
   .atlas-image {
-    height: 430px;
-  }
-
-  .atlas-image > img {
-    object-position: center center;
+    aspect-ratio: 4 / 5;
   }
 
   .atlas-image-caption {
-    right: 18px;
-    left: 18px;
-    bottom: 28px;
+    left: 17px;
+    right: 17px;
+    bottom: 23px;
   }
 
   .atlas-image-caption h3 {
@@ -531,8 +509,8 @@
   }
 
   .atlas-arrows {
-    left: 10px;
-    right: 10px;
+    left: 9px;
+    right: 9px;
   }
 
   .atlas-arrow {
@@ -542,13 +520,12 @@
   }
 
   .atlas-cta {
-    min-height: 100px;
-    padding: 18px 12px;
+    min-height: 95px;
+    padding: 17px 12px;
   }
 
   .atlas-enquire-button {
-    max-width: 320px;
-    min-height: 54px;
+    min-height: 53px;
     gap: 30px;
     font-size: 10px;
   }
@@ -563,7 +540,6 @@
     animation: none;
   }
 
-  .atlas-image > img,
   .atlas-arrow,
   .atlas-enquire-button {
     transition: none;

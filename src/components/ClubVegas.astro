@@ -2,357 +2,197 @@
 ---
 import "../styles/ClubVegas.css";
 
-const clubImage = "/images/club-vegas/club-vegas-collage.webp";
-
-const floors = [
+const images = [
   {
-    id: "ground",
-    number: "00",
-    level: "GROUND FLOOR",
-    title: "A Grand Welcome",
-    description:
-      "An impressive entrance experience, spaces for celebrations and entertainment.",
-    facilities: [
-      "Double-height air-conditioned designer entrance lobby",
-      "Waiting lounge",
-      "Pre-function party area",
-      "Banquet hall",
-      "DJ & karaoke room",
-      "Mini theatre",
-    ],
+    src: "/images/club-vegas/2fe04fe0-1169-45ec-8c2d-f73c0f961813.webp",
+    alt: "Club Vegas lounge and indoor leisure space",
   },
   {
-    id: "first",
-    number: "01",
-    level: "FIRST FLOOR",
-    title: "A World of Little Discoveries",
-    description:
-      "Creative activities, gaming and dedicated spaces for children's learning and recreation.",
-    facilities: [
-      "Hobby studio with painting and pottery",
-      "Children's gaming arena",
-      "Virtual gaming lounge",
-      "Children's creche",
-      "3 tuition rooms",
-      "Deck lounge",
-    ],
+    src: "/images/club-vegas/3eedd957-83ff-400b-9f88-045ca5f7ab8.webp",
+    alt: "Children's recreation and activity space",
   },
   {
-    id: "second",
-    number: "02",
-    level: "SECOND FLOOR",
-    title: "Move, Play & Express",
-    description:
-      "Dedicated spaces for sports, music and dance, bringing different interests together.",
-    facilities: [
-      "Music and dance studio",
-      "2 indoor badminton courts",
-      "2 squash courts",
-    ],
+    src: "/images/club-vegas/bddd8593-fe98-4d4a-8de1-361d7aa50d20.webp",
+    alt: "Indoor badminton court at Club Vegas",
   },
   {
-    id: "third",
-    number: "03",
-    level: "THIRD FLOOR · SPA",
-    title: "Time to Rejuvenate",
-    description:
-      "A dedicated spa floor with spaces for relaxation and personal care.",
-    facilities: [
-      "Reception and waiting lounge",
-      "Consultation room",
-      "Massage rooms",
-      "Hot jacuzzi",
-      "Steam and sauna bath",
-      "Foot massage",
-      "Designer salon for women",
-    ],
+    src: "/images/club-vegas/50065c66-67a8-4b62-9dec-827344e08389.webp",
+    alt: "Club Vegas spa and wellness interior",
   },
   {
-    id: "fourth",
-    number: "04",
-    level: "FOURTH FLOOR",
-    title: "Make Room for Wellness",
-    description:
-      "Spaces dedicated to fitness and indoor recreation.",
-    facilities: [
-      "Fully equipped air-conditioned gymnasium with trainers",
-      "Indoor games arcade",
-    ],
+    src: "/images/club-vegas/135652ec-d316-4fe3-8954-8686be76e5f6.webp",
+    alt: "Indoor recreational facilities at Club Vegas",
   },
   {
-    id: "fifth",
-    number: "05",
-    level: "FIFTH FLOOR",
-    title: "A Little of Everything",
-    description:
-      "A collection of spaces for reading, relaxation, movement and spending time together.",
-    facilities: [
-      "Library",
-      "Designer salon for men",
-      "Meditation room",
-      "Aerobics and Zumba room",
-      "Card room",
-      "Food court and café",
-    ],
+    src: "/images/club-vegas/dea9a5e5-47a9-434f-aa48-1633aa481ee0.webp",
+    alt: "Club Vegas indoor games area",
   },
   {
-    id: "terrace",
-    number: "06",
-    level: "TERRACE FLOOR",
-    title: "Life Above the Ordinary",
-    description:
-      "A rooftop leisure experience with a swimming pool, party deck and distinctive Merlion feature.",
-    facilities: [
-      "Swimming pool with party deck",
-      "Kids pool",
-      "Merlion statue with sunken bar",
-    ],
+    src: "/images/amenities/merlion-sky-deck-pool.webp",
+    alt: "Merlion Sky Deck swimming pool at Sai World City",
   },
 ];
-
-const initialFloor = floors[0];
 ---
 
 <section class="club-vegas" id="club-vegas">
   <div class="club-container">
 
-    <!-- SECTION INTRO -->
-    <div class="club-intro">
-      <div class="club-intro-left">
+    <!-- SECTION HEADING -->
+    <header class="club-heading">
 
-        <h2 class="club-heading">
-  <span class="club-heading-main">Introducing Club Vegas At</span>
-  <span class="club-heading-highlight">Sai World City Panvel</span>
-</h2>
-       
-        </h2>
-      </div>
+      <h2>
+        Introducing Club Vegas At
+        <span>Sai World City Panvel</span>
+      </h2>
 
-      <div class="club-intro-right">
-        <span class="club-intro-number">G+5</span>
-        <div class="club-intro-copy">
-          <strong>THE CLUBHOUSE</strong>
-          <p>
-            Explore spaces for recreation, fitness,
-            celebrations and everyday experiences.
-          </p>
-        </div>
-      </div>
+    </header>
+
+    <!-- IMAGE CAROUSEL -->
+    <div class="club-carousel">
+
+      {images.map((image, index) => (
+        <article
+          class:list={[
+            "club-slide",
+            { "is-active": index === 0 }
+          ]}
+          data-slide={index}
+          aria-hidden={index !== 0 ? "true" : "false"}
+        >
+
+          <div class="club-image-wrap">
+
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              draggable="false"
+            />
+
+            <!-- IMAGE NAVIGATION -->
+            <div class="club-navigation">
+
+              <button
+                class="club-arrow club-prev"
+                type="button"
+                aria-label="Previous image"
+              >
+                &#8592;
+              </button>
+
+              <button
+                class="club-arrow club-next"
+                type="button"
+                aria-label="Next image"
+              >
+                &#8594;
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+      ))}
+
     </div>
 
-  
-
-    <!-- MAIN EXPERIENCE -->
-    <div class="club-experience">
-
-      <!-- SINGLE COLLAGE IMAGE -->
-      <div class="club-visual">
-        <img
-          src={clubImage}
-          alt="Club Vegas clubhouse facilities across its different floors"
-          loading="lazy"
-        />
-
-        <div class="club-image-overlay"></div>
-
-       
-
-      </div>
-
-      <!-- FLOOR DETAILS -->
-      <div class="club-details">
-        <div class="club-detail-top">
-          <span class="club-eyebrow" data-floor-label>
-            {initialFloor.level}
-          </span>
-
-          <h3 data-floor-title>{initialFloor.title}</h3>
-
-          <p data-floor-description>{initialFloor.description}</p>
-        </div>
-
-        <div class="club-facilities-heading">
-          <span>THE EXPERIENCE INCLUDES</span>
-          <span data-facility-count>
-            {String(initialFloor.facilities.length).padStart(2, "0")} SPACES
-          </span>
-        </div>
-
-        <ul class="club-facilities" data-facilities>
-          {initialFloor.facilities.map((facility, index) => (
-            <li>
-              <span class="club-facility-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span>{facility}</span>
-            </li>
-          ))}
-        </ul>
-
-        <a href="#contact" class="club-enquire-link">
-          ENQUIRE ABOUT THE PROJECT
-        </a>
-      </div>
+    <!-- ENQUIRE BUTTON -->
+    <div class="club-cta">
+      <a
+        href="tel:+919920968878"
+        class="club-enquire-button"
+        aria-label="Call Sai World City for a Club Vegas enquiry"
+      >
+        ENQUIRE NOW
+        <span aria-hidden="true">&#8594;</span>
+      </a>
     </div>
-
-   
 
   </div>
 </section>
 
 <script>
-  const clubSection = document.querySelector("#club-vegas");
+  const clubSections = document.querySelectorAll<HTMLElement>(
+    ".club-vegas:not([data-ready])"
+  );
 
-  if (clubSection && !clubSection.hasAttribute("data-initialized")) {
-    clubSection.setAttribute("data-initialized", "true");
+  clubSections.forEach((section) => {
+    section.setAttribute("data-ready", "true");
 
-    const floors = [
-      {
-        number: "00",
-        level: "GROUND FLOOR",
-        title: "A Grand Welcome",
-        description:
-          "An impressive entrance experience, spaces for celebrations and entertainment.",
-        facilities: [
-          "Double-height air-conditioned designer entrance lobby",
-          "Waiting lounge",
-          "Pre-function party area",
-          "Banquet hall",
-          "DJ & karaoke room",
-          "Mini theatre",
-        ],
-      },
-      {
-        number: "01",
-        level: "FIRST FLOOR",
-        title: "A World of Little Discoveries",
-        description:
-          "Creative activities, gaming and dedicated spaces for children's learning and recreation.",
-        facilities: [
-          "Hobby studio with painting and pottery",
-          "Children's gaming arena",
-          "Virtual gaming lounge",
-          "Children's creche",
-          "3 tuition rooms",
-          "Deck lounge",
-        ],
-      },
-      {
-        number: "02",
-        level: "SECOND FLOOR",
-        title: "Move, Play & Express",
-        description:
-          "Dedicated spaces for sports, music and dance, bringing different interests together.",
-        facilities: [
-          "Music and dance studio",
-          "2 indoor badminton courts",
-          "2 squash courts",
-        ],
-      },
-      {
-        number: "03",
-        level: "THIRD FLOOR · SPA",
-        title: "Time to Rejuvenate",
-        description:
-          "A dedicated spa floor with spaces for relaxation and personal care.",
-        facilities: [
-          "Reception and waiting lounge",
-          "Consultation room",
-          "Massage rooms",
-          "Hot jacuzzi",
-          "Steam and sauna bath",
-          "Foot massage",
-          "Designer salon for women",
-        ],
-      },
-      {
-        number: "04",
-        level: "FOURTH FLOOR",
-        title: "Make Room for Wellness",
-        description:
-          "Spaces dedicated to fitness and indoor recreation.",
-        facilities: [
-          "Fully equipped air-conditioned gymnasium with trainers",
-          "Indoor games arcade",
-        ],
-      },
-      {
-        number: "05",
-        level: "FIFTH FLOOR",
-        title: "A Little of Everything",
-        description:
-          "A collection of spaces for reading, relaxation, movement and spending time together.",
-        facilities: [
-          "Library",
-          "Designer salon for men",
-          "Meditation room",
-          "Aerobics and Zumba room",
-          "Card room",
-          "Food court and café",
-        ],
-      },
-      {
-        number: "06",
-        level: "TERRACE FLOOR",
-        title: "Life Above the Ordinary",
-        description:
-          "A rooftop leisure experience with a swimming pool, party deck and distinctive Merlion feature.",
-        facilities: [
-          "Swimming pool with party deck",
-          "Kids pool",
-          "Merlion statue with sunken bar",
-        ],
-      },
-    ];
-
-    const tabs = Array.from(
-      clubSection.querySelectorAll(".club-floor-tab")
+    const slides = Array.from(
+      section.querySelectorAll<HTMLElement>(".club-slide")
     );
 
-    const floorLabel = clubSection.querySelector("[data-floor-label]");
-    const floorTitle = clubSection.querySelector("[data-floor-title]");
-    const floorDescription = clubSection.querySelector("[data-floor-description]");
-    const facilityCount = clubSection.querySelector("[data-facility-count]");
-    const facilitiesList = clubSection.querySelector("[data-facilities]");
+    const carousel = section.querySelector<HTMLElement>(
+      ".club-carousel"
+    );
 
-    function selectFloor(index) {
-      const floor = floors[index];
+    if (!slides.length || !carousel) return;
 
-      if (!floor) return;
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-      tabs.forEach((tab, tabIndex) => {
-        const active = tabIndex === index;
+    function showSlide(index: number) {
+      currentIndex = (index + slides.length) % slides.length;
 
-        tab.classList.toggle("is-active", active);
-        tab.setAttribute("aria-pressed", String(active));
-      });
+      slides.forEach((slide, i) => {
+        const active = i === currentIndex;
 
-      floorLabel.textContent = floor.level;
-      floorTitle.textContent = floor.title;
-      floorDescription.textContent = floor.description;
-
-      facilityCount.textContent =
-        `${String(floor.facilities.length).padStart(2, "0")} SPACES`;
-
-      facilitiesList.replaceChildren();
-
-      floor.facilities.forEach((facility, facilityIndex) => {
-        const item = document.createElement("li");
-
-        const number = document.createElement("span");
-        number.className = "club-facility-number";
-        number.textContent = String(facilityIndex + 1).padStart(2, "0");
-
-        const text = document.createElement("span");
-        text.textContent = facility;
-
-        item.append(number, text);
-        facilitiesList.append(item);
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", String(!active));
       });
     }
 
-    tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectFloor(index));
+    // Previous and next navigation
+    carousel.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) return;
+
+      if (target.closest(".club-prev")) {
+        showSlide(currentIndex - 1);
+      }
+
+      if (target.closest(".club-next")) {
+        showSlide(currentIndex + 1);
+      }
     });
-  }
+
+    // Mobile swipe start
+    carousel.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+      },
+      { passive: true }
+    );
+
+    // Mobile swipe end
+    carousel.addEventListener(
+      "touchend",
+      (event) => {
+        const differenceX =
+          touchStartX - event.changedTouches[0].screenX;
+
+        const differenceY =
+          touchStartY - event.changedTouches[0].screenY;
+
+        if (
+          Math.abs(differenceX) > 50 &&
+          Math.abs(differenceX) > Math.abs(differenceY)
+        ) {
+          showSlide(
+            currentIndex + (differenceX > 0 ? 1 : -1)
+          );
+        }
+      },
+      { passive: true }
+    );
+
+    showSlide(0);
+  });
 </script>

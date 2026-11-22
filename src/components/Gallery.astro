@@ -4,68 +4,59 @@ import "../styles/Gallery.css";
 
 const galleryItems = [
   {
-    category: "PROJECT OVERVIEW",
-    title: "The Grand Perspective",
-    image: "/images/gallery/project-overview.webp",
-    description:
-      "A 32-acre mega township bringing together residential towers, landscaped spaces and Club Vegas."
-  },
-  {
-    category: "ARCHITECTURE",
-    title: "A Distinctive Residential Address",
-    image: "/images/gallery/architecture.webp",
-    alt: "Sai World City architectural development",
-    description:
-      "Discover thoughtfully planned residential clusters including Marina, Opera, Acropolis, Manhattan, Palazzo and more."
-  },
-  {
-    category: "LANDSCAPED EXPERIENCES",
-    title: "A Remarkable Arrival",
-    image: "/images/gallery/entrance.webp",
-    alt: "Sai World City entrance and landscaped spaces",
-    description:
-      "A welcoming entrance complemented by landscaped spaces, green walkways, Palms Avenue and a musical fountain."
+    category: "LANDMARK EXPERIENCE",
+    title: "A Landmark That Welcomes You",
+    image: "/images/gallery/60211ec6-e256-43e5-8f4b-b552848594b9.webp",
+    alt: "Landmark statue at Sai World City",
   },
   {
     category: "AERIAL VIEW",
-    title: "The Bigger Picture",
+    title: "A Beautiful View From Above",
     image: "/images/gallery/aerial-view.webp",
-    alt: "Aerial view of Sai World City township",
-    description:
-      "Get a wider perspective of the township, its residential clusters, internal roads and Club Vegas."
+    alt: "Aerial view of Sai World City",
   },
   {
-    category: "TOWER EXTERIOR",
-    title: "A Distinctive Silhouette",
-    image: "/images/gallery/tower-exterior.webp",
-    alt: "Sai World City residential tower exterior",
-    description:
-      "Explore the residential clusters that shape the architectural character of Sai World City."
+    category: "ARCHITECTURE",
+    title: "Architecture That Makes a Statement",
+    image: "/images/gallery/architecture.webp",
+    alt: "Sai World City residential architecture",
+  },
+  {
+    category: "THE GRAND ENTRANCE",
+    title: "A Remarkable Arrival",
+    image: "/images/gallery/entrance.webp",
+    alt: "Sai World City entrance",
+  },
+  {
+    category: "ICONIC LANDMARKS",
+    title: "Big Ben Clock Tower",
+    image: "/images/gallery/f0e45868-6ce1-4a4c-991b-814a2ce8927.webp",
+    alt: "Big Ben inspired landmark at Sai World City",
+  },
+  {
+    category: "PANORAMIC VIEW",
+    title: "Discover the Bigger Picture",
+    image: "/images/gallery/panoramic-view.webp",
+    alt: "Panoramic view of Sai World City",
+  },
+  {
+    category: "PROJECT OVERVIEW",
+    title: "A Township Designed Around You",
+    image: "/images/gallery/project-overview.webp",
+    alt: "Sai World City project overview",
   },
   {
     category: "CLUB VEGAS",
-    title: "A World of Leisure",
+    title: "A World of Leisure & Experiences",
     image: "/images/gallery/project-view.webp",
-    alt: "Sai World City Club Vegas lifestyle destination",
-    description:
-      "Experience Club Vegas, a G+5 storied themed family clubhouse with indoor and outdoor lifestyle amenities."
-  },
-  {
-    category: "LANDMARK EXPERIENCES",
-    title: "Landmarks Within the Landscape",
-    image: "/images/gallery/panoramic-view.webp",
-    alt: "Sai World City landscaped landmark features",
-    description:
-      "Discover landmark-inspired attractions including the Statue of Liberty, Eiffel Tower and Big Ben Clock Tower."
+    alt: "Club Vegas lifestyle and clubhouse",
   },
   {
     category: "MERLION SKY DECK",
     title: "A Splash of Something Special",
-    image: "/images/amenities/merlion-sky-deck.webp",
-    alt: "Merlion Sky Deck at Sai World City",
-    description:
-      "Enjoy a terrace-level experience featuring a swimming pool, party deck, kids pool and Merlion-inspired setting."
-  }
+    image: "/images/amenities/merlion-sky-deck-pool.webp",
+    alt: "Merlion Sky Deck swimming pool",
+  },
 ];
 ---
 
@@ -73,84 +64,91 @@ const galleryItems = [
   <div class="gallery-container">
 
     <!-- SECTION HEADING -->
-    <div class="gallery-heading">
-      <div class="gallery-heading-left">
+    <header class="gallery-heading">
 
-        <h2>
-          Discover the World of
-          <span>Sai World City Panvel</span>
-        </h2>
-      </div>
-    </div>
+      <h2>
+        Discover the World of
+        <span>Sai World City Panvel</span>
+      </h2>
 
-    <!-- GALLERY -->
-    <div class="gallery-carousel">
+      
+    </header>
 
-      <div class="gallery-main-image">
+    <!-- GALLERY CAROUSEL -->
+    <div class="gallery-carousel" aria-roledescription="carousel">
 
-        {galleryItems.map((item, index) => (
-          <article
-            class:list={[
-              "gallery-slide",
-              { "is-active": index === 0 }
-            ]}
-            data-slide={index}
-            aria-hidden={index !== 0 ? "true" : "false"}
-          >
+      {galleryItems.map((item, index) => (
+        <article
+          class:list={[
+            "gallery-slide",
+            { "is-active": index === 0 }
+          ]}
+          data-slide={index}
+          aria-hidden={index !== 0 ? "true" : "false"}
+        >
 
-            <!-- IMAGE -->
-            <div class="gallery-image-wrap">
-              <img
-                src={item.image}
-                alt={item.alt}
-                loading={index === 0 ? "eager" : "lazy"}
-              />
+          <!-- FULL IMAGE -->
+          <div class="gallery-image-wrap">
 
-              <div class="gallery-image-overlay"></div>
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              draggable="false"
+            />
 
-              <div class="gallery-image-details">
-                <span class="gallery-active-category">
-                  {item.category}
-                </span>
-              </div>
-            </div>
+            <!-- IMAGE SHADE -->
+            <div class="gallery-image-overlay"></div>
 
-            <!-- SIMPLE INFORMATION PATCH -->
-            <div class="gallery-information">
-              <span class="gallery-information-label">
+            <!-- IMAGE TITLE -->
+            <div class="gallery-image-content">
+              <span class="gallery-image-category">
                 {item.category}
               </span>
 
               <h3>{item.title}</h3>
-
-              <p>{item.description}</p>
             </div>
 
-          </article>
-        ))}
+            <!-- IMAGE ARROWS -->
+            <div class="gallery-navigation">
 
-        <!-- NAVIGATION ARROWS -->
-        <div class="gallery-navigation">
-          <button
-            class="gallery-arrow gallery-prev"
-            type="button"
-            aria-label="Previous image"
-          >
-            &#8592;
-          </button>
+              <button
+                class="gallery-arrow gallery-prev"
+                type="button"
+                aria-label="Previous gallery image"
+              >
+                &#8592;
+              </button>
 
-          <button
-            class="gallery-arrow gallery-next"
-            type="button"
-            aria-label="Next image"
-          >
-            &#8594;
-          </button>
-        </div>
+              <button
+                class="gallery-arrow gallery-next"
+                type="button"
+                aria-label="Next gallery image"
+              >
+                &#8594;
+              </button>
 
-      </div>
+            </div>
+
+          </div>
+        </article>
+      ))}
 
     </div>
+
+    <!-- ENQUIRE BUTTON -->
+    <div class="gallery-cta">
+      <a
+        href="tel:+919920968878"
+        class="gallery-enquire-button"
+        aria-label="Call Sai World City for an enquiry"
+      >
+        ENQUIRE NOW
+        <span aria-hidden="true">&#8594;</span>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -166,19 +164,18 @@ const galleryItems = [
       section.querySelectorAll<HTMLElement>(".gallery-slide")
     );
 
-    const previousButton =
-      section.querySelector<HTMLButtonElement>(".gallery-prev");
+    const carousel = section.querySelector<HTMLElement>(
+      ".gallery-carousel"
+    );
 
-    const nextButton =
-      section.querySelector<HTMLButtonElement>(".gallery-next");
+    if (!slides.length || !carousel) return;
 
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
     function showSlide(index: number) {
-      if (!slides.length) return;
-
+      // Infinite navigation
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
@@ -189,19 +186,23 @@ const galleryItems = [
       });
     }
 
-    previousButton?.addEventListener("click", () => {
-      showSlide(currentIndex - 1);
+    // Arrow navigation
+    carousel.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) return;
+
+      if (target.closest(".gallery-prev")) {
+        showSlide(currentIndex - 1);
+      }
+
+      if (target.closest(".gallery-next")) {
+        showSlide(currentIndex + 1);
+      }
     });
 
-    nextButton?.addEventListener("click", () => {
-      showSlide(currentIndex + 1);
-    });
-
-    const imageArea = section.querySelector<HTMLElement>(
-      ".gallery-main-image"
-    );
-
-    imageArea?.addEventListener(
+    // Mobile swipe start
+    carousel.addEventListener(
       "touchstart",
       (event) => {
         touchStartX = event.changedTouches[0].screenX;
@@ -210,7 +211,8 @@ const galleryItems = [
       { passive: true }
     );
 
-    imageArea?.addEventListener(
+    // Mobile swipe end
+    carousel.addEventListener(
       "touchend",
       (event) => {
         const differenceX =
@@ -223,7 +225,9 @@ const galleryItems = [
           Math.abs(differenceX) > 50 &&
           Math.abs(differenceX) > Math.abs(differenceY)
         ) {
-          showSlide(currentIndex + (differenceX > 0 ? 1 : -1));
+          showSlide(
+            currentIndex + (differenceX > 0 ? 1 : -1)
+          );
         }
       },
       { passive: true }

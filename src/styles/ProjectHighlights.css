@@ -359,8 +359,10 @@
 
 @media (max-width: 600px) {
   .project-highlights {
-    padding: 45px 0 48px;
+    padding: 45px 0 0;
+    margin-bottom: 0;
   }
+}
 
   .highlights-container {
     width: 100%;
