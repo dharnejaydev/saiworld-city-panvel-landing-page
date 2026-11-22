@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://saiworldcitypanvel.net.in/sitemap-index.xml

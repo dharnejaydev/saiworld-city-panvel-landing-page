@@ -1,9 +1,19 @@
-import { defineConfig } from 'astro/config';
+
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: 'https://example.com', // Replace with the production domain before launch.
-  output: 'static',
+  site: "https://saiworldcitypanvel.net.in",
+
+  output: "static",
+
   build: {
-    format: 'directory',
+    format: "directory",
   },
+
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/thank-you/"),
+    }),
+  ],
 });
