@@ -17,14 +17,12 @@ import "../styles/PopupForm.css";
     aria-modal="true"
     aria-labelledby="enquiry-title"
   >
-    <!-- LEFT: EDITORIAL PANEL -->
     <div class="enquiry-visual">
       <div class="enquiry-visual-content">
         <div class="enquiry-brand"></div>
       </div>
     </div>
 
-    <!-- RIGHT: FORM PANEL -->
     <div class="enquiry-form-panel">
       <button
         class="enquiry-close"
@@ -78,6 +76,7 @@ import "../styles/PopupForm.css";
               autocomplete="tel-national"
               pattern="[6-9][0-9]{9}"
               maxlength="10"
+              minlength="10"
               required
             />
           </div>
@@ -102,12 +101,22 @@ import "../styles/PopupForm.css";
         </div>
 
         <button class="enquiry-submit" type="submit">
-          <span>Schedule My Site Visit</span>
+          <span class="enquiry-submit-text">
+            Schedule My Site Visit
+          </span>
+          <span class="enquiry-spinner" aria-hidden="true"></span>
         </button>
 
         <p class="enquiry-privacy">
           Our team will contact you to coordinate your preferred visit.
         </p>
+
+        <p
+          class="enquiry-error"
+          id="enquiry-error"
+          role="alert"
+          hidden
+        ></p>
       </form>
 
       <div class="enquiry-bottom-note">
@@ -126,7 +135,7 @@ import "../styles/PopupForm.css";
   // ==========================================
 
   const SERVICE_ID = "service_zykw8ue";
-const TEMPLATE_ID = "template_zt43j9a";
+  const TEMPLATE_ID = "template_zt43j9a";
   const PUBLIC_KEY = "FOTLNhfG-RXdWql-8";
 
   // ==========================================
@@ -145,17 +154,37 @@ const TEMPLATE_ID = "template_zt43j9a";
     "#enquiry-name"
   );
 
-  const popupDismissedKey = "swc-enquiry-popup-dismissed";
+  const phoneInput = document.querySelector<HTMLInputElement>(
+    "#enquiry-phone"
+  );
+
+  const submitButton = form?.querySelector<HTMLButtonElement>(
+    ".enquiry-submit"
+  );
+
+  const buttonText = form?.querySelector<HTMLElement>(
+    ".enquiry-submit-text"
+  );
+
+  const errorMessage = document.querySelector<HTMLElement>(
+    "#enquiry-error"
+  );
 
   let previousFocus: HTMLElement | null = null;
-  let autoPopupTimer: number | undefined;
+
+  let firstPopupTimer: number | undefined;
+  let secondPopupTimer: number | undefined;
+
+  let popupDismissed = false;
+  let formSubmitted = false;
+  let isSubmitting = false;
 
   // ==========================================
   // OPEN POPUP
   // ==========================================
 
   function openEnquiry() {
-    if (!modal || !modal.hidden) return;
+    if (!modal || !modal.hidden || formSubmitted) return;
 
     previousFocus =
       document.activeElement instanceof HTMLElement
@@ -176,7 +205,7 @@ const TEMPLATE_ID = "template_zt43j9a";
   // ==========================================
 
   function closeEnquiry() {
-    if (!modal || modal.hidden) return;
+    if (!modal || modal.hidden || isSubmitting) return;
 
     modal.hidden = true;
 
@@ -186,17 +215,27 @@ const TEMPLATE_ID = "template_zt43j9a";
   }
 
   // ==========================================
-  // AUTOMATIC POPUP AFTER 3 SECONDS
+  // AUTOMATIC POPUP TIMERS
   // ==========================================
 
-  // Popup appears on every page visit/reload
-  // until the visitor dismisses it.
-
-  if (!localStorage.getItem(popupDismissedKey)) {
-    autoPopupTimer = window.setTimeout(() => {
+  // First popup: 8 seconds after arrival.
+  firstPopupTimer = window.setTimeout(() => {
+    if (!popupDismissed && !formSubmitted) {
       openEnquiry();
-    }, 3000);
-  }
+    }
+  }, 8000);
+
+  // Second popup: 35 seconds after arrival.
+  secondPopupTimer = window.setTimeout(() => {
+    if (
+      popupDismissed &&
+      !formSubmitted &&
+      modal?.hidden
+    ) {
+      popupDismissed = false;
+      openEnquiry();
+    }
+  }, 35000);
 
   // ==========================================
   // MANUAL ENQUIRY BUTTONS
@@ -208,18 +247,19 @@ const TEMPLATE_ID = "template_zt43j9a";
     if (!(target instanceof Element)) return;
 
     const trigger = target.closest(
-      ".js-open-lead-form, a[href='#contact']"
+      ".js-open-lead-form, a[href='#contact'], [data-open-enquiry]"
     );
 
-    if (trigger) {
-      event.preventDefault();
+    if (!trigger) return;
 
-      if (autoPopupTimer !== undefined) {
-        window.clearTimeout(autoPopupTimer);
-      }
+    event.preventDefault();
 
-      openEnquiry();
+    if (firstPopupTimer !== undefined) {
+      window.clearTimeout(firstPopupTimer);
+      firstPopupTimer = undefined;
     }
+
+    openEnquiry();
   });
 
   // ==========================================
@@ -230,13 +270,7 @@ const TEMPLATE_ID = "template_zt43j9a";
     "[data-close-enquiry]"
   ).forEach((element) => {
     element.addEventListener("click", () => {
-      // Remember dismissal across refreshes and future visits.
-      localStorage.setItem(popupDismissedKey, "true");
-
-      if (autoPopupTimer !== undefined) {
-        window.clearTimeout(autoPopupTimer);
-      }
-
+      popupDismissed = true;
       closeEnquiry();
     });
   });
@@ -246,11 +280,53 @@ const TEMPLATE_ID = "template_zt43j9a";
   // ==========================================
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && modal && !modal.hidden) {
-      localStorage.setItem(popupDismissedKey, "true");
+    if (
+      event.key === "Escape" &&
+      modal &&
+      !modal.hidden
+    ) {
+      popupDismissed = true;
       closeEnquiry();
     }
   });
+
+  // ==========================================
+  // PHONE VALIDATION
+  // ==========================================
+
+  phoneInput?.addEventListener("input", () => {
+    phoneInput.value = phoneInput.value
+      .replace(/\D/g, "")
+      .slice(0, 10);
+  });
+
+  // ==========================================
+  // SUBMISSION LOADING STATE
+  // ==========================================
+
+  function setLoading(loading: boolean) {
+    isSubmitting = loading;
+
+    if (submitButton) {
+      submitButton.disabled = loading;
+
+      submitButton.classList.toggle(
+        "is-loading",
+        loading
+      );
+
+      submitButton.setAttribute(
+        "aria-busy",
+        String(loading)
+      );
+    }
+
+    if (buttonText) {
+      buttonText.textContent = loading
+        ? "Submitting your enquiry..."
+        : "Schedule My Site Visit";
+    }
+  }
 
   // ==========================================
   // EMAILJS FORM SUBMISSION
@@ -259,42 +335,47 @@ const TEMPLATE_ID = "template_zt43j9a";
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (isSubmitting || formSubmitted) return;
+
     if (!form.reportValidity()) return;
 
-    const submitButton =
-      form.querySelector<HTMLButtonElement>(".enquiry-submit");
+    const phone = String(
+      phoneInput?.value || ""
+    ).trim();
 
-    const buttonText =
-      submitButton?.querySelector("span");
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      phoneInput?.setCustomValidity(
+        "Please enter a valid 10-digit mobile number."
+      );
+
+      phoneInput?.reportValidity();
+      phoneInput?.setCustomValidity("");
+
+      return;
+    }
 
     const formData = new FormData(form);
 
     const templateParams = {
-      name: String(formData.get("name") || "").trim(),
+      name: String(
+        formData.get("name") || ""
+      ).trim(),
 
-      phone:
-        "+91 " +
-        String(formData.get("phone") || "").trim(),
+      phone: "+91 " + phone,
 
       configuration: String(
         formData.get("configuration") || ""
       ),
     };
 
-    // Remove previous error.
-    form.querySelector(".enquiry-error")?.remove();
-
-    // Disable button while sending.
-    if (submitButton) {
-      submitButton.disabled = true;
+    if (errorMessage) {
+      errorMessage.textContent = "";
+      errorMessage.hidden = true;
     }
 
-    if (buttonText) {
-      buttonText.textContent = "Sending...";
-    }
+    setLoading(true);
 
     try {
-      // Send enquiry to EmailJS.
       const response = await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
@@ -304,37 +385,89 @@ const TEMPLATE_ID = "template_zt43j9a";
         }
       );
 
-      console.log("EmailJS submission successful:", response);
+      console.log(
+        "EmailJS submission successful:",
+        response.status
+      );
 
-      // Remember successful submission.
-      localStorage.setItem(popupDismissedKey, "true");
+      formSubmitted = true;
 
-      // Clear the form.
-      form.reset();
+      if (firstPopupTimer !== undefined) {
+        window.clearTimeout(firstPopupTimer);
+      }
 
-      // Redirect only after successful submission.
-      window.location.assign("/thank-you/");
-
-    } catch (error) {
-      console.error("EmailJS submission failed:", error);
-
-      const errorMessage = document.createElement("p");
-
-      errorMessage.className = "enquiry-error";
-
-      errorMessage.textContent =
-        "Unable to submit your enquiry. Please try again or contact us on WhatsApp.";
-
-      form.appendChild(errorMessage);
-
-    } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
+      if (secondPopupTimer !== undefined) {
+        window.clearTimeout(secondPopupTimer);
       }
 
       if (buttonText) {
-        buttonText.textContent = "Schedule My Site Visit";
+        buttonText.textContent = "Submitted successfully!";
       }
+
+      form.reset();
+
+      window.location.replace("/thank-you/");
+
+    } catch (error) {
+      console.error(
+        "EmailJS submission failed:",
+        error
+      );
+
+      if (errorMessage) {
+        errorMessage.textContent =
+          "Unable to submit your enquiry. Please try again or contact us on WhatsApp.";
+
+        errorMessage.hidden = false;
+      }
+
+      setLoading(false);
     }
   });
 </script>
+
+<style>
+  /* Submission loading state */
+  .enquiry-submit {
+    position: relative;
+  }
+
+  .enquiry-submit:disabled {
+    opacity: 0.75;
+    cursor: wait;
+  }
+
+  .enquiry-spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: enquiry-spin 0.7s linear infinite;
+  }
+
+  .enquiry-submit.is-loading .enquiry-spinner {
+    display: inline-block;
+  }
+
+  .enquiry-error {
+    margin-top: 12px;
+    color: #b42318;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  @keyframes enquiry-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enquiry-spinner {
+      animation: none;
+    }
+  }
+</style>

@@ -5,12 +5,12 @@
 ========================================= */
 
 .enquiry-section {
-  --red: #f5acac;
-  --red-dark: #f5b6b6;
+  --red: #FDF2F4;
+  --red-dark: #ff0000;
   --dark: #000000;
   --muted: #000000;
-  --border: #e8e0dc;
-  --cream: #faf7f5;
+  --border: #ffffff;
+  --cream: #ffffffed;
   --gold: #130281;
 
   width: 100%;
@@ -465,5 +465,167 @@
 @media (max-width: 700px) {
   .enquiry-section {
     padding-top: 18px;
+  }
+}
+
+/* Request a Call Back Button */
+.enquiry-section .form-submit {
+  background: #491616 !important;
+  color: #ffffff !important;
+}
+
+.enquiry-section .form-submit:hover {
+  background: #F8E5E9 !important;
+  color: #ffffff !important;
+}
+
+.enquiry-section .form-submit span,
+.enquiry-section .form-submit .submit-arrow {
+  color: #ffffff !important;
+}
+
+
+/* =========================================
+   CENTER ENQUIRY BUTTON TEXT
+========================================= */
+
+.enquiry-section .form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  position: relative;
+  text-align: center;
+}
+
+.enquiry-section .form-submit span:first-child {
+  text-align: center;
+}
+
+.enquiry-section .form-submit .submit-arrow {
+  position: absolute;
+  right: 23px;
+}
+
+/* =========================================
+   FIX PAGE SCROLLING OVER THE FORM
+========================================= */
+
+.enquiry-section,
+.enquiry-container,
+.enquiry-form-panel,
+.project-enquiry-form {
+  overflow: visible !important;
+  overscroll-behavior: auto !important;
+}
+
+/* Allow normal mouse and touch scrolling */
+.enquiry-section {
+  touch-action: pan-y;
+}
+
+.enquiry-section input,
+.enquiry-section select,
+.enquiry-section button {
+  touch-action: auto;
+}
+
+
+/* =========================================
+   ENQUIRY FORM — IMPROVED VISUAL HIERARCHY
+========================================= */
+
+/* Form panel */
+.enquiry-section .enquiry-form-panel {
+  background: #FFFAFB !important;
+  border: 1px solid #F0E1E5;
+  border-left: 3px solid #F3DDE2;
+}
+
+/* Form heading eyebrow */
+.enquiry-section .form-eyebrow {
+  color: #491616 !important;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Form title */
+.enquiry-section .form-heading h3 {
+  color: #171717 !important;
+}
+
+/* Heading divider */
+.enquiry-section .form-heading {
+  border-bottom: 1px solid #EADDE0;
+}
+
+/* Field labels */
+.enquiry-section .form-field label {
+  color: #292020 !important;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* Input and dropdown borders */
+.enquiry-section .form-field input,
+.enquiry-section .form-field select {
+  background: #FFFFFF !important;
+  border: 1px solid #E6D7DA !important;
+  color: #171717 !important;
+}
+
+/* Input placeholders */
+.enquiry-section .form-field input::placeholder {
+  color: #999090 !important;
+}
+
+/* Focus state */
+.enquiry-section .form-field input:focus,
+.enquiry-section .form-field select:focus {
+  border-color: #491616 !important;
+  box-shadow: 0 0 0 3px rgba(73, 22, 22, 0.08) !important;
+}
+
+/* Phone field */
+.enquiry-section .phone-input-wrap {
+  background: #FFFFFF;
+  border: 1px solid #E6D7DA;
+}
+
+.enquiry-section .phone-input-wrap:focus-within {
+  border-color: #491616;
+  box-shadow: 0 0 0 3px rgba(73, 22, 22, 0.08);
+}
+
+/* Submit button */
+.enquiry-section .form-submit {
+  background: #491616 !important;
+  color: #FFFFFF !important;
+  justify-content: center !important;
+  text-align: center !important;
+  transition: background 0.25s ease;
+}
+
+/* Proper hover contrast */
+.enquiry-section .form-submit:hover {
+  background: #301010 !important;
+  color: #FFFFFF !important;
+}
+
+/* Button text */
+.enquiry-section .form-submit span,
+.enquiry-section .form-submit .submit-arrow {
+  color: #FFFFFF !important;
+}
+
+/* Privacy note */
+.enquiry-section .form-note {
+  color: #82777A !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .enquiry-section .enquiry-form-panel {
+    border-left: 1px solid #F0E1E5;
+    border-top: 3px solid #F3DDE2;
   }
 }

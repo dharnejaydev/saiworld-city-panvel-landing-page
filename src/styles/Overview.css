@@ -4,7 +4,7 @@
 ===================================================== */
 
 .overview-section {
-  --blue: #0e0548;
+  --blue: #FDF2F4;
   --red: #000000;
   --dark: #000000;
   --muted: #000000;
@@ -1159,4 +1159,81 @@
     animation: none !important;
   }
 
+}
+
+
+/* ============================================
+   FINAL COLOUR FIX — OVERVIEW SECTION ONLY
+   All highlights + all statistics = BLACK
+============================================ */
+
+/* 1. Six project highlight labels */
+.overview-section .overview-highlights .highlight-item p {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+/* 2. Six project highlight icons */
+.overview-section .overview-highlights .highlight-icon {
+  color: #171717 !important;
+}
+
+.overview-section .overview-highlights .highlight-icon svg {
+  stroke: #171717 !important;
+}
+
+.overview-section .overview-highlights .highlight-icon svg path,
+.overview-section .overview-highlights .highlight-icon svg rect,
+.overview-section .overview-highlights .highlight-icon svg circle {
+  stroke: #171717 !important;
+}
+
+/* 3. Project & Developer heading */
+.overview-section .overview-highlights .highlights-content h2,
+.overview-section .overview-highlights .highlights-content h2 span {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+/* 4. Developer description */
+.overview-section .overview-highlights .highlights-content p,
+.overview-section .overview-highlights .highlights-content p strong {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+/* 5. Heading divider */
+.overview-section .overview-highlights .highlights-line {
+  background-color: #171717 !important;
+}
+
+/* 6. All three statistics */
+.overview-section .overview-stats .stat-number,
+.overview-section .overview-stats .stat-number span,
+.overview-section .overview-stats .stat-label,
+.overview-section .overview-stats .overview-stat p {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+/* 7. Keep existing pink backgrounds */
+.overview-section .overview-highlights,
+.overview-section .overview-stats {
+  background-color: #FDF2F4;
+}
+
+/* Improve visibility of top overview text */
+.overview-section .overview-eyebrow {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+.overview-section .overview-content h2 em {
+  color: #171717 !important;
+  -webkit-text-fill-color: #171717 !important;
+}
+
+/* Keep the tagline styling unchanged */
+.overview-section .overview-tagline {
+  color: #171717 !important;
 }

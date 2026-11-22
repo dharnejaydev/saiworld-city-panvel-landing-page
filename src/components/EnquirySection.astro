@@ -11,19 +11,18 @@ import "../styles/EnquirySection.css";
       <span class="enquiry-eyebrow">SAI WORLD CITY PANVEL</span>
 
       <h2>
-        DON'T JUST DREAM  A BETTER HOME
+        DON'T JUST DREAM A BETTER HOME
         <em>MAKE IT YOURS.</em>
       </h2>
 
       <p>Share your details. We'll help you take the next step.</p>
-
-    
 
       <div class="enquiry-watermark" aria-hidden="true">SWC.</div>
     </div>
 
     <!-- RIGHT: ENQUIRY FORM -->
     <div class="enquiry-form-panel">
+
       <div class="form-heading">
         <div>
           <span class="form-eyebrow">ENQUIRE NOW</span>
@@ -31,10 +30,15 @@ import "../styles/EnquirySection.css";
         </div>
       </div>
 
-      <form class="project-enquiry-form" id="projectEnquiryForm">
+      <form
+        class="project-enquiry-form"
+        id="projectEnquiryForm"
+      >
 
+        <!-- FULL NAME -->
         <div class="form-field">
           <label for="contactName">FULL NAME</label>
+
           <input
             type="text"
             id="contactName"
@@ -45,13 +49,16 @@ import "../styles/EnquirySection.css";
           />
         </div>
 
+        <!-- PHONE + CONFIGURATION -->
         <div class="form-grid">
+
           <div class="form-field">
             <label for="contactPhone">PHONE NUMBER</label>
 
             <div class="phone-input-wrap">
               <span class="phone-prefix">+91</span>
               <span class="phone-divider"></span>
+
               <input
                 type="tel"
                 id="contactPhone"
@@ -66,32 +73,49 @@ import "../styles/EnquirySection.css";
                 aria-describedby="phoneHint"
               />
             </div>
+
             <span class="field-hint" id="phoneHint">
               Enter your 10-digit mobile number
             </span>
           </div>
 
           <div class="form-field">
-            <label for="contactConfiguration">CONFIGURATION</label>
+            <label for="contactConfiguration">
+              CONFIGURATION
+            </label>
+
             <select
               id="contactConfiguration"
               name="configuration"
               required
             >
-              <option value="" disabled selected>Select BHK</option>
+              <option value="" disabled selected>
+                Select BHK
+              </option>
+
               <option value="2 BHK">2 BHK</option>
               <option value="2.5 BHK">2.5 BHK</option>
               <option value="3 BHK">3 BHK</option>
               <option value="4 BHK">4 BHK</option>
             </select>
           </div>
+
         </div>
 
-        <button type="submit" class="form-submit">
-          <span>REQUEST A CALL BACK</span>
+        <!-- SUBMIT BUTTON -->
+        <button
+          type="submit"
+          class="form-submit"
+          id="enquirySubmitButton"
+        >
+          <span class="submit-text">REQUEST A CALL BACK</span>
         </button>
 
-        <p class="form-note">
+        <p
+          class="form-note"
+          id="enquiryFormMessage"
+          aria-live="polite"
+        >
           Your details will only be used to respond to your enquiry.
         </p>
 
@@ -102,43 +126,229 @@ import "../styles/EnquirySection.css";
 </section>
 
 <script>
-  const enquiryForm = document.querySelector<HTMLFormElement>(
-    "#projectEnquiryForm"
-  );
+  import emailjs from "@emailjs/browser";
 
-  const phoneInput = document.querySelector<HTMLInputElement>(
-    "#contactPhone"
-  );
+  // ==========================================
+  // EMAILJS CONFIGURATION
+  // Same credentials as PopupForm
+  // ==========================================
+
+  const SERVICE_ID = "service_zykw8ue";
+  const TEMPLATE_ID = "template_zt43j9a";
+  const PUBLIC_KEY = "FOTLNhfG-RXdWql-8";
+
+  // ==========================================
+  // FORM ELEMENTS
+  // ==========================================
+
+  const enquiryForm =
+    document.querySelector<HTMLFormElement>(
+      "#projectEnquiryForm"
+    );
+
+  const phoneInput =
+    document.querySelector<HTMLInputElement>(
+      "#contactPhone"
+    );
+
+  const submitButton =
+    document.querySelector<HTMLButtonElement>(
+      "#enquirySubmitButton"
+    );
+
+  const submitText =
+    submitButton?.querySelector<HTMLElement>(
+      ".submit-text"
+    );
+
+  const formMessage =
+    document.querySelector<HTMLElement>(
+      "#enquiryFormMessage"
+    );
+
+  let isSubmitting = false;
+
+  // ==========================================
+  // PHONE NUMBER VALIDATION
+  // ==========================================
 
   phoneInput?.addEventListener("input", () => {
-    phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+    phoneInput.value = phoneInput.value
+      .replace(/\D/g, "")
+      .slice(0, 10);
   });
 
-  enquiryForm?.addEventListener("submit", (event) => {
-    event.preventDefault();
+  // ==========================================
+  // FORM SUBMISSION
+  // ==========================================
 
-    if (!enquiryForm.reportValidity()) return;
+  enquiryForm?.addEventListener(
+    "submit",
+    async (event) => {
 
-    const formData = Object.fromEntries(
-      new FormData(enquiryForm).entries()
-    );
+      event.preventDefault();
 
-    /*
-      Connect your Apps Script / CRM endpoint here.
+      // Prevent duplicate submissions
+      if (isSubmitting) return;
 
-      Send the lead to your backend first.
-      Fire GA4 generate_lead and Google Ads conversion
-      only after successful backend submission.
-    */
+      // Browser validation
+      if (!enquiryForm.reportValidity()) return;
 
-    window.dispatchEvent(
-      new CustomEvent("project-enquiry-submit", {
-        detail: {
-          ...formData,
-          country_code: "+91",
-          full_phone: `+91${formData.phone}`,
-        },
-      })
-    );
-  });
+      const formData = new FormData(enquiryForm);
+
+      const name = String(
+        formData.get("name") || ""
+      ).trim();
+
+      const phone = String(
+        formData.get("phone") || ""
+      ).trim();
+
+      const configuration = String(
+        formData.get("configuration") || ""
+      );
+
+      // Additional phone validation
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        phoneInput?.setCustomValidity(
+          "Please enter a valid 10-digit mobile number."
+        );
+
+        phoneInput?.reportValidity();
+        phoneInput?.setCustomValidity("");
+
+        return;
+      }
+
+      // EmailJS template parameters
+      const templateParams = {
+        name: name,
+        phone: "+91 " + phone,
+        configuration: configuration,
+      };
+
+      // ======================================
+      // LOADING STATE
+      // ======================================
+
+      isSubmitting = true;
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.setAttribute(
+          "aria-busy",
+          "true"
+        );
+      }
+
+      if (submitText) {
+        submitText.textContent = "SUBMITTING...";
+      }
+
+      if (formMessage) {
+        formMessage.textContent =
+          "Please wait while we submit your enquiry...";
+      }
+
+      enquiryForm.querySelector(
+        ".enquiry-error"
+      )?.remove();
+
+      // ======================================
+      // SEND ENQUIRY
+      // ======================================
+
+      try {
+
+        const response = await emailjs.send(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          templateParams,
+          {
+            publicKey: PUBLIC_KEY,
+          }
+        );
+
+        console.log(
+          "Enquiry submitted successfully:",
+          response.status
+        );
+
+        // Fire custom event only after success
+        window.dispatchEvent(
+          new CustomEvent("project-enquiry-submit", {
+            detail: {
+              name,
+              phone,
+              configuration,
+              country_code: "+91",
+              full_phone: "+91" + phone,
+            },
+          })
+        );
+
+        if (submitText) {
+          submitText.textContent = "SUCCESS!";
+        }
+
+        if (formMessage) {
+          formMessage.textContent =
+            "Thank you! Redirecting...";
+        }
+
+        // Redirect after confirmed EmailJS success
+        window.location.replace("/thank-you/");
+
+      } catch (error) {
+
+        console.error(
+          "EmailJS submission failed:",
+          error
+        );
+
+        const errorMessage =
+          document.createElement("p");
+
+        errorMessage.className = "enquiry-error";
+
+        errorMessage.textContent =
+          "Submission failed. Please try again or contact our team.";
+
+        enquiryForm.appendChild(errorMessage);
+
+        if (formMessage) {
+          formMessage.textContent =
+            "We couldn't submit your enquiry. Please try again.";
+        }
+
+        // Allow another attempt
+        isSubmitting = false;
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.removeAttribute("aria-busy");
+        }
+
+        if (submitText) {
+          submitText.textContent =
+            "REQUEST A CALL BACK";
+        }
+      }
+    }
+  );
 </script>
+
+<style>
+  /* Submission feedback */
+  .form-submit:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+
+  .enquiry-error {
+    margin-top: 12px;
+    color: #b42318;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+</style>
