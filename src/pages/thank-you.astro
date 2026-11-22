@@ -18,9 +18,41 @@ const projectName = "Sai World City Panvel";
     />
 
     <meta name="robots" content="noindex, nofollow" />
+
+    <!-- ======================================
+         GOOGLE TAG MANAGER
+         ====================================== -->
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <script>
+      (function(w,d,s,l,i){
+        w[l]=w[l]||[];
+        w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+        var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode?.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WG8BLS6D');
+    </script>
   </head>
 
   <body>
+
+    <!-- GOOGLE TAG MANAGER NOSCRIPT -->
+
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-WG8BLS6D"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+
     <main class="thankyou-page">
 
       <!-- BACKGROUND DECORATION -->
@@ -74,6 +106,7 @@ const projectName = "Sai World City Panvel";
 
         <!-- BUTTONS -->
         <div class="thankyou-actions">
+
           <a href="/" class="thankyou-home-btn">
             Back to Home
             <span>→</span>
@@ -87,6 +120,7 @@ const projectName = "Sai World City Panvel";
           >
             Contact Us on WhatsApp
           </a>
+
         </div>
 
         <!-- FOOTER -->
@@ -98,5 +132,80 @@ const projectName = "Sai World City Panvel";
       </section>
 
     </main>
+
+    <!-- ======================================
+         GOOGLE TAG MANAGER EVENT TRACKING
+         ====================================== -->
+
+    <script>
+      // ======================================
+      // GTM DATA LAYER
+      // ======================================
+
+      type GTMEvent = Record<string, string | number>;
+
+      type GTMWindow = Window & {
+        dataLayer?: GTMEvent[];
+      };
+
+      const gtmWindow = window as GTMWindow;
+
+      function pushGTMEvent(eventData: GTMEvent) {
+        gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+        gtmWindow.dataLayer.push(eventData);
+      }
+
+      // ======================================
+      // THANK YOU PAGE VIEW
+      // ======================================
+
+      pushGTMEvent({
+        event: "thank_you_page_view",
+        page_name: "Thank You Page",
+        page_type: "conversion_confirmation",
+        project_name: "Sai World City Panvel"
+      });
+
+      // ======================================
+      // WHATSAPP CLICK TRACKING
+      // ======================================
+
+      const whatsappButton =
+        document.querySelector<HTMLAnchorElement>(
+          ".thankyou-whatsapp-btn"
+        );
+
+      whatsappButton?.addEventListener("click", () => {
+
+        pushGTMEvent({
+          event: "thank_you_whatsapp_click",
+          cta_name: "Contact Us on WhatsApp",
+          cta_location: "Thank You Page",
+          cta_type: "whatsapp"
+        });
+
+      });
+
+      // ======================================
+      // BACK TO HOME CLICK TRACKING
+      // ======================================
+
+      const homeButton =
+        document.querySelector<HTMLAnchorElement>(
+          ".thankyou-home-btn"
+        );
+
+      homeButton?.addEventListener("click", () => {
+
+        pushGTMEvent({
+          event: "thank_you_home_click",
+          cta_name: "Back to Home",
+          cta_location: "Thank You Page"
+        });
+
+      });
+
+    </script>
+
   </body>
 </html>

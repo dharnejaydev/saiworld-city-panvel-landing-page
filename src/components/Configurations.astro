@@ -39,11 +39,11 @@ const phases = [
       { type: "4 BHK", area: "1,856 sq. ft.", price: "₹3.34 Cr+" },
       { type: "4 BHK", area: "1,863 sq. ft.", price: "₹3.35 Cr+" },
       {
-  type: "2 BHK",
-  area: "620 sq. ft.",
-  price: "₹1.15 Cr+",
-  preferred: true
-},
+        type: "2 BHK",
+        area: "620 sq. ft.",
+        price: "₹1.15 Cr+",
+        preferred: true
+      },
       { type: "2 BHK", area: "627 sq. ft.", price: "₹1.16 Cr+" },
       { type: "3 BHK", area: "1,113 sq. ft.", price: "₹2.05 Cr+" },
     ],
@@ -54,10 +54,12 @@ const phases = [
 <section class="config-section" id="configurations">
   <div class="config-container">
 
+    <!-- SECTION HEADING -->
     <div class="config-heading">
-  <h2>Area & Pricing At <em>Sai World City Panvel</em></h2>
-</div>
+      <h2>Area & Pricing At <em>Sai World City Panvel</em></h2>
+    </div>
 
+    <!-- PHASE TABS -->
     <div class="config-tabs" role="tablist" aria-label="Select project phase">
       {phases.map((phase, index) => (
         <button
@@ -73,6 +75,7 @@ const phases = [
       ))}
     </div>
 
+    <!-- PHASE CONFIGURATIONS -->
     {phases.map((phase, index) => (
       <div
         class="config-phase-panel"
@@ -83,7 +86,16 @@ const phases = [
       >
         <div class="config-grid">
           {phase.flats.map((flat) => (
-            <article class:list={["config-card", { "is-preferred": flat.preferred }]}>
+            <article
+              class:list={[
+                "config-card",
+                { "is-preferred": flat.preferred }
+              ]}
+              data-config-type={flat.type}
+              data-config-area={flat.area}
+              data-config-price={flat.price}
+              data-config-phase={phase.label}
+            >
               {flat.preferred && (
                 <span class="preferred-label">MOST PREFERRED</span>
               )}
@@ -98,7 +110,10 @@ const phases = [
               </div>
 
               <h3>{flat.type}</h3>
-              <p class="config-area">Carpet Area: {flat.area}</p>
+
+              <p class="config-area">
+                Carpet Area: {flat.area}
+              </p>
 
               <div class="config-card-divider"></div>
 
@@ -117,6 +132,7 @@ const phases = [
       </div>
     ))}
 
+    <!-- PRICE DISCLAIMER -->
     <p class="config-disclaimer">
       *Prices mentioned are indicative starting prices. Final pricing,
       taxes, registration, parking and other applicable charges are
@@ -128,22 +144,158 @@ const phases = [
 </section>
 
 <script>
-  const configTabs = document.querySelectorAll<HTMLButtonElement>("[data-phase-tab]");
-  const configPanels = document.querySelectorAll<HTMLElement>("[data-phase-panel]");
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
 
-  configTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const selectedPhase = tab.dataset.phaseTab;
+  type GTMEvent = Record<string, string | number>;
 
-      configTabs.forEach((item) => {
-        const active = item === tab;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-selected", String(active));
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // CONFIGURATIONS SECTION INITIALIZATION
+  // ==========================================
+
+  document.querySelectorAll<HTMLElement>(
+    ".config-section:not([data-ready])"
+  ).forEach((section) => {
+
+    section.setAttribute("data-ready", "true");
+
+    const configTabs =
+      section.querySelectorAll<HTMLButtonElement>(
+        "[data-phase-tab]"
+      );
+
+    const configPanels =
+      section.querySelectorAll<HTMLElement>(
+        "[data-phase-panel]"
+      );
+
+    // ==========================================
+    // TRACK SECTION VISIBILITY
+    // ==========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "configurations_section_view",
+              section_name: "Area & Pricing"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
+    // ==========================================
+    // PHASE TAB SELECTION
+    // ==========================================
+
+    configTabs.forEach((tab) => {
+
+      tab.addEventListener("click", () => {
+
+        const selectedPhase = tab.dataset.phaseTab;
+
+        if (!selectedPhase) return;
+
+        const alreadyActive =
+          tab.getAttribute("aria-selected") === "true";
+
+        configTabs.forEach((item) => {
+
+          const active = item === tab;
+
+          item.classList.toggle("is-active", active);
+
+          item.setAttribute(
+            "aria-selected",
+            String(active)
+          );
+
+        });
+
+        configPanels.forEach((panel) => {
+
+          panel.hidden =
+            panel.dataset.phasePanel !== selectedPhase;
+
+        });
+
+        // TRACK ONLY WHEN VISITOR CHANGES PHASE
+        if (!alreadyActive) {
+
+          pushGTMEvent({
+            event: "configuration_phase_select",
+            phase_name: tab.textContent?.trim() || selectedPhase
+          });
+
+        }
+
       });
 
-      configPanels.forEach((panel) => {
-        panel.hidden = panel.dataset.phasePanel !== selectedPhase;
-      });
     });
+
+    // ==========================================
+    // CONFIGURATION ENQUIRY CLICK TRACKING
+    // ==========================================
+
+    const enquiryButtons =
+      section.querySelectorAll<HTMLAnchorElement>(
+        ".config-enquire"
+      );
+
+    enquiryButtons.forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        const card = button.closest<HTMLElement>(
+          ".config-card"
+        );
+
+        const phasePanel = button.closest<HTMLElement>(
+          "[data-phase-panel]"
+        );
+
+        pushGTMEvent({
+          event: "configuration_enquire_click",
+          configuration_type:
+            card?.dataset.configType || "",
+          carpet_area:
+            card?.dataset.configArea || "",
+          configuration_price:
+            card?.dataset.configPrice || "",
+          phase_name:
+            card?.dataset.configPhase ||
+            phasePanel?.dataset.phasePanel ||
+            "",
+          button_name: "Enquire Now"
+        });
+
+      });
+
+    });
+
   });
 </script>

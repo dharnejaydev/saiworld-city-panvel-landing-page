@@ -115,9 +115,25 @@ const highlights = [
 </section>
 
 <script>
+  // GTM DATA LAYER
+  type GTMWindow = Window & {
+    dataLayer?: Record<string, string | number>[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(
+    eventData: Record<string, string | number>
+  ) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // PROJECT HIGHLIGHTS INITIALIZATION
   document.querySelectorAll<HTMLElement>(
     ".project-highlights:not([data-ready])"
   ).forEach((section) => {
+
     section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
@@ -136,43 +152,115 @@ const highlights = [
       ".highlights-track"
     );
 
+    const enquireButton = section.querySelector<HTMLAnchorElement>(
+      ".highlights-enquire-button"
+    );
+
     if (!slides.length) return;
 
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
-    function showSlide(index: number) {
-      currentIndex = (index + slides.length) % slides.length;
+    // TRACK PROJECT HIGHLIGHTS SECTION VISIBILITY
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "project_highlights_section_view",
+              section_name: "Project Highlights"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
+    // CAROUSEL SLIDE FUNCTION
+    function showSlide(
+      index: number,
+      interaction?: string
+    ) {
+
+      currentIndex =
+        (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
+
         const active = i === currentIndex;
 
         slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
+
+        slide.setAttribute(
+          "aria-hidden",
+          String(!active)
+        );
+
       });
+
+      // TRACK ONLY USER-INITIATED SLIDE CHANGES
+      if (interaction) {
+
+        pushGTMEvent({
+          event: "project_highlights_slide_change",
+          slide_number: currentIndex + 1,
+          slide_title:
+            slides[currentIndex].dataset.title || "",
+          slide_eyebrow:
+            slides[currentIndex].dataset.eyebrow || "",
+          interaction_type: interaction
+        });
+
+      }
     }
 
+    // PREVIOUS BUTTON
     previous?.addEventListener("click", () => {
-      showSlide(currentIndex - 1);
+
+      showSlide(
+        currentIndex - 1,
+        "previous_button"
+      );
+
     });
 
+    // NEXT BUTTON
     next?.addEventListener("click", () => {
-      showSlide(currentIndex + 1);
+
+      showSlide(
+        currentIndex + 1,
+        "next_button"
+      );
+
     });
 
+    // MOBILE SWIPE START
     track?.addEventListener(
       "touchstart",
       (event) => {
+
         touchStartX = event.changedTouches[0].screenX;
         touchStartY = event.changedTouches[0].screenY;
+
       },
       { passive: true }
     );
 
+    // MOBILE SWIPE END
     track?.addEventListener(
       "touchend",
       (event) => {
+
         const differenceX =
           touchStartX - event.changedTouches[0].screenX;
 
@@ -183,14 +271,32 @@ const highlights = [
           Math.abs(differenceX) > 45 &&
           Math.abs(differenceX) > Math.abs(differenceY)
         ) {
+
           showSlide(
-            currentIndex + (differenceX > 0 ? 1 : -1)
+            currentIndex + (differenceX > 0 ? 1 : -1),
+            "mobile_swipe"
           );
+
         }
+
       },
       { passive: true }
     );
 
+    // ENQUIRE NOW BUTTON TRACKING
+    enquireButton?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "project_highlights_enquire_click",
+        button_name: "Enquire Now",
+        section_name: "Project Highlights",
+        destination: "phone_call"
+      });
+
+    });
+
+    // INITIAL SLIDE
     showSlide(0);
+
   });
 </script>

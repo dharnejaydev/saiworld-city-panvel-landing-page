@@ -59,13 +59,10 @@ const galleryItems = [
 
     <!-- SECTION HEADING -->
     <header class="gallery-heading">
-
       <h2>
         Discover the World of
         <span>Sai World City Panvel</span>
       </h2>
-
-      
     </header>
 
     <!-- GALLERY CAROUSEL -->
@@ -78,6 +75,8 @@ const galleryItems = [
             { "is-active": index === 0 }
           ]}
           data-slide={index}
+          data-gallery-title={item.title}
+          data-gallery-category={item.category}
           aria-hidden={index !== 0 ? "true" : "false"}
         >
 
@@ -147,11 +146,33 @@ const galleryItems = [
 </section>
 
 <script>
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // GALLERY CAROUSEL INITIALIZATION
+  // ==========================================
+
   const gallerySections = document.querySelectorAll<HTMLElement>(
     ".gallery-section:not([data-ready])"
   );
 
   gallerySections.forEach((section) => {
+
     section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
@@ -162,53 +183,143 @@ const galleryItems = [
       ".gallery-carousel"
     );
 
+    const enquireButton = section.querySelector<HTMLAnchorElement>(
+      ".gallery-enquire-button"
+    );
+
     if (!slides.length || !carousel) return;
 
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
-    function showSlide(index: number) {
+    // ==========================================
+    // TRACK GALLERY SECTION VISIBILITY
+    // ==========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "gallery_section_view",
+              section_name: "Project Gallery"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
+    // ==========================================
+    // SHOW GALLERY SLIDE
+    // ==========================================
+
+    function showSlide(
+      index: number,
+      interaction?: string
+    ) {
+
       // Infinite navigation
-      currentIndex = (index + slides.length) % slides.length;
+      currentIndex =
+        (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
+
         const active = i === currentIndex;
 
         slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
+
+        slide.setAttribute(
+          "aria-hidden",
+          String(!active)
+        );
+
       });
+
+      // TRACK USER-INITIATED SLIDE CHANGES
+      if (interaction) {
+
+        const activeSlide = slides[currentIndex];
+
+        pushGTMEvent({
+          event: "gallery_slide_change",
+          gallery_slide_number: currentIndex + 1,
+          gallery_slide_title:
+            activeSlide.dataset.galleryTitle || "",
+          gallery_category:
+            activeSlide.dataset.galleryCategory || "",
+          interaction_type: interaction
+        });
+
+      }
+
     }
 
-    // Arrow navigation
+    // ==========================================
+    // ARROW NAVIGATION
+    // ==========================================
+
     carousel.addEventListener("click", (event) => {
+
       const target = event.target;
 
       if (!(target instanceof Element)) return;
 
       if (target.closest(".gallery-prev")) {
-        showSlide(currentIndex - 1);
+
+        showSlide(
+          currentIndex - 1,
+          "previous_button"
+        );
+
       }
 
       if (target.closest(".gallery-next")) {
-        showSlide(currentIndex + 1);
+
+        showSlide(
+          currentIndex + 1,
+          "next_button"
+        );
+
       }
+
     });
 
-    // Mobile swipe start
+    // ==========================================
+    // MOBILE SWIPE START
+    // ==========================================
+
     carousel.addEventListener(
       "touchstart",
       (event) => {
+
         touchStartX = event.changedTouches[0].screenX;
         touchStartY = event.changedTouches[0].screenY;
+
       },
       { passive: true }
     );
 
-    // Mobile swipe end
+    // ==========================================
+    // MOBILE SWIPE END
+    // ==========================================
+
     carousel.addEventListener(
       "touchend",
       (event) => {
+
         const differenceX =
           touchStartX - event.changedTouches[0].screenX;
 
@@ -219,14 +330,38 @@ const galleryItems = [
           Math.abs(differenceX) > 50 &&
           Math.abs(differenceX) > Math.abs(differenceY)
         ) {
+
           showSlide(
-            currentIndex + (differenceX > 0 ? 1 : -1)
+            currentIndex + (differenceX > 0 ? 1 : -1),
+            "mobile_swipe"
           );
+
         }
+
       },
       { passive: true }
     );
 
+    // ==========================================
+    // ENQUIRE NOW CLICK TRACKING
+    // ==========================================
+
+    enquireButton?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "gallery_enquire_click",
+        button_name: "Enquire Now",
+        section_name: "Project Gallery",
+        destination: "phone_call"
+      });
+
+    });
+
+    // ==========================================
+    // INITIAL SLIDE
+    // ==========================================
+
     showSlide(0);
+
   });
 </script>

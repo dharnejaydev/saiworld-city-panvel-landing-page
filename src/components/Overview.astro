@@ -60,7 +60,6 @@ import "../styles/Overview.css";
 
   </div>
 
-
   <!-- COMBINED PROJECT + DEVELOPER HIGHLIGHTS -->
   <div class="overview-highlights">
 
@@ -135,10 +134,8 @@ import "../styles/Overview.css";
 
     </div>
 
-
     <!-- DEVELOPER HIGHLIGHTS CONTENT -->
     <div class="highlights-content">
-
 
       <h2>
         PROJECT<br />
@@ -149,18 +146,16 @@ import "../styles/Overview.css";
       <div class="highlights-line"></div>
 
       <p>
-  The vision and experience of
-  <strong>Paradise Group</strong>,
-  bringing thoughtfully developed spaces to life.
-</p>
+        The vision and experience of
+        <strong>Paradise Group</strong>,
+        bringing thoughtfully developed spaces to life.
+      </p>
 
-     
       <span class="highlights-decoration">✦</span>
 
     </div>
 
   </div>
-
 
   <!-- PARADISE GROUP STATISTICS -->
   <div class="overview-stats">
@@ -186,3 +181,62 @@ import "../styles/Overview.css";
   </div>
 
 </section>
+
+<script>
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // OVERVIEW SECTION VISIBILITY TRACKING
+  // ==========================================
+
+  document.querySelectorAll<HTMLElement>(
+    ".overview-section:not([data-ready])"
+  ).forEach((overviewSection) => {
+
+    overviewSection.setAttribute("data-ready", "true");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "overview_section_view",
+              section_name: "Project Overview",
+              section_id: "overview"
+            });
+
+            // Track only once per page load
+            observer.unobserve(overviewSection);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(overviewSection);
+
+  });
+</script>

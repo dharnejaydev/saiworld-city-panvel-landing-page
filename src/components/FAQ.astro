@@ -45,23 +45,23 @@ const faqs = [
   <div class="faq-container">
 
     <div class="faq-heading">
-  <div>
-    <h2>
-      <span class="faq-heading-main">
-        Frequently Asked Questions About
-      </span>
-      <em>Sai World City Panvel</em>
-    </h2>
-  </div>
-</div>
+      <div>
+        <h2>
+          <span class="faq-heading-main">
+            Frequently Asked Questions About
+          </span>
+          <em>Sai World City Panvel</em>
+        </h2>
+      </div>
+    </div>
 
     <div class="faq-list">
       {faqs.map((faq, index) => (
-        <article class="faq-item">
+        <article class={`faq-item ${index === 0 ? "is-active" : ""}`}>
           <button
             class="faq-question"
             type="button"
-            aria-expanded="false"
+            aria-expanded={index === 0 ? "true" : "false"}
             aria-controls={`faq-answer-${index}`}
           >
             <span class="faq-number">
@@ -78,7 +78,7 @@ const faqs = [
           <div
             class="faq-answer"
             id={`faq-answer-${index}`}
-            hidden
+            hidden={index !== 0}
           >
             <p>{faq.answer}</p>
           </div>
@@ -90,37 +90,149 @@ const faqs = [
 </section>
 
 <script>
-  document.querySelectorAll(".faq-section").forEach((section) => {
-    const items = Array.from(section.querySelectorAll(".faq-item"));
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
 
-    items.forEach((item) => {
-      const button = item.querySelector(".faq-question");
-      const answer = item.querySelector(".faq-answer");
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // FAQ SECTION INITIALIZATION
+  // ==========================================
+
+  document.querySelectorAll<HTMLElement>(
+    ".faq-section:not([data-ready])"
+  ).forEach((section) => {
+
+    section.dataset.ready = "true";
+
+    const items = Array.from(
+      section.querySelectorAll<HTMLElement>(".faq-item")
+    );
+
+    // ========================================
+    // KEEP EXACTLY ONE FAQ OPEN
+    // First FAQ is open by default
+    // ========================================
+
+    let activeIndex = 0;
+
+    function openFAQ(index: number) {
+
+      items.forEach((item, itemIndex) => {
+
+        const button =
+          item.querySelector<HTMLButtonElement>(
+            ".faq-question"
+          );
+
+        const answer =
+          item.querySelector<HTMLElement>(
+            ".faq-answer"
+          );
+
+        const isActive = itemIndex === index;
+
+        item.classList.toggle("is-active", isActive);
+
+        button?.setAttribute(
+          "aria-expanded",
+          String(isActive)
+        );
+
+        if (answer) {
+          answer.hidden = !isActive;
+        }
+
+      });
+
+      activeIndex = index;
+    }
+
+    // Ensure the first FAQ is open on initialization
+    openFAQ(0);
+
+    // ========================================
+    // FAQ CLICK TRACKING + ACCORDION
+    // ========================================
+
+    items.forEach((item, index) => {
+
+      const button =
+        item.querySelector<HTMLButtonElement>(
+          ".faq-question"
+        );
+
+      const questionText =
+        item.querySelector<HTMLElement>(
+          ".faq-question-text"
+        );
 
       button?.addEventListener("click", () => {
-        const isOpen = button.getAttribute("aria-expanded") === "true";
 
-        items.forEach((otherItem) => {
-          const otherButton = otherItem.querySelector(".faq-question");
-          const otherAnswer = otherItem.querySelector(".faq-answer");
+        // Clicking the already open FAQ does nothing.
+        // One FAQ must always remain open.
+        if (activeIndex === index) return;
 
-          otherItem.classList.remove("is-active");
-          otherButton?.setAttribute("aria-expanded", "false");
+        // Open the selected FAQ and close the previous one
+        openFAQ(index);
 
-          if (otherAnswer) {
-            otherAnswer.hidden = true;
-          }
+        // ====================================
+        // GTM: FAQ ITEM INTERACTION
+        // ====================================
+
+        pushGTMEvent({
+          event: "faq_item_toggle",
+          faq_number: index + 1,
+          faq_question: questionText?.textContent?.trim() || "",
+          faq_section: "Sai World City Panvel FAQ",
+          interaction_type: "open"
         });
 
-        if (!isOpen) {
-          item.classList.add("is-active");
-          button.setAttribute("aria-expanded", "true");
-
-          if (answer) {
-            answer.hidden = false;
-          }
-        }
       });
+
     });
+
+    // ========================================
+    // GTM: FAQ SECTION VIEW TRACKING
+    // ========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "faq_section_view",
+              section_name: "Frequently Asked Questions",
+              section_id: "faq"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
   });
 </script>

@@ -137,9 +137,31 @@ const images = [
 </section>
 
 <script>
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // CLUB VEGAS CAROUSEL INITIALIZATION
+  // ==========================================
+
   document.querySelectorAll<HTMLElement>(
     ".club-vegas:not([data-ready])"
   ).forEach((section) => {
+
     section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
@@ -150,49 +172,120 @@ const images = [
       ".club-carousel"
     );
 
+    const enquireButton = section.querySelector<HTMLAnchorElement>(
+      ".club-enquire-button"
+    );
+
     if (!slides.length || !carousel) return;
 
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
-    function showSlide(index: number) {
+    // ==========================================
+    // SHOW SLIDE + GTM TRACKING
+    // ==========================================
+
+    function showSlide(
+      index: number,
+      interactionType?: "arrow" | "swipe"
+    ) {
+
+      const previousIndex = currentIndex;
+
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
+
         const active = i === currentIndex;
 
         slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
+
+        slide.setAttribute(
+          "aria-hidden",
+          String(!active)
+        );
+
       });
+
+      // Do not track initial carousel initialization
+      if (
+        interactionType &&
+        previousIndex !== currentIndex
+      ) {
+
+        const activeSlide = slides[currentIndex];
+
+        const category =
+          activeSlide.querySelector(
+            ".club-image-caption span"
+          )?.textContent?.trim() || "";
+
+        const title =
+          activeSlide.querySelector(
+            ".club-image-caption h3"
+          )?.textContent?.trim() || "";
+
+        // ======================================
+        // GTM: CLUB VEGAS SLIDE CHANGE
+        // ======================================
+
+        pushGTMEvent({
+          event: "club_vegas_slide_change",
+          slide_number: currentIndex + 1,
+          slide_title: title,
+          slide_category: category,
+          interaction_type: interactionType,
+          section_name: "Club Vegas"
+        });
+
+      }
+
     }
 
+    // ==========================================
+    // PREVIOUS / NEXT ARROW TRACKING
+    // ==========================================
+
     carousel.addEventListener("click", (event) => {
+
       const target = event.target;
 
       if (!(target instanceof Element)) return;
 
       if (target.closest(".club-prev")) {
-        showSlide(currentIndex - 1);
+        showSlide(currentIndex - 1, "arrow");
       }
 
       if (target.closest(".club-next")) {
-        showSlide(currentIndex + 1);
+        showSlide(currentIndex + 1, "arrow");
       }
+
     });
+
+    // ==========================================
+    // TOUCH START
+    // ==========================================
 
     carousel.addEventListener(
       "touchstart",
       (event) => {
+
         touchStartX = event.changedTouches[0].screenX;
         touchStartY = event.changedTouches[0].screenY;
+
       },
       { passive: true }
     );
 
+    // ==========================================
+    // TOUCH END / SWIPE TRACKING
+    // ==========================================
+
     carousel.addEventListener(
       "touchend",
       (event) => {
+
         const differenceX =
           touchStartX - event.changedTouches[0].screenX;
 
@@ -203,14 +296,65 @@ const images = [
           Math.abs(differenceX) > 50 &&
           Math.abs(differenceX) > Math.abs(differenceY)
         ) {
+
           showSlide(
-            currentIndex + (differenceX > 0 ? 1 : -1)
+            currentIndex + (differenceX > 0 ? 1 : -1),
+            "swipe"
           );
+
         }
+
       },
       { passive: true }
     );
 
+    // ==========================================
+    // GTM: CLUB VEGAS ENQUIRE BUTTON CLICK
+    // ==========================================
+
+    enquireButton?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "club_vegas_enquire_click",
+        cta_name: "Enquire Now",
+        cta_location: "Club Vegas Section",
+        cta_type: "phone_call"
+      });
+
+    });
+
+    // ==========================================
+    // GTM: CLUB VEGAS SECTION VIEW
+    // ==========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "club_vegas_section_view",
+              section_name: "Club Vegas",
+              section_id: "club-vegas"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
+    // Initialize first slide without firing slide-change event
     showSlide(0);
+
   });
 </script>

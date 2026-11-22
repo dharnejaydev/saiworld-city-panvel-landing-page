@@ -139,6 +139,23 @@ import "../styles/PopupForm.css";
   const PUBLIC_KEY = "FOTLNhfG-RXdWql-8";
 
   // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
   // POPUP ELEMENTS
   // ==========================================
 
@@ -170,6 +187,11 @@ import "../styles/PopupForm.css";
     "#enquiry-error"
   );
 
+  const configurationInput =
+    document.querySelector<HTMLSelectElement>(
+      "#enquiry-configuration"
+    );
+
   let previousFocus: HTMLElement | null = null;
 
   let firstPopupTimer: number | undefined;
@@ -183,7 +205,7 @@ import "../styles/PopupForm.css";
   // OPEN POPUP
   // ==========================================
 
-  function openEnquiry() {
+  function openEnquiry(source: string = "unknown") {
     if (!modal || !modal.hidden || formSubmitted) return;
 
     previousFocus =
@@ -194,6 +216,13 @@ import "../styles/PopupForm.css";
     modal.hidden = false;
 
     document.body.classList.add("enquiry-modal-open");
+
+    // GTM: POPUP OPEN
+    pushGTMEvent({
+      event: "popup_enquiry_view",
+      popup_name: "Personal Site Visit",
+      popup_trigger: source
+    });
 
     window.setTimeout(() => {
       nameInput?.focus();
@@ -211,6 +240,12 @@ import "../styles/PopupForm.css";
 
     document.body.classList.remove("enquiry-modal-open");
 
+    // GTM: POPUP CLOSE
+    pushGTMEvent({
+      event: "popup_enquiry_close",
+      popup_name: "Personal Site Visit"
+    });
+
     previousFocus?.focus();
   }
 
@@ -221,7 +256,7 @@ import "../styles/PopupForm.css";
   // First popup: 8 seconds after arrival.
   firstPopupTimer = window.setTimeout(() => {
     if (!popupDismissed && !formSubmitted) {
-      openEnquiry();
+      openEnquiry("automatic_8_seconds");
     }
   }, 8000);
 
@@ -233,7 +268,7 @@ import "../styles/PopupForm.css";
       modal?.hidden
     ) {
       popupDismissed = false;
-      openEnquiry();
+      openEnquiry("automatic_35_seconds");
     }
   }, 35000);
 
@@ -259,7 +294,7 @@ import "../styles/PopupForm.css";
       firstPopupTimer = undefined;
     }
 
-    openEnquiry();
+    openEnquiry("manual_click");
   });
 
   // ==========================================
@@ -392,6 +427,20 @@ import "../styles/PopupForm.css";
 
       formSubmitted = true;
 
+      // ==========================================
+      // GTM: SUCCESSFUL LEAD SUBMISSION
+      // Fires only after EmailJS succeeds.
+      // ==========================================
+
+      pushGTMEvent({
+        event: "popup_enquiry_submit",
+        form_name: "Personal Site Visit Popup",
+        form_type: "popup",
+        configuration:
+          configurationInput?.value || "",
+        submission_status: "success"
+      });
+
       if (firstPopupTimer !== undefined) {
         window.clearTimeout(firstPopupTimer);
       }
@@ -413,6 +462,14 @@ import "../styles/PopupForm.css";
         "EmailJS submission failed:",
         error
       );
+
+      // GTM: SUBMISSION ERROR
+      pushGTMEvent({
+        event: "popup_enquiry_error",
+        form_name: "Personal Site Visit Popup",
+        form_type: "popup",
+        submission_status: "error"
+      });
 
       if (errorMessage) {
         errorMessage.textContent =

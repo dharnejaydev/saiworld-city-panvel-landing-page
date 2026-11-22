@@ -90,14 +90,10 @@ const amenities = [
     <!-- SECTION HEADING -->
     <header class="atlas-header">
       <div class="atlas-heading">
-
         <h2>
           A Thoughtful Collection of Lifestyle Amenities
-          <em>In Sai World City Panvel.
-</em>
+          <em>In Sai World City Panvel.</em>
         </h2>
-
-        
       </div>
     </header>
 
@@ -111,6 +107,8 @@ const amenities = [
             { "is-active": index === 0 }
           ]}
           data-slide={index}
+          data-amenity-title={item.title}
+          data-amenity-category={item.category}
           aria-hidden={index !== 0 ? "true" : "false"}
         >
           <div class="atlas-image">
@@ -177,11 +175,33 @@ const amenities = [
 </section>
 
 <script>
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // AMENITIES CAROUSEL INITIALIZATION
+  // ==========================================
+
   const atlasSections = document.querySelectorAll<HTMLElement>(
     ".atlas:not([data-ready])"
   );
 
   atlasSections.forEach((section) => {
+
     section.setAttribute("data-ready", "true");
 
     const slides = Array.from(
@@ -192,52 +212,139 @@ const amenities = [
       ".atlas-carousel"
     );
 
+    const enquireButton = section.querySelector<HTMLAnchorElement>(
+      ".atlas-enquire-button"
+    );
+
     if (!slides.length || !carousel) return;
 
     let currentIndex = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
-    function showSlide(index: number) {
-      currentIndex = (index + slides.length) % slides.length;
+    // ==========================================
+    // TRACK SECTION VISIBILITY
+    // ==========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "amenities_section_view",
+              section_name: "Lifestyle Amenities"
+            });
+
+            observer.unobserve(section);
+          }
+
+        });
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(section);
+
+    // ==========================================
+    // SHOW AMENITY SLIDE
+    // ==========================================
+
+    function showSlide(
+      index: number,
+      interaction?: string
+    ) {
+
+      currentIndex =
+        (index + slides.length) % slides.length;
 
       slides.forEach((slide, i) => {
+
         const active = i === currentIndex;
 
         slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
+
+        slide.setAttribute(
+          "aria-hidden",
+          String(!active)
+        );
+
       });
+
+      // TRACK USER-INITIATED SLIDE CHANGES
+      if (interaction) {
+
+        const activeSlide = slides[currentIndex];
+
+        pushGTMEvent({
+          event: "amenity_slide_change",
+          amenity_number: currentIndex + 1,
+          amenity_title:
+            activeSlide.dataset.amenityTitle || "",
+          amenity_category:
+            activeSlide.dataset.amenityCategory || "",
+          interaction_type: interaction
+        });
+
+      }
     }
 
-    // Arrow navigation
+    // ==========================================
+    // ARROW NAVIGATION
+    // ==========================================
+
     carousel.addEventListener("click", (event) => {
+
       const target = event.target;
 
       if (!(target instanceof Element)) return;
 
       if (target.closest(".atlas-prev")) {
-        showSlide(currentIndex - 1);
+
+        showSlide(
+          currentIndex - 1,
+          "previous_button"
+        );
+
       }
 
       if (target.closest(".atlas-next")) {
-        showSlide(currentIndex + 1);
+
+        showSlide(
+          currentIndex + 1,
+          "next_button"
+        );
+
       }
+
     });
 
-    // Mobile swipe start
+    // ==========================================
+    // MOBILE SWIPE START
+    // ==========================================
+
     carousel.addEventListener(
       "touchstart",
       (event) => {
+
         touchStartX = event.changedTouches[0].screenX;
         touchStartY = event.changedTouches[0].screenY;
+
       },
       { passive: true }
     );
 
-    // Mobile swipe end
+    // ==========================================
+    // MOBILE SWIPE END
+    // ==========================================
+
     carousel.addEventListener(
       "touchend",
       (event) => {
+
         const differenceX =
           touchStartX - event.changedTouches[0].screenX;
 
@@ -248,15 +355,38 @@ const amenities = [
           Math.abs(differenceX) > 50 &&
           Math.abs(differenceX) > Math.abs(differenceY)
         ) {
+
           showSlide(
-            currentIndex + (differenceX > 0 ? 1 : -1)
+            currentIndex + (differenceX > 0 ? 1 : -1),
+            "mobile_swipe"
           );
+
         }
+
       },
       { passive: true }
     );
 
-    // Start with first image
+    // ==========================================
+    // ENQUIRE NOW CLICK TRACKING
+    // ==========================================
+
+    enquireButton?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "amenities_enquire_click",
+        button_name: "Enquire Now",
+        section_name: "Lifestyle Amenities",
+        destination: "phone_call"
+      });
+
+    });
+
+    // ==========================================
+    // INITIAL SLIDE
+    // ==========================================
+
     showSlide(0);
+
   });
 </script>

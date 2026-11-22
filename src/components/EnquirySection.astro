@@ -130,12 +130,28 @@ import "../styles/EnquirySection.css";
 
   // ==========================================
   // EMAILJS CONFIGURATION
-  // Same credentials as PopupForm
   // ==========================================
 
   const SERVICE_ID = "service_zykw8ue";
   const TEMPLATE_ID = "template_zt43j9a";
   const PUBLIC_KEY = "FOTLNhfG-RXdWql-8";
+
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
 
   // ==========================================
   // FORM ELEMENTS
@@ -149,6 +165,11 @@ import "../styles/EnquirySection.css";
   const phoneInput =
     document.querySelector<HTMLInputElement>(
       "#contactPhone"
+    );
+
+  const configurationInput =
+    document.querySelector<HTMLSelectElement>(
+      "#contactConfiguration"
     );
 
   const submitButton =
@@ -167,15 +188,74 @@ import "../styles/EnquirySection.css";
     );
 
   let isSubmitting = false;
+  let formStarted = false;
+
+  // ==========================================
+  // ENQUIRY SECTION VISIBILITY TRACKING
+  // ==========================================
+
+  const enquirySection =
+    document.querySelector<HTMLElement>(
+      ".enquiry-section"
+    );
+
+  if (enquirySection) {
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "enquiry_section_view",
+              section_name: "Main Enquiry Section"
+            });
+
+            observer.unobserve(enquirySection);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.3
+      }
+    );
+
+    observer.observe(enquirySection);
+  }
+
+  // ==========================================
+  // FORM START TRACKING
+  // Fires on the first user interaction only
+  // ==========================================
+
+  enquiryForm?.addEventListener("focusin", () => {
+
+    if (formStarted) return;
+
+    formStarted = true;
+
+    pushGTMEvent({
+      event: "main_enquiry_form_start",
+      form_name: "Main Enquiry Form",
+      form_type: "website"
+    });
+
+  });
 
   // ==========================================
   // PHONE NUMBER VALIDATION
   // ==========================================
 
   phoneInput?.addEventListener("input", () => {
+
     phoneInput.value = phoneInput.value
       .replace(/\D/g, "")
       .slice(0, 10);
+
   });
 
   // ==========================================
@@ -210,6 +290,7 @@ import "../styles/EnquirySection.css";
 
       // Additional phone validation
       if (!/^[6-9]\d{9}$/.test(phone)) {
+
         phoneInput?.setCustomValidity(
           "Please enter a valid 10-digit mobile number."
         );
@@ -220,7 +301,10 @@ import "../styles/EnquirySection.css";
         return;
       }
 
-      // EmailJS template parameters
+      // ======================================
+      // EMAILJS TEMPLATE PARAMETERS
+      // ======================================
+
       const templateParams = {
         name: name,
         phone: "+91 " + phone,
@@ -235,6 +319,7 @@ import "../styles/EnquirySection.css";
 
       if (submitButton) {
         submitButton.disabled = true;
+
         submitButton.setAttribute(
           "aria-busy",
           "true"
@@ -255,7 +340,7 @@ import "../styles/EnquirySection.css";
       )?.remove();
 
       // ======================================
-      // SEND ENQUIRY
+      // SEND ENQUIRY THROUGH EMAILJS
       // ======================================
 
       try {
@@ -274,7 +359,23 @@ import "../styles/EnquirySection.css";
           response.status
         );
 
-        // Fire custom event only after success
+        // ======================================
+        // GTM: SUCCESSFUL ENQUIRY
+        // Only after EmailJS success
+        // ======================================
+
+        pushGTMEvent({
+          event: "main_enquiry_submit",
+          form_name: "Main Enquiry Form",
+          form_type: "website",
+          configuration: configuration,
+          submission_status: "success"
+        });
+
+        // ======================================
+        // CUSTOM SUCCESS EVENT
+        // ======================================
+
         window.dispatchEvent(
           new CustomEvent("project-enquiry-submit", {
             detail: {
@@ -296,7 +397,10 @@ import "../styles/EnquirySection.css";
             "Thank you! Redirecting...";
         }
 
-        // Redirect after confirmed EmailJS success
+        // ======================================
+        // THANK YOU PAGE REDIRECT
+        // ======================================
+
         window.location.replace("/thank-you/");
 
       } catch (error) {
@@ -305,6 +409,17 @@ import "../styles/EnquirySection.css";
           "EmailJS submission failed:",
           error
         );
+
+        // ======================================
+        // GTM: SUBMISSION ERROR
+        // ======================================
+
+        pushGTMEvent({
+          event: "main_enquiry_error",
+          form_name: "Main Enquiry Form",
+          form_type: "website",
+          submission_status: "error"
+        });
 
         const errorMessage =
           document.createElement("p");
@@ -321,7 +436,7 @@ import "../styles/EnquirySection.css";
             "We couldn't submit your enquiry. Please try again.";
         }
 
-        // Allow another attempt
+        // Allow another submission attempt
         isSubmitting = false;
 
         if (submitButton) {
@@ -333,13 +448,16 @@ import "../styles/EnquirySection.css";
           submitText.textContent =
             "REQUEST A CALL BACK";
         }
+
       }
+
     }
   );
 </script>
 
 <style>
   /* Submission feedback */
+
   .form-submit:disabled {
     opacity: 0.75;
     cursor: not-allowed;

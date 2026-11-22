@@ -35,7 +35,7 @@ const agentRera = {
 };
 ---
 
-<footer class="site-footer">
+<footer class="site-footer" id="site-footer">
 
   <div class="footer-main">
     <div class="footer-container">
@@ -53,6 +53,7 @@ const agentRera = {
           href="https://www.google.com/maps/search/?api=1&query=Sai+World+City+Palaspe+Phata+Panvel"
           target="_blank"
           rel="noopener noreferrer"
+          data-footer-address
         >
           Palaspe Phata Junction, Panvel – 410206
         </a>
@@ -65,7 +66,12 @@ const agentRera = {
 
         <nav class="footer-links">
           {links.map((link) => (
-            <a href={link.href}>{link.label}</a>
+            <a
+              href={link.href}
+              data-footer-nav={link.label}
+            >
+              {link.label}
+            </a>
           ))}
         </nav>
       </div>
@@ -75,23 +81,32 @@ const agentRera = {
         <span class="footer-label">GET IN TOUCH</span>
         <h3>Let's connect.</h3>
 
-        <a href="tel:+919920968878" class="footer-phone">
+        <a
+          href="tel:+919920968878"
+          class="footer-phone"
+          data-footer-phone="9920968878"
+        >
           +91 99209 68878
         </a>
 
-        <a href="tel:+918879957281" class="footer-phone">
+        <a
+          href="tel:+918879957281"
+          class="footer-phone"
+          data-footer-phone="8879957281"
+        >
           +91 88799 57281
         </a>
 
         <a
-  href="https://wa.me/919920968878?text=Hi%2C%20I%27m%20interested%20in%20Sai%20World%20City%20Panvel.%20Please%20share%20more%20details."
-  target="_blank"
-  rel="noopener noreferrer"
-  class="footer-whatsapp"
-  aria-label="Enquire about Sai World City Panvel on WhatsApp"
->
-  WhatsApp Us
-</a>
+          href="https://wa.me/919920968878?text=Hi%2C%20I%27m%20interested%20in%20Sai%20World%20City%20Panvel.%20Please%20share%20more%20details."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-whatsapp"
+          aria-label="Enquire about Sai World City Panvel on WhatsApp"
+          data-footer-whatsapp
+        >
+          WhatsApp Us
+        </a>
       </div>
 
     </div>
@@ -108,17 +123,21 @@ const agentRera = {
         <div class="footer-rera-list">
           {registrations.map((item) => (
             <div class="footer-rera-item">
+
               <img
                 src={item.qr}
                 alt={`${item.phase} RERA QR code`}
                 class="footer-rera-qr"
                 loading="lazy"
+                data-rera-phase={item.phase}
+                data-rera-number={item.number}
               />
 
               <div class="footer-rera-info">
                 <span>{item.phase}</span>
                 <strong>{item.number}</strong>
               </div>
+
             </div>
           ))}
         </div>
@@ -134,6 +153,8 @@ const agentRera = {
             alt="Agent RERA QR code"
             class="footer-rera-qr"
             loading="lazy"
+            data-rera-phase="Agent Registration"
+            data-rera-number={agentRera.number}
           />
 
           <div class="footer-rera-info">
@@ -168,6 +189,7 @@ const agentRera = {
 
       <div class="footer-bottom-links">
         <a href="/privacy-policy">Privacy Policy</a>
+
         <a
           href="https://maharera.maharashtra.gov.in/"
           target="_blank"
@@ -181,3 +203,170 @@ const agentRera = {
   </div>
 
 </footer>
+
+<script>
+  // ==========================================
+  // GOOGLE TAG MANAGER DATA LAYER
+  // ==========================================
+
+  type GTMEvent = Record<string, string | number>;
+
+  type GTMWindow = Window & {
+    dataLayer?: GTMEvent[];
+  };
+
+  const gtmWindow = window as GTMWindow;
+
+  function pushGTMEvent(eventData: GTMEvent) {
+    gtmWindow.dataLayer = gtmWindow.dataLayer || [];
+    gtmWindow.dataLayer.push(eventData);
+  }
+
+  // ==========================================
+  // FOOTER TRACKING INITIALIZATION
+  // ==========================================
+
+  document.querySelectorAll<HTMLElement>(
+    ".site-footer:not([data-ready])"
+  ).forEach((footer) => {
+
+    footer.setAttribute("data-ready", "true");
+
+    // ==========================================
+    // FOOTER VISIBILITY TRACKING
+    // ==========================================
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            pushGTMEvent({
+              event: "footer_section_view",
+              section_name: "Website Footer"
+            });
+
+            observer.unobserve(footer);
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.2
+      }
+    );
+
+    observer.observe(footer);
+
+    // ==========================================
+    // FOOTER NAVIGATION CLICK TRACKING
+    // ==========================================
+
+    const navigationLinks =
+      footer.querySelectorAll<HTMLAnchorElement>(
+        "[data-footer-nav]"
+      );
+
+    navigationLinks.forEach((link) => {
+
+      link.addEventListener("click", () => {
+
+        pushGTMEvent({
+          event: "footer_navigation_click",
+          link_name: link.dataset.footerNav || "",
+          link_destination: link.getAttribute("href") || ""
+        });
+
+      });
+
+    });
+
+    // ==========================================
+    // PHONE CALL CLICK TRACKING
+    // ==========================================
+
+    const phoneLinks =
+      footer.querySelectorAll<HTMLAnchorElement>(
+        "[data-footer-phone]"
+      );
+
+    phoneLinks.forEach((link) => {
+
+      link.addEventListener("click", () => {
+
+        pushGTMEvent({
+          event: "footer_phone_click",
+          phone_label: link.dataset.footerPhone || "",
+          destination: "phone_call"
+        });
+
+      });
+
+    });
+
+    // ==========================================
+    // WHATSAPP CLICK TRACKING
+    // ==========================================
+
+    const whatsappLink =
+      footer.querySelector<HTMLAnchorElement>(
+        "[data-footer-whatsapp]"
+      );
+
+    whatsappLink?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "footer_whatsapp_click",
+        button_name: "WhatsApp Us",
+        destination: "whatsapp"
+      });
+
+    });
+
+    // ==========================================
+    // GOOGLE MAPS ADDRESS CLICK TRACKING
+    // ==========================================
+
+    const addressLink =
+      footer.querySelector<HTMLAnchorElement>(
+        "[data-footer-address]"
+      );
+
+    addressLink?.addEventListener("click", () => {
+
+      pushGTMEvent({
+        event: "footer_address_click",
+        address_name: "Palaspe Phata Junction",
+        destination: "google_maps"
+      });
+
+    });
+
+    // ==========================================
+    // RERA QR IMAGE INTERACTION TRACKING
+    // ==========================================
+
+    const reraImages =
+      footer.querySelectorAll<HTMLImageElement>(
+        "[data-rera-phase]"
+      );
+
+    reraImages.forEach((image) => {
+
+      image.addEventListener("click", () => {
+
+        pushGTMEvent({
+          event: "footer_rera_click",
+          rera_phase: image.dataset.reraPhase || "",
+          rera_registration: image.dataset.reraNumber || ""
+        });
+
+      });
+
+    });
+
+  });
+</script>
